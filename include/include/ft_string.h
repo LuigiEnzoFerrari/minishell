@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:27:25 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2021/06/08 20:32:54 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2021/12/04 00:02:49 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ size_t	ft_strnlen(const char *str, size_t maxlen);
 size_t	ft_nchar(char *str, int c);
 size_t	ft_ndigit(char *str);
 
-char	*ft_skipctype(char *str, int (f)(int), int a);
+char	*ft_skip_chr(char *str, int (f)(int), int a);
 
 #endif

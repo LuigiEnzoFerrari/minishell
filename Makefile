@@ -8,7 +8,7 @@ CFLAGS := -Wall -Wextra -Werror
 RL_FLAGS := -lreadline
 
 LINK_LIB := -L libft -lft
-SRCS = main.c
+SRCS = main2.c lexical_analysis_and_parse.c linked_list_infos.c
 
 INC = include
 
