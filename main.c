@@ -14,8 +14,47 @@ void execution(void) {
 	return ;
 }
 
+void	save_history(char *input)
+{
+	if (*input != '\0')
+	{
+		ft_putendl_fd(input, 1); // remove
+		add_history(input);
+		return ;
+	}
+	free(input);
+}
+
+char *get_full_prompt(void)
+{
+	char	path[1000];
+	char	*path_colored;
+
+	getcwd(path, sizeof(path));
+	path_colored = ft_strjoin(IGREEN, path);
+	path_colored = ft_rejoin(path_colored, COLOR_OFF);
+	path_colored = ft_rejoin(path_colored, "$ ");
+	
+	return path_colored;
+}
+
+char	*get_input(void)
+{
+	char	*buff;
+	char	*input;
+
+	buff = get_full_prompt();
+	input = readline(buff);
+	buff = input;
+	input = ft_skip_chr(input, isblink, 1);
+	input = ft_strdup(input);
+	free(buff);
+	return (input);
+}
+
 int shell_init(void)
 {
+
 	// t_sigaction	act;
 
 	// act.sa_flags = SA_SIGINFO;
@@ -23,9 +62,14 @@ int shell_init(void)
 	// if (sigemptyset(&act.sa_mask)
 	// 		|| sigaction(SIGTERM, &act, NULL))
 	// 		return (1);
+	char	*input;
+
 	while (42)
 	{
-		lexical_analysis_and_parse();
+		input = get_input();
+		if (input != NULL)
+			save_history(input);
+		lexical_analysis_and_parse(input);
 		expasion();
 		execution();
 	}

@@ -27,8 +27,11 @@ void		delete_tokens(t_tokens **tokens);
 size_t		number_of_labels(t_tokens *tokens, int label);
 
 #define FILENAME 1
-#define TOKEN 2
-#define STRING 3
+#define SINGLE_QUOTE 2
+#define DOUBLE_QUOTE 3
 #define PIPE 4
+#define SINGLE_REDIRECT 5
+#define DOUBLE_REDIRECT 6
+#define STRING 7
 
 #endif
