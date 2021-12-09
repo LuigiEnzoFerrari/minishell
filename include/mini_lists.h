@@ -8,16 +8,7 @@ struct s_tokens
 	struct s_tokens	*next;
 };
 
-struct s_environ
-{
-	char				*key;
-	char				*value;
-	struct s_environ	*next;
-};
-
 typedef struct s_tokens t_tokens;
-
-typedef struct s_environ t_environ;
 
 t_tokens	*add_new(char *token, int label);
 t_tokens	*last_token(t_tokens *tokens);
@@ -25,6 +16,22 @@ void		push_token(t_tokens **tokens, char *token, int label);
 void		delete_token(t_tokens **token);
 void		delete_tokens(t_tokens **tokens);
 size_t		number_of_labels(t_tokens *tokens, int label);
+
+struct s_environ
+{
+	char				*key;
+	char				*value;
+	struct s_environ	*next;
+};
+
+typedef struct s_environ t_environ;
+
+t_environ	*add_env(char *key, char *value);
+void		delete_env(t_environ **envs);
+t_environ	*last_env(t_environ *envs);
+void		push_env(t_environ **envs, char *key, char *value);
+void		delete_envs(t_environ **tokens);
+void		env_duplicate(t_environ **envs, char *environ);
 
 #define FILENAME 1
 #define SINGLE_QUOTE 2

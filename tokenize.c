@@ -6,30 +6,31 @@ void	add_pipe(t_tokens **tokens, char **input)
 	(*input)++;
 }
 
-void	quote(t_tokens **tokens, char **input, int quote )
-{
-	char	*str;
-
-	str = (*input);
-	while (**input != quote && **input != '\0')
-		(*input)++;
-	if (**input == quote)
-		(*input)++;
-	str = ft_strndup(str, ft_strclen(str, quote));
-	if (quote == '\'')
-		push_token(tokens, str, SINGLE_QUOTE);
-	else
-		push_token(tokens, str, DOUBLE_QUOTE);
-	free(str);
-}
-
-
 void	add_quotes(t_tokens **tokens, char **input)
 {
-	if (*(*input)++ == '\'')
-		quote(tokens, input, '\'');
+	char	*token;
+	int		quote;
+	size_t	len;
+
+	quote = **input;
+	if (ft_strchr((*input) + 1, quote) != NULL)
+	{
+		(*input)++;
+		len = ft_strclen((*input), quote);
+		token = ft_strndup((*input), len);
+		if (quote == '\'')
+			push_token(tokens, token, SINGLE_QUOTE);
+		else
+			push_token(tokens, token, DOUBLE_QUOTE);
+		(*input) += (len + 1);
+	}
 	else
-		quote(tokens, input, '"');
+	{
+		token = ft_strdup((*input));
+		push_token(tokens, token, STRING);
+		(*input) += ft_strlen(token);
+	}
+	free(token);
 }
 
 void	add_redirections(t_tokens **tokens, char **input)

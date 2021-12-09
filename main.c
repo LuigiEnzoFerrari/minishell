@@ -54,7 +54,6 @@ char	*get_input(void)
 
 int shell_init(void)
 {
-
 	// t_sigaction	act;
 
 	// act.sa_flags = SA_SIGINFO;
@@ -70,8 +69,6 @@ int shell_init(void)
 		if (input != NULL)
 			save_history(input);
 		lexical_analysis_and_parse(input);
-		expasion();
-		execution();
 	}
 	return (0);
 }
