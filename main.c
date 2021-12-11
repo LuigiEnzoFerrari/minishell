@@ -6,9 +6,9 @@ void	sighandler(int sig, siginfo_t *info, void *context)
 	write(1, "lorem ipsum", 12);
 }
 
-void	expasion(void) {
-	return ;
-}
+// void	expasion(void) {
+// 	return ;
+// }
 
 void execution(void) {
 	return ;

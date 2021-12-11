@@ -33,12 +33,12 @@ void		push_env(t_environ **envs, char *key, char *value);
 void		delete_envs(t_environ **tokens);
 void		env_duplicate(t_environ **envs, char *environ);
 
-#define FILENAME 1
-#define SINGLE_QUOTE 2
-#define DOUBLE_QUOTE 3
-#define PIPE 4
-#define SINGLE_REDIRECT 5
-#define DOUBLE_REDIRECT 6
-#define STRING 7
+# define FILENAME 1
+# define SINGLE_QUOTE 2
+# define DOUBLE_QUOTE 3
+# define PIPE 4
+# define SINGLE_REDIRECT 5
+# define DOUBLE_REDIRECT 6
+# define STRING 7
 
 #endif

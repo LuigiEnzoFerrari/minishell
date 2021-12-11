@@ -9,8 +9,8 @@
 # include <unistd.h>
 # include <libft.h>
 # include <mini_lists.h>
-
 # include <const.h>
+
 typedef struct sigaction	t_sigaction;
 
 void		lexical_analysis_and_parse(char *input);
