@@ -51,10 +51,10 @@ void	add_string(t_tokens **tokens, char **input)
 	size_t	i;
 
 	i = 0;
-	while (!isblink((*input)[i]) && ((*input)[i]) != '\0')
+	while (!ft_isblank((*input)[i]) && ((*input)[i]) != '\0')
 		i++;
 	str = ft_strndup(*input, i);
-	while (!isblink((**input)) && (**input) != '\0')
+	while (!ft_isblank((**input)) && (**input) != '\0')
 		(*input)++;
 	push_token(tokens, str, STRING);
 	free(str);
@@ -75,7 +75,7 @@ t_tokens	*tokenize(char *input)
 			add_quotes(&tokens, &input);
 		else
 			add_string(&tokens, &input);
-		input = ft_skip_chr(input, isblink, 1);
+		input = ft_skip_chr(input, ft_isblank, 1);
 	}
 	return (tokens);
 }

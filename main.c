@@ -46,7 +46,7 @@ char	*get_input(void)
 	buff = get_full_prompt();
 	input = readline(buff);
 	buff = input;
-	input = ft_skip_chr(input, isblink, 1);
+	input = ft_skip_chr(input, ft_isblank, 1);
 	input = ft_strdup(input);
 	free(buff);
 	return (input);
@@ -62,6 +62,8 @@ int shell_init(void)
 	// 		|| sigaction(SIGTERM, &act, NULL))
 	// 		return (1);
 	char	*input;
+	
+
 
 	while (42)
 	{

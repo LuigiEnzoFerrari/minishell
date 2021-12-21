@@ -7,3 +7,5 @@
 5. Colocar 1 ou 2 variaveis para serem expandidas ao mesmo tempo
 
 como que vc fez no caso de ter uma variavel de ambiente dentro das aspas strings com continuacao depois da variavel
+
+colorcar varios $$$ um do lado do outro

@@ -14,7 +14,7 @@
 typedef struct sigaction	t_sigaction;
 
 void		lexical_analysis_and_parse(char *input);
-int			isblink(int c);
+int			ft_isblank(int c);
 t_tokens	*tokenize(char *input);
 
 #endif

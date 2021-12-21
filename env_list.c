@@ -78,3 +78,16 @@ void	env_update(t_environ *envs, char *key, char *value)
 	}
 	push_env(&envs, key, value);
 }
+
+char	*get_env_value(t_environ *envs, char *key)
+{
+	while (envs != NULL)
+	{
+		if (ft_strcmp(envs->key, key) == 0)
+			break ;
+		envs = envs->next;
+	}
+	if (envs == NULL)
+		return (NULL);
+	return (envs->value);
+}
