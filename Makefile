@@ -9,7 +9,13 @@ RL_FLAGS := -lreadline
 
 LINK_LIB := -L libft -lft
 SRCS = main.c lexical_analysis_and_parse.c linked_list_infos.c \
-	tokenize.c env_list.c
+	tokenize.c env_list.c syntax.c exec.c \
+	utils.c \
+	\
+	echo.c\
+	builtin_temp.c\
+	\
+	\
 
 INC = include
 

@@ -31,8 +31,9 @@ void		delete_env(t_environ **envs);
 t_environ	*last_env(t_environ *envs);
 void		push_env(t_environ **envs, char *key, char *value);
 void		delete_envs(t_environ **tokens);
+void	update_env(t_environ *envs, char *key, char *value);
 void		env_duplicate(t_environ **envs, char *environ);
-char	*get_env_value(t_environ *envs, char *key);
+char		*get_env_value(t_environ *envs, char *key);
 
 # define FILENAME 1
 # define SINGLE_QUOTE 2
@@ -41,5 +42,6 @@ char	*get_env_value(t_environ *envs, char *key);
 # define SINGLE_REDIRECT 5
 # define DOUBLE_REDIRECT 6
 # define STRING 7
+# define HEARDOC 8
 
 #endif

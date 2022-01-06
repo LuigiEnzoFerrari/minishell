@@ -9,3 +9,16 @@
 como que vc fez no caso de ter uma variavel de ambiente dentro das aspas strings com continuacao depois da variavel
 
 colorcar varios $$$ um do lado do outro
+
+# infos
+
+1. when a command line is put in the execve u should put the path and the commans as it is.
+    a. if you expand the command when you receive, the aout put about the command you will the path as well.
+
+atribuitions that comes before the command shouldn't will be ignored, attribuition after the command will be treat like a simple string, atributions in solo line will work
+
+    when you print something with echo you shoudn't terminated with a space unless the space is in the end between quotes.
+
+    when you change director you always set a new oldpath in env variables.
+
+    using some built-in that shouldn't have arguments with arguments

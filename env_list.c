@@ -91,3 +91,17 @@ char	*get_env_value(t_environ *envs, char *key)
 		return (NULL);
 	return (envs->value);
 }
+
+void	update_env(t_environ *envs, char *key, char *value)
+{
+	while (envs != NULL)
+	{
+		if (ft_strcmp(envs->key, key) == 0)
+			break ;
+		envs = envs->next;
+	}
+	if (envs == NULL)
+		return ;
+	free(envs->value);
+	envs->value = ft_strdup(value);
+}
