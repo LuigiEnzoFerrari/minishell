@@ -13,7 +13,9 @@ SRCS = main.c lexical_analysis_and_parse.c linked_list_infos.c \
 	utils.c \
 	\
 	echo.c\
-	builtin_temp.c\
+	cd.c \
+	builtin_temp.c \
+	export.c \
 	\
 	\
 

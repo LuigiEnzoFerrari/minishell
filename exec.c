@@ -50,11 +50,11 @@ void    execin(char **args, t_environ *envs)
 	else if (ft_strcmp(*args, "cd") == 0)
 		cd(args + 1, envs);
 	else if (ft_strcmp(*args, "pwd") == 0)
-		pwd(args, envs);
+		pwd(args + 1, envs);
 	else if (ft_strcmp(*args, "export") == 0)
-		export(args);
+		export(args + 1, envs);
 	else if (ft_strcmp(*args, "unset") == 0)
-		unset(args);
+		unset(args + 1, envs);
 	else if (ft_strcmp(*args, "env") == 0)
 		env(args, envs);
 	else

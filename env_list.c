@@ -23,6 +23,35 @@ void	delete_env(t_environ **envs)
 	*envs = NULL;
 }
 
+void    remove_env(t_environ **envs, char *key)
+{
+    t_environ *temp;
+    t_environ *prev;
+
+    if (envs == NULL || *envs == NULL)
+	    return ;
+    temp = (*envs);
+    if(ft_strcmp(temp->key, key) == 0)
+    {
+        (*envs) = (*envs)->next;
+        delete_env(&temp);
+        return ;
+    }
+    while (42)
+    {
+        prev = temp;
+        temp = temp->next;
+        if (ft_strcmp(temp->key, key) == 0)
+        {
+            prev->next = temp->next;
+            delete_env(&temp);
+            return ;
+        }
+        if (temp->next == NULL)
+            break ;
+    }
+}
+
 t_environ	*last_env(t_environ *envs)
 {
 	if (envs != NULL)
@@ -64,6 +93,19 @@ void	env_duplicate(t_environ **envs, char *environ)
 	free(value);
 }
 
+// t_environ   *env_list_duplicate(t_environ *envs)
+// {
+//     t_environ *duplicate;
+
+//     while (envs != NULL)
+//     {
+//         push_env(duplicate, envs->key, envs->value);
+//         envs = envs->next;
+//     }
+//     return (duplicate);
+// }
+
+
 void	env_update(t_environ *envs, char *key, char *value)
 {
 	while (envs != NULL)
@@ -104,4 +146,17 @@ void	update_env(t_environ *envs, char *key, char *value)
 		return ;
 	free(envs->value);
 	envs->value = ft_strdup(value);
+}
+
+size_t  size_envs(t_environ *envs)
+{
+    size_t  i;
+
+    i = 0;
+    while (envs != NULL)
+    {
+        envs = envs->next;
+        i++;
+    }
+    return (i);
 }

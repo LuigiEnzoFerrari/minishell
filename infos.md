@@ -22,3 +22,7 @@ atribuitions that comes before the command shouldn't will be ignored, attribuiti
     when you change director you always set a new oldpath in env variables.
 
     using some built-in that shouldn't have arguments with arguments
+
+    export should be able to persist even in process child, but atribution without export not should env be in the env list
+
+    export are organized by alphabetic ordem

@@ -27,8 +27,8 @@ void		exec(t_tokens *tokens, t_environ *envs);
 void		echo(char **args);
 void		cd(char **args, t_environ *envs);
 void		pwd(char **args, t_environ *envs);
-void		export(char **args);
-void		unset(char **args);
+void		export(char **args, t_environ *envs);
+void		unset(char **args, t_environ *envs);
 void		env(char **args, t_environ *envs);
 void		exits(char **args);
 
