@@ -73,7 +73,7 @@ void    add_exports(char **args, t_environ *envs)
 	while (args[i] != NULL)
 	{
 		if (ft_strchr(args[i], '=') != NULL)
-			env_duplicate(&envs, args[i]);
+			to_env_list(&envs, args[i]);
 		i++;
 	}
 }

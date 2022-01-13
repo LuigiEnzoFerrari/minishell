@@ -27,23 +27,20 @@ struct s_environ
 
 typedef struct s_environ t_environ;
 
-t_environ	*add_env(char *key, char *value);
+t_environ	*init_env(char *key, char *value);
 void		delete_env(t_environ **envs);
 t_environ	*last_env(t_environ *envs);
 void		push_env(t_environ **envs, char *key, char *value);
 void		delete_envs(t_environ **tokens);
-void	    update_env(t_environ *envs, char *key, char *value);
-void		env_duplicate(t_environ **envs, char *environ);
-void        remove_env(t_environ **envs, char *key);
+void	    env_update(t_environ *envs, char *key, char *value);
+void		to_env_list(t_environ **envs, char *environ);
+void        delete_env_by_key(t_environ **envs, char *key);
 char		*get_env_value(t_environ *envs, char *key);
 size_t      size_envs(t_environ *envs);
+t_environ   *get_env(t_environ *envs, char *key);
 t_environ   *env_list_duplicate(t_environ *envs);
 int          has_key(t_environ *envs, char *key);
-
-// void        delete_top_env(t_environ **envs);
-
-
-
+void	    to_env_list(t_environ **envs, char *environ);
 
 # define FILENAME 1
 # define SINGLE_QUOTE 2

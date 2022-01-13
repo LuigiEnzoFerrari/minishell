@@ -43,20 +43,20 @@ int isbuiltin(char *cmd)
     return (0);
 }
 
-void    execin(char **args, t_environ *envs)
+void    execin(char **args, t_environ *envs_a, t_environ *envs_b)
 {
     if (ft_strcmp(*args, "echo") == 0)
         echo(args + 1);
 	else if (ft_strcmp(*args, "cd") == 0)
-		cd(args + 1, envs);
+		cd(args + 1, envs_a);
 	else if (ft_strcmp(*args, "pwd") == 0)
-		pwd(args + 1, envs);
+		pwd(args + 1, envs_a);
 	else if (ft_strcmp(*args, "export") == 0)
-		export(args + 1, envs);
+		export(args + 1, envs_a);
 	else if (ft_strcmp(*args, "unset") == 0)
-		unset(args + 1, envs);
+		unset(args + 1, envs_a, envs_b);
 	else if (ft_strcmp(*args, "env") == 0)
-		env(args, envs);
+		env(args, envs_a);
 	else
 		exits(args);
 }
@@ -68,7 +68,7 @@ void	exec(t_tokens *tokens, t_environ *envs)
 	// /usr/bin/ls
 	args = list_to_args(tokens);
     if (isbuiltin(*args))
-        execin(args, envs);
+        execin(args, envs, envs);
     else
 	{
 		*args = ft_strjoin("/usr/bin/", *args);

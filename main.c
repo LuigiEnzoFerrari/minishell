@@ -27,7 +27,7 @@ void	save_history(char *input)
 
 
 
-t_environ	*get_envs(void)
+t_environ	*get_envs_a(void)
 {
 	size_t		i;
 	t_environ	*envs;
@@ -36,7 +36,7 @@ t_environ	*get_envs(void)
 	envs = NULL;
 	while (__environ[i])
 	{
-		env_duplicate(&envs, __environ[i]);
+		to_env_list(&envs, __environ[i]);
 		i++;
 	}
 	return (envs);
@@ -55,7 +55,7 @@ int shell_init(void)
     t_vars      *vars;
 
     vars = malloc(sizeof(t_vars));
-	vars->envs_a = get_envs();
+	vars->envs_a = get_envs_a();
     vars->envs_b = NULL;
 	while (42)
 	{

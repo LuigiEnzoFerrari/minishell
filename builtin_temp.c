@@ -8,10 +8,12 @@ void	pwd(char **args, t_environ *envs)
     ft_putendl_fd(path, 1);
 }
 
-void	unset(char **args, t_environ *envs)
+void	unset(char **args, t_environ *envs_a, t_environ *envs_b)
 {
-    if (*args != NULL)
-        remove_env(&envs, *args);
+    if (*args == NULL)
+        return ;
+    delete_env_by_key(&envs_a, *args);
+    // delete_env_by_key(&envs_b, )
 }
 
 void	env(char **args, t_environ *envs)

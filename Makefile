@@ -8,8 +8,11 @@ CFLAGS := -Wall -Wextra -Werror
 RL_FLAGS := -lreadline
 
 LINK_LIB := -L libft -lft
-SRCS = main.c get_input.c lexical_analysis_and_parse.c linked_list_infos.c \
-	tokenize.c env_list.c syntax.c exec.c \
+SRCS = main.c \
+	env_lst_one.c env_lst_two.c env_lst_utils.c \
+	get_input.c init_envs_b.c expand_variables.c \
+	lexical_analysis_and_parse.c linked_list_infos.c \
+	tokenize.c  syntax.c exec.c \
 	utils.c \
 	\
 	echo.c\

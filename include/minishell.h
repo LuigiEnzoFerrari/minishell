@@ -36,9 +36,10 @@ void		echo(char **args);
 void		cd(char **args, t_environ *envs);
 void		pwd(char **args, t_environ *envs);
 void		export(char **args, t_environ *envs);
-void		unset(char **args, t_environ *envs);
+void		unset(char **args, t_environ *envs_a, t_environ *envs_b);
 void		env(char **args, t_environ *envs);
 void		exits(char **args);
-
+void        init_envs_b(t_environ **envs, t_tokens **tokens);
+void	    expand_variables(t_tokens *tokens, t_environ *envs);
 
 #endif

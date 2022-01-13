@@ -25,10 +25,11 @@ void	cd(char **args, t_environ *envs)
 
     if (chdir(*args) != 0)
 		perror(strerror(errno));
-	else {
+	else
+    {
 		path = getcwd(NULL, 0);
-		update_env(envs, "OLDPWD", get_env_value(envs, "PWD"));
-		update_env(envs, "PWD", path);
+		env_update(envs, "OLDPWD", get_env_value(envs, "PWD"));
+		env_update(envs, "PWD", path);
 		free(path);
 	}
 }
