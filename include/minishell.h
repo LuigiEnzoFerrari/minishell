@@ -12,10 +12,18 @@
 # include <const.h>
 # include <errno.h>
 
+struct s_env_variables
+{
+    t_environ   *envs_a;
+    t_environ   *envs_b;
+};
+
+typedef struct s_env_variables  t_vars;
 
 typedef struct sigaction	t_sigaction;
 
-void		lexical_analysis_and_parse(char *input, t_environ *envs);
+char	    *get_input(t_environ *envs);
+void		lexical_analysis_and_parse(char *input, t_vars *vars);
 t_tokens	*tokenize(char *input);
 void		syntax(t_tokens *tokens);
 

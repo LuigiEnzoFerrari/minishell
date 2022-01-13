@@ -10,7 +10,8 @@ void	pwd(char **args, t_environ *envs)
 
 void	unset(char **args, t_environ *envs)
 {
-    remove_env(&envs, *args);
+    if (*args != NULL)
+        remove_env(&envs, *args);
 }
 
 void	env(char **args, t_environ *envs)

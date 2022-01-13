@@ -16,6 +16,7 @@ void		push_token(t_tokens **tokens, char *token, int label);
 void		delete_token(t_tokens **token);
 void		delete_tokens(t_tokens **tokens);
 size_t		number_of_labels(t_tokens *tokens, int label);
+void        delete_top_token(t_tokens **tokens);
 
 struct s_environ
 {
@@ -37,6 +38,10 @@ void        remove_env(t_environ **envs, char *key);
 char		*get_env_value(t_environ *envs, char *key);
 size_t      size_envs(t_environ *envs);
 t_environ   *env_list_duplicate(t_environ *envs);
+int          has_key(t_environ *envs, char *key);
+
+// void        delete_top_env(t_environ **envs);
+
 
 
 

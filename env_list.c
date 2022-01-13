@@ -23,6 +23,17 @@ void	delete_env(t_environ **envs)
 	*envs = NULL;
 }
 
+// void    delete_top_env(t_environ **envs)
+// {
+//     t_environ *temp;
+
+//     if (envs == NULL || *envs == NULL)
+//         return ;
+//     temp = (*envs);
+//     (*envs) = temp->next;
+//     delete_env(temp);        
+// }
+
 void    remove_env(t_environ **envs, char *key)
 {
     t_environ *temp;
@@ -78,32 +89,65 @@ void	delete_envs(t_environ **tokens)
 	delete_env(tokens);
 }
 
-void	env_duplicate(t_environ **envs, char *environ)
-{
-	size_t	len;
-	char	*key;
-	char	*value;
 
+t_environ *to_env(char *environ)
+{
+	size_t	    len;
+    t_environ   *env;
+
+    if (environ == NULL || ft_strchr(environ, '=') == NULL)
+        return NULL;
 	len = ft_strclen(environ, '=');
-	key = ft_strndup(environ, len);
-	environ += (len + 1);
-	value = ft_strdup(environ);
-	push_env(envs, key, value);
-	free(key);
-	free(value);
+    env = malloc(sizeof(t_environ));
+	env->key = ft_strndup(environ, len);
+	env->value = ft_strdup(&environ[len + 1]);
+    return (env);
 }
 
-// t_environ   *env_list_duplicate(t_environ *envs)
-// {
-//     t_environ *duplicate;
+int has_key(t_environ *envs, char *key)
+{
 
-//     while (envs != NULL)
-//     {
-//         push_env(duplicate, envs->key, envs->value);
-//         envs = envs->next;
-//     }
-//     return (duplicate);
-// }
+    while (envs != NULL)
+    {
+        if (ft_strcmp(key, envs->key) == 0)
+            return (1);
+        envs = envs->next;
+    }
+    return (0);
+}
+
+t_environ *get_env(t_environ *envs, char *key)
+{
+    while (envs != NULL)
+    {
+        if (ft_strcmp(key, envs->key) == 0)
+            return (envs);
+        envs = envs->next;
+    }
+    return (NULL);
+}
+
+void	env_duplicate(t_environ **envs, char *environ)
+{
+	size_t	    len;
+    t_environ   *env;
+    t_environ   *kkkk; 
+    
+    kkkk = to_env(environ);
+    env = get_env(*envs, kkkk->key);
+    if (env != NULL)
+    {
+        free(env->value);
+        env->value = kkkk->value;
+        free(kkkk->key);
+        free(env);
+    }
+    else
+    {
+        push_env(envs, kkkk->key, kkkk->value);
+        delete_env(&env);
+    }
+}
 
 
 void	env_update(t_environ *envs, char *key, char *value)
@@ -112,13 +156,13 @@ void	env_update(t_environ *envs, char *key, char *value)
 	{
 		if (ft_strcmp(envs->key, key) == 0)
 		{
-			free(envs->key);
-			envs->key = ft_strdup(value);
+			free(envs->value);
+			envs->value = ft_strdup(value);
+            ft_putendl_fd("passou ak: ", 1);
 			return ;
 		}
 		envs = envs->next;
 	}
-	push_env(&envs, key, value);
 }
 
 char	*get_env_value(t_environ *envs, char *key)
@@ -142,8 +186,6 @@ void	update_env(t_environ *envs, char *key, char *value)
 			break ;
 		envs = envs->next;
 	}
-	if (envs == NULL)
-		return ;
 	free(envs->value);
 	envs->value = ft_strdup(value);
 }

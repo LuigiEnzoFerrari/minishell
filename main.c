@@ -26,36 +26,6 @@ void	save_history(char *input)
 }
 
 
-char *get_full_prompt(t_environ *envs)
-{
-	// char		path[4096];
-	char		*path_colored;
-	char		*path;
-
-	// change the getcwd function to ta $PWD variable
-
-	// getcwd(path, sizeof(path));
-	path = get_env_value(envs, "PWD");
-	path_colored = ft_strjoin(IGREEN, path);
-	path_colored = ft_rejoin(path_colored, COLOR_OFF);
-	path_colored = ft_rejoin(path_colored, "$ ");
-	
-	return (path_colored);
-}
-
-char	*get_input(t_environ *envs)
-{
-	char	*buff;
-	char	*input;
-
-	buff = get_full_prompt(envs);
-	input = readline(buff);
-	buff = input;
-	input = ft_skip_chr(input, ft_isblank, 1);
-	input = ft_strdup(input);
-	free(buff);
-	return (input);
-}
 
 t_environ	*get_envs(void)
 {
@@ -82,18 +52,22 @@ int shell_init(void)
 	// 		|| sigaction(SIGTERM, &act, NULL))
 	// 		return (1);
 	char		*input;
-	t_environ	*envs;
+    t_vars      *vars;
 
-	envs = get_envs();
+    vars = malloc(sizeof(t_vars));
+	vars->envs_a = get_envs();
+    vars->envs_b = NULL;
 	while (42)
 	{
-		input = get_input(envs);
-		if (input != NULL)
+		input = get_input(vars->envs_a);
+		if (input != NULL && *input != '\0')
 			save_history(input);
-		lexical_analysis_and_parse(input, envs);
+		lexical_analysis_and_parse(input, vars);
 		execution();
 	}
-	delete_envs(&envs);
+	delete_envs(&vars->envs_a);
+	delete_envs(&vars->envs_b);
+    free(vars);
  	return (0);
 }
 
