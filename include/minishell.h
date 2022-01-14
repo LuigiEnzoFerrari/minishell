@@ -30,13 +30,13 @@ void		syntax(t_tokens *tokens);
 int			ft_isblank(int c);
 int			isseparator(int label);
 
-void		exec(t_tokens *tokens, t_environ *envs);
+void		exec(t_tokens *tokens, t_vars *vars);
 
 void		echo(char **args);
 void		cd(char **args, t_environ *envs);
 void		pwd(char **args, t_environ *envs);
 void		export(char **args, t_environ *envs);
-void		unset(char **args, t_environ *envs_a, t_environ *envs_b);
+void		unset(char **args, t_vars *vars);
 void		env(char **args, t_environ *envs);
 void		exits(char **args);
 void        init_envs_b(t_environ **envs, t_tokens **tokens);

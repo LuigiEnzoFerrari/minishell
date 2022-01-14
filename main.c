@@ -25,8 +25,6 @@ void	save_history(char *input)
 	free(input);
 }
 
-
-
 t_environ	*get_envs_a(void)
 {
 	size_t		i;

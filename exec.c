@@ -15,8 +15,8 @@ size_t	count(t_tokens *tokens)
 
 char **list_to_args(t_tokens *tokens)
 {
-	char **args;
-	size_t	i;
+	char    **args;
+	size_t      i;
 
 	i = 0;
 	args = malloc(sizeof(char *) * (count(tokens) + 1));
@@ -43,32 +43,32 @@ int isbuiltin(char *cmd)
     return (0);
 }
 
-void    execin(char **args, t_environ *envs_a, t_environ *envs_b)
+void    execin(char **args, t_vars *vars)
 {
     if (ft_strcmp(*args, "echo") == 0)
         echo(args + 1);
 	else if (ft_strcmp(*args, "cd") == 0)
-		cd(args + 1, envs_a);
+		cd(args + 1, vars->envs_a);
 	else if (ft_strcmp(*args, "pwd") == 0)
-		pwd(args + 1, envs_a);
+		pwd(args + 1, vars->envs_a);
 	else if (ft_strcmp(*args, "export") == 0)
-		export(args + 1, envs_a);
+		export(args + 1, vars->envs_a);
 	else if (ft_strcmp(*args, "unset") == 0)
-		unset(args + 1, envs_a, envs_b);
+		unset(args + 1, vars);
 	else if (ft_strcmp(*args, "env") == 0)
-		env(args, envs_a);
+		env(args, vars->envs_a);
 	else
 		exits(args);
 }
 
-void	exec(t_tokens *tokens, t_environ *envs)
+void	exec(t_tokens *tokens, t_vars *vars)
 {
 	char	**args;
 
 	// /usr/bin/ls
 	args = list_to_args(tokens);
     if (isbuiltin(*args))
-        execin(args, envs, envs);
+        execin(args, vars);
     else
 	{
 		*args = ft_strjoin("/usr/bin/", *args);

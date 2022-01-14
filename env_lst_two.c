@@ -1,5 +1,18 @@
 #include <minishell.h>
 
+size_t  size_envs(t_environ *envs)
+{
+    size_t  i;
+
+    i = 0;
+    while (envs != NULL)
+    {
+        envs = envs->next;
+        i++;
+    }
+    return (i);
+}
+
 void    delete_env_by_key(t_environ **envs, char *key)
 {
     t_environ   *temp;

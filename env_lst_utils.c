@@ -35,4 +35,3 @@ void	to_env_list(t_environ **envs, char *environ)
         delete_env(&to_update);
     }
 }
-

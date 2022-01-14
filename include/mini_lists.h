@@ -32,7 +32,7 @@ void		delete_env(t_environ **envs);
 t_environ	*last_env(t_environ *envs);
 void		push_env(t_environ **envs, char *key, char *value);
 void		delete_envs(t_environ **tokens);
-void	    env_update(t_environ *envs, char *key, char *value);
+void	    update_env(t_environ *envs, char *key, char *value);
 void		to_env_list(t_environ **envs, char *environ);
 void        delete_env_by_key(t_environ **envs, char *key);
 char		*get_env_value(t_environ *envs, char *key);

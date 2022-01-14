@@ -49,7 +49,6 @@ void	delete_envs(t_environ **tokens)
 	delete_env(tokens);
 }
 
-
 int has_key(t_environ *envs, char *key)
 {
 
@@ -74,7 +73,7 @@ t_environ *get_env(t_environ *envs, char *key)
 }
 
 
-void	env_update(t_environ *envs, char *key, char *value)
+void	update_env(t_environ *envs, char *key, char *value)
 {
 	while (envs != NULL)
 	{
@@ -99,18 +98,4 @@ char	*get_env_value(t_environ *envs, char *key)
 	if (envs == NULL)
 		return (NULL);
 	return (envs->value);
-}
-
-
-size_t  size_envs(t_environ *envs)
-{
-    size_t  i;
-
-    i = 0;
-    while (envs != NULL)
-    {
-        envs = envs->next;
-        i++;
-    }
-    return (i);
 }

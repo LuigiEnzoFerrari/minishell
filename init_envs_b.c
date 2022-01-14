@@ -34,7 +34,7 @@ void    init_envs_b(t_environ **envs, t_tokens **tokens)
     while (temp != NULL)
     {
         if (has_key(*envs, temp->key))
-            env_update(*envs, temp->key, temp->value);
+            update_env(*envs, temp->key, temp->value);
         else
             push_env(envs, temp->key, temp->value);
         temp = temp->next;

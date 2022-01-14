@@ -28,8 +28,8 @@ void	cd(char **args, t_environ *envs)
 	else
     {
 		path = getcwd(NULL, 0);
-		env_update(envs, "OLDPWD", get_env_value(envs, "PWD"));
-		env_update(envs, "PWD", path);
+		update_env(envs, "OLDPWD", get_env_value(envs, "PWD"));
+		update_env(envs, "PWD", path);
 		free(path);
 	}
 }
