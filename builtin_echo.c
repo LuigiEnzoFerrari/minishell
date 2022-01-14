@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void    echo(char **args)
+void    builtin_echo(char **args)
 {
     size_t  i;
 	int		option;

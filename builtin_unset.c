@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void	unset(char **args, t_vars *vars)
+void	builtin_unset(char **args, t_vars *vars)
 {
     if (*args == NULL)
         return ;

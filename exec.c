@@ -46,19 +46,19 @@ int isbuiltin(char *cmd)
 void    execin(char **args, t_vars *vars)
 {
     if (ft_strcmp(*args, "echo") == 0)
-        echo(args + 1);
+        builtin_echo(args + 1);
 	else if (ft_strcmp(*args, "cd") == 0)
-		cd(args + 1, vars->envs_a);
+		builtin_cd(args + 1, vars->envs_a);
 	else if (ft_strcmp(*args, "pwd") == 0)
-		pwd(args + 1, vars->envs_a);
+		builtin_pwd(args + 1, vars->envs_a);
 	else if (ft_strcmp(*args, "export") == 0)
-		export(args + 1, vars->envs_a);
+		builtin_export(args + 1, vars->envs_a);
 	else if (ft_strcmp(*args, "unset") == 0)
-		unset(args + 1, vars);
+		builtin_unset(args + 1, vars);
 	else if (ft_strcmp(*args, "env") == 0)
-		env(args, vars->envs_a);
+		builtin_env(args, vars->envs_a);
 	else
-		exits(args);
+		builtin_exit(args);
 }
 
 void	exec(t_tokens *tokens, t_vars *vars)

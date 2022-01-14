@@ -78,7 +78,7 @@ void    add_exports(char **args, t_environ *envs)
 	}
 }
 
-void	export(char **args, t_environ *envs)
+void	builtin_export(char **args, t_environ *envs)
 {
 	if (*args == NULL)
 		print_exports(envs);

@@ -32,13 +32,13 @@ int			isseparator(int label);
 
 void		exec(t_tokens *tokens, t_vars *vars);
 
-void		echo(char **args);
-void		cd(char **args, t_environ *envs);
-void		pwd(char **args, t_environ *envs);
-void		export(char **args, t_environ *envs);
-void		unset(char **args, t_vars *vars);
-void		env(char **args, t_environ *envs);
-void		exits(char **args);
+void		builtin_echo(char **args);
+void		builtin_cd(char **args, t_environ *envs);
+void		builtin_pwd(char **args, t_environ *envs);
+void		builtin_export(char **args, t_environ *envs);
+void		builtin_unset(char **args, t_vars *vars);
+void		builtin_env(char **args, t_environ *envs);
+void		builtin_exit(char **args);
 void        init_envs_b(t_environ **envs, t_tokens **tokens);
 void	    expand_variables(t_tokens *tokens, t_environ *envs);
 

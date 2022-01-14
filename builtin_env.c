@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void	env(char **args, t_environ *envs)
+void	builtin_env(char **args, t_environ *envs)
 {
 	while (envs != NULL)
 	{

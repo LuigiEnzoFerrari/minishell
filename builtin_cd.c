@@ -12,7 +12,7 @@ static void	new_path(char **args, t_environ *envs, char *path)
 }
 
 // bash: cd: in: No such file or directory  
-void	cd(char **args, t_environ *envs)
+void	builtin_cd(char **args, t_environ *envs)
 {
 	char	*path;
 

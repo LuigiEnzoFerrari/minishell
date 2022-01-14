@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void	pwd(char **args, t_environ *envs)
+void	builtin_pwd(char **args, t_environ *envs)
 {
 	char	*path;
 
