@@ -38,7 +38,7 @@ int isbuiltin(char *cmd)
 		ft_strcmp(cmd, "export") == 0 ||
 		ft_strcmp(cmd, "unset") == 0 ||
 		ft_strcmp(cmd, "env") == 0 ||
-		ft_strcmp(cmd, "exit") == 0)
+        ft_strcmp(cmd, "exit") == 0)
         return (1);
     return (0);
 }
@@ -58,7 +58,7 @@ void    execin(char **args, t_vars *vars)
 	else if (ft_strcmp(*args, "env") == 0)
 		builtin_env(args, vars->envs_a);
 	else
-		builtin_exit(args);
+		builtin_exit(args, vars);
 }
 
 void	exec(t_tokens *tokens, t_vars *vars)
@@ -75,4 +75,5 @@ void	exec(t_tokens *tokens, t_vars *vars)
         execve(*args, args, __environ);
 		perror(strerror(errno));
 	}
+    ft_arrayfree(args);
 }

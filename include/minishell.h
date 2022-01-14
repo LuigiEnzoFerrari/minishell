@@ -38,7 +38,7 @@ void		builtin_pwd(char **args, t_environ *envs);
 void		builtin_export(char **args, t_environ *envs);
 void		builtin_unset(char **args, t_vars *vars);
 void		builtin_env(char **args, t_environ *envs);
-void		builtin_exit(char **args);
+void		builtin_exit(char **args, t_vars *vars);
 void        init_envs_b(t_environ **envs, t_tokens **tokens);
 void	    expand_variables(t_tokens *tokens, t_environ *envs);
 
