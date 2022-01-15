@@ -32,6 +32,6 @@ void	to_env_list(t_environ **envs, char *environ)
     else
     {
         push_env(envs, to_put->key, to_put->value);
-        delete_env(&to_update);
+        delete_env(&to_put);
     }
 }

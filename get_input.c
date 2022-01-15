@@ -13,7 +13,7 @@ char *get_full_prompt(t_environ *envs)
 	path_colored = ft_strjoin(IGREEN, path);
 	path_colored = ft_rejoin(path_colored, COLOR_OFF);
 	path_colored = ft_rejoin(path_colored, "$ ");
-	
+    // free(path);
 	return (path_colored);
 }
 
@@ -24,6 +24,7 @@ char	*get_input(t_environ *envs)
 
 	buff = get_full_prompt(envs);
 	input = readline(buff);
+    free(buff);
 	buff = input;
 	input = ft_skip_chr(input, ft_isblank, 1);
 	input = ft_strdup(input);

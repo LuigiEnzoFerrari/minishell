@@ -61,6 +61,7 @@ int shell_init(void)
 		if (input != NULL && *input != '\0')
 			save_history(input);
 		lexical_analysis_and_parse(input, vars);
+        free(input);
 		execution();
 	}
 	delete_envs(&vars->envs_a);

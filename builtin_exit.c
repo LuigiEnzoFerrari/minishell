@@ -15,9 +15,9 @@ void    exit_minishell(char **args, t_vars *vars, int exit_value)
 {
     ft_arrayfree(args);
     if (vars->envs_a != NULL)
-        free(vars->envs_a);
+        delete_envs(&vars->envs_a);
     if (vars->envs_b != NULL)
-        free(vars->envs_b);
+        delete_envs(&vars->envs_b);
     free(vars);
     exit(exit_value);
 }

@@ -8,6 +8,8 @@ static void	new_path(char **args, t_environ *envs, char *path)
 		new = ft_strdup(get_env_value(envs, path));
 	else
 		new = ft_strdup(path);
+    if (*args != NULL)
+        free(*args);
 	*args = new;
 }
 

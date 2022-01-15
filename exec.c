@@ -67,6 +67,7 @@ void	exec(t_tokens *tokens, t_vars *vars)
 
 	// /usr/bin/ls
 	args = list_to_args(tokens);
+    delete_tokens(&tokens);
     if (isbuiltin(*args))
         execin(args, vars);
     else

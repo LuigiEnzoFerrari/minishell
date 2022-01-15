@@ -24,6 +24,7 @@ char	*replace_variable(char *token, size_t i, t_environ *envs)
 	if (value != NULL)
         new_token = ft_rejoin(new_token, value);
 	new_token = ft_rejoin(new_token, &token[i + 1 + j]);
+    free(env);
 	return (new_token);
 }
 
@@ -53,7 +54,7 @@ char	*get_new_token(char *tokens, size_t i, t_environ *envs)
 		|| tokens[i + 1] == '=' || tokens[i + 1] == '#'
 		|| tokens[i + 1] == '&' || tokens[i + 1] == '^'
 		|| tokens[i + 1] == '%')
-		return (tokens);
+        new_token = ft_strdup(tokens);
 	else
 		new_token = replace_variable(tokens, i, envs);
 	return (new_token);
@@ -73,6 +74,7 @@ void	search_variables(t_tokens *tokens, char *token, t_environ *envs)
 			token = get_new_token(token, i, envs);
 			if (new_token[i + 1] == '$')
 				i++;
+            free(new_token);
 			new_token = token;
 		}
 		i++;
