@@ -1,5 +1,13 @@
 #include <minishell.h>
 
+void	save_history(char *input)
+{
+	if (input == NULL || *input == '\0')
+        return ;
+    add_history(input);
+}
+
+
 char *get_full_prompt(t_environ *envs)
 {
 	// char		path[4096];
@@ -28,6 +36,7 @@ char	*get_input(t_environ *envs)
 	buff = input;
 	input = ft_skip_chr(input, ft_isblank, 1);
 	input = ft_strdup(input);
+	save_history(input);
 	free(buff);
 	return (input);
 }

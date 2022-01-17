@@ -1,34 +1,6 @@
 #include <minishell.h>
 
-size_t	count(t_tokens *tokens)
-{
-	size_t	i;
 
-	i = 0;
-	while (tokens != NULL && isseparator(tokens->label) == 0)
-	{
-		tokens = tokens->next;
-		i++;
-	}
-	return (i);
-}
-
-char **list_to_args(t_tokens *tokens)
-{
-	char    **args;
-	size_t      i;
-
-	i = 0;
-	args = malloc(sizeof(char *) * (count(tokens) + 1));
-	while (tokens != NULL && isseparator(tokens->label) == 0)
-	{
-		args[i] = ft_strdup(tokens->token);
-		tokens = tokens->next;
-		i++;
-	}
-	args[i] = NULL;
-	return (args);
-}
 
 int isbuiltin(char *cmd)
 {
@@ -43,7 +15,7 @@ int isbuiltin(char *cmd)
     return (0);
 }
 
-void    execin(char **args, t_vars *vars)
+void    execute_builtin(char **args, t_vars *vars)
 {
     if (ft_strcmp(*args, "echo") == 0)
         builtin_echo(args + 1);
@@ -61,20 +33,48 @@ void    execin(char **args, t_vars *vars)
 		builtin_exit(args, vars);
 }
 
-void	exec(t_tokens *tokens, t_vars *vars)
+void    execute_builtout(char **args, t_vars *vars, int *io)
 {
-	char	**args;
+    __pid_t pid;
+    int p[2], status;
 
+    pid = 0;
+    // if (pipe(p) < 0)
+    //     exit(1);
+    pid = fork();
+    if (pid == 0)
+    {
+
+        *args = ft_strjoin("/usr/bin/", *args);
+        execve(*args, args, __environ);
+        perror(strerror(errno));
+        exit(1);
+    }
+	waitpid(pid, &status, 0);
+	WEXITSTATUS(status);
+    // else
+    // {
+    //     *args = ft_strjoin("/usr/bin/", *args);
+    //     execve(*args, args, __environ);
+    // }
+
+}
+
+
+void	execute_commands(t_tokens *tokens, t_vars *vars)
+{
+    int     io[2];
+    t_cmds  *cmds;
 	// /usr/bin/ls
-	args = list_to_args(tokens);
+    if (tokens == NULL)
+        return ;
+	cmds = list_to_args(tokens);
+    char **args = cmds->args;
+    // array_print(args);
     delete_tokens(&tokens);
     if (isbuiltin(*args))
-        execin(args, vars);
+        execute_builtin(args, vars);
     else
-	{
-		*args = ft_strjoin("/usr/bin/", *args);
-        execve(*args, args, __environ);
-		perror(strerror(errno));
-	}
+        execute_builtout(args, vars, io);
     ft_arrayfree(args);
 }

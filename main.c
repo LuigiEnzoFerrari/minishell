@@ -6,25 +6,6 @@ void	sighandler(int sig, siginfo_t *info, void *context)
 	write(1, "lorem ipsum", 12);
 }
 
-// void	expasion(void) {
-// 	return ;
-// }
-
-void execution(void) {
-	return ;
-}
-
-void	save_history(char *input)
-{
-	if (*input != '\0')
-	{
-		// ft_putendl_fd(input, 1); // remove
-		add_history(input);
-		return ;
-	}
-	free(input);
-}
-
 t_environ	*get_envs_a(void)
 {
 	size_t		i;
@@ -49,6 +30,7 @@ int shell_init(void)
 	// if (sigemptyset(&act.sa_mask)
 	// 		|| sigaction(SIGTERM, &act, NULL))
 	// 		return (1);
+    t_tokens    *tokens;
 	char		*input;
     t_vars      *vars;
 
@@ -58,11 +40,8 @@ int shell_init(void)
 	while (42)
 	{
 		input = get_input(vars->envs_a);
-		if (input != NULL && *input != '\0')
-			save_history(input);
-		lexical_analysis_and_parse(input, vars);
-        free(input);
-		execution();
+		tokens = lexical_analysis_and_parse(input, vars);
+        execute_commands(tokens, vars);
 	}
 	delete_envs(&vars->envs_a);
 	delete_envs(&vars->envs_b);

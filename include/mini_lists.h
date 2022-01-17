@@ -42,6 +42,22 @@ t_environ   *env_list_duplicate(t_environ *envs);
 int          has_key(t_environ *envs, char *key);
 void	    to_env_list(t_environ **envs, char *environ);
 
+struct s_commands
+{
+	char				**args;
+	struct s_commands	*next;
+};
+typedef struct s_commands t_cmds;
+
+t_cmds	*init_cmd(char **args);
+void	delete_cmd(t_cmds **cmd);
+t_cmds	*last_cmd(t_cmds *cmds);
+void	push_cmd(t_cmds **cmds, char **args);
+void	delete_cmds(t_cmds **tokens);
+
+t_cmds  *list_to_args(t_tokens *tokens);
+
+
 # define FILENAME 1
 # define SINGLE_QUOTE 2
 # define DOUBLE_QUOTE 3

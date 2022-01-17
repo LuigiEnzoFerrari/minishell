@@ -11,7 +11,7 @@ LINK_LIB := -L libft -lft
 SRCS = main.c \
 	get_input.c init_envs_b.c expand_variables.c \
 	lexical_analysis_and_parse.c linked_list_infos.c \
-	tokenize.c  syntax.c exec.c \
+	tokenize.c  syntax.c execute_commands.c \
 	utils.c \
 	\
 	env_lst_one.c env_lst_two.c env_lst_utils.c \
@@ -21,7 +21,7 @@ SRCS = main.c \
 	builtin_export.c builtin_pwd.c \
 	builtin_echo.c builtin_unset.c \
 	\
-	\
+	cmd_lst_one.c cmd_lst_utils.c\
 
 INC = include
 

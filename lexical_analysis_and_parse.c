@@ -10,14 +10,13 @@ void    print_list(t_environ *envs)
     }
 }
 
-void	lexical_analysis_and_parse(char *input, t_vars *vars)
+t_tokens	*lexical_analysis_and_parse(char *input, t_vars *vars)
 {
 	t_tokens	*tokens;
 
 	tokens = tokenize(input);
 	expand_variables(tokens, vars->envs_a);
     init_envs_b(&vars->envs_b, &tokens);
-    if (tokens != NULL)
-        exec(tokens, vars);
-    print_list(vars->envs_b);
+    free(input);
+    return (tokens);
 }
