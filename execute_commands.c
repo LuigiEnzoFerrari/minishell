@@ -60,21 +60,52 @@ void    execute_builtout(char **args, t_vars *vars, int *io)
 
 }
 
+void    arrays_prints(char **args)
+{
+    size_t  i;
+
+    i = 0;
+    while (args[i])
+    {
+        ft_putstr(args[i]);
+        ft_putstr(" ");
+        i++;
+    }
+    ft_putstr("\n");
+}
+
+void    print_commands(t_cmds *cmds)
+{
+    while (cmds != NULL)
+    {
+        arrays_prints(cmds->args);
+        cmds = cmds->next;
+    }
+}
+
+// void    for_each_command(t_cmds *cmds, char *args, t_vars *vars)
+// {
+
+// }
 
 void	execute_commands(t_tokens *tokens, t_vars *vars)
 {
     int     io[2];
     t_cmds  *cmds;
-	// /usr/bin/ls
-    if (tokens == NULL)
+    char **args;
+
+    if (tokens == NULL || tokens->label == PIPE)
+    {
+        delete_tokens(&tokens);
         return ;
+    }
 	cmds = list_to_args(tokens);
-    char **args = cmds->args;
-    // array_print(args);
+    args = cmds->args;
+    // print_commands(cmds);
     delete_tokens(&tokens);
     if (isbuiltin(*args))
         execute_builtin(args, vars);
     else
         execute_builtout(args, vars, io);
-    ft_arrayfree(args);
+    delete_cmds(&cmds);
 }

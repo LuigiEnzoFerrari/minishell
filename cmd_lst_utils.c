@@ -35,24 +35,26 @@ t_cmds  *list_to_args(t_tokens *tokens)
 
 	i = 0;
     cmds = NULL;
+    args = NULL;
     size = (count(tokens) + 1);
-	args = malloc(sizeof(char *) * (size + 1));
+    args = malloc(sizeof(char *) * (size + 1));
 	while (tokens != NULL)
 	{
 		args[i] = ft_strdup(tokens->token);
-        if (tokens->label == PIPE)
+        tokens = tokens->next;
+        if (tokens == NULL || tokens->label == PIPE)
         {
             args[i + 1] = NULL;
             push_cmd(&cmds, args);
-	        args = malloc(sizeof(char *) * (count(tokens->next) + 1));
+            if (tokens != NULL && tokens->next != NULL)
+            {
+                args = malloc(sizeof(char *) * (count(tokens->next) + 1));
+                tokens = tokens->next;
+            }
 	        i = 0;
         }
         else
             i++;
-        tokens = tokens->next;
-    
 	}
-	args[i] = NULL;
-    push_cmd(&cmds, args);
 	return (cmds);
 }

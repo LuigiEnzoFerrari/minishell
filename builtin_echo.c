@@ -7,7 +7,9 @@ void    builtin_echo(char **args)
 
     i = 0;
 	option = 0;
-    if (ft_strcmp(*args, "-n") == 0)
+    if (*args == NULL)
+        ;
+    else if (ft_strcmp(*args, "-n") == 0)
 		option = 1;
 	i += option;
     while (args[i] != NULL)
