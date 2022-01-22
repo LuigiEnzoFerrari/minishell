@@ -1,57 +1,43 @@
 #include <minishell.h>
 
-
-void	sighandler(int sig, siginfo_t *info, void *context)
-{
-	write(1, "lorem ipsum", 12);
-}
-
 t_environ	*get_envs_a(void)
 {
-	size_t		i;
 	t_environ	*envs;
+	size_t		i;
 
-	i = 0;
 	envs = NULL;
+	i = 0;
 	while (__environ[i])
-	{
-		to_env_list(&envs, __environ[i]);
-		i++;
-	}
+		to_env_list(&envs, __environ[i++]);
 	return (envs);
 }
 
-int shell_init(void)
+t_env_vars	*get_environment_variables()
 {
-	// t_sigaction	act;
-
-	// act.sa_flags = SA_SIGINFO;
-	// act.sa_sigaction = sighandler;
-	// if (sigemptyset(&act.sa_mask)
-	// 		|| sigaction(SIGTERM, &act, NULL))
-	// 		return (1);
-    t_tokens    *tokens;
-	char		*input;
-    t_vars      *vars;
-
-    vars = malloc(sizeof(t_vars));
+	t_env_vars	*vars;
+	vars = malloc(sizeof(t_env_vars));
 	vars->envs_a = get_envs_a();
-    vars->envs_b = NULL;
+	vars->envs_b = NULL;
+	return vars;
+}
+
+void	shell_init(void)
+{
+	t_env_vars	*env_vars;
+	t_tokens	*tokens;
+	char		*input;
+
+	env_vars = get_environment_variables();
 	while (42)
 	{
-		input = get_input(vars->envs_a);
-		tokens = lexical_analysis_and_parse(input, vars);
-        execute_commands(tokens, vars);
+		input = get_input(env_vars->envs_a);
+		tokens = lexical_analysis_and_parse(input, env_vars);
+		execute_commands(tokens, env_vars);
 	}
-	delete_envs(&vars->envs_a);
-	delete_envs(&vars->envs_b);
-    free(vars);
- 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	if (shell_init())
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	shell_init();
+	return(0);
 }

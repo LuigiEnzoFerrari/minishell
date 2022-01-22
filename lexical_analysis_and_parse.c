@@ -10,7 +10,7 @@ void    print_list(t_environ *envs)
     }
 }
 
-t_tokens	*lexical_analysis_and_parse(char *input, t_vars *vars)
+t_tokens	*lexical_analysis_and_parse(char *input, t_env_vars *vars)
 {
 	t_tokens	*tokens;
 

@@ -11,7 +11,7 @@ int is_a_number(char *arg)
     return (1);
 }
 
-void    exit_minishell(char **args, t_vars *vars, int exit_value)
+void    exit_minishell(char **args, t_env_vars *vars, int exit_value)
 {
     ft_arrayfree(args);
     if (vars->envs_a != NULL)
@@ -22,7 +22,7 @@ void    exit_minishell(char **args, t_vars *vars, int exit_value)
     exit(exit_value);
 }
 
-void	builtin_exit(char **args, t_vars *vars)
+void	builtin_exit(char **args, t_env_vars *vars)
 {
     int exit_value;
 

@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void	builtin_unset(char **args, t_vars *vars)
+void	builtin_unset(char **args, t_env_vars *vars)
 {
     size_t  i;
 

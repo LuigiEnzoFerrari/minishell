@@ -15,7 +15,7 @@ int isbuiltin(char *cmd)
     return (0);
 }
 
-void    execute_builtin(char **args, t_vars *vars)
+void    execute_builtin(char **args, t_env_vars *vars)
 {
     if (ft_strcmp(*args, "echo") == 0)
         builtin_echo(args + 1);
@@ -44,7 +44,7 @@ char **fake(void)
     return (str);
 }
 
-void    execute_builtout(char **args, t_vars *vars, int *fd)
+void    execute_builtout(char **args, t_env_vars *vars, int *fd)
 {
     __pid_t pid;
     int     status;
@@ -89,7 +89,7 @@ void    print_commands(t_cmds *cmds)
     }
 }
 
-void    for_each_command(t_cmds *cmds, char **args, t_vars *vars)
+void    for_each_command(t_cmds *cmds, char **args, t_env_vars *vars)
 {
     int     fd[2];
 
@@ -101,7 +101,7 @@ void    for_each_command(t_cmds *cmds, char **args, t_vars *vars)
         execute_builtout(args, vars, fd);
 }
 
-void	execute_commands(t_tokens *tokens, t_vars *vars)
+void	execute_commands(t_tokens *tokens, t_env_vars *vars)
 {
     t_cmds  *cmds;
     t_cmds  *temp;
