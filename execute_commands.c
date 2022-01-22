@@ -33,22 +33,28 @@ void    execute_builtin(char **args, t_vars *vars)
 		builtin_exit(args, vars);
 }
 
-void    execute_builtout(char **args, t_vars *vars, int *io)
+char **fake(void)
+{
+    char **str;
+
+    str = malloc(sizeof(char *) * 3);
+    str[0] = ft_strdup("RAFA=bonitao");
+    str[1] = ft_strdup("LUIGI=aaa");
+    str[2] = NULL;
+    return (str);
+}
+
+void    execute_builtout(char **args, t_vars *vars, int *fd)
 {
     __pid_t pid;
-    int p[2], status;
+    int     status;
 
-    pid = 0;
-    // if (pipe(p) < 0)
-    //     exit(1);
     pid = fork();
     if (pid == 0)
     {
-
         *args = ft_strjoin("/usr/bin/", *args);
         execve(*args, args, __environ);
         perror(strerror(errno));
-        exit(1);
     }
 	waitpid(pid, &status, 0);
 	WEXITSTATUS(status);
@@ -83,16 +89,23 @@ void    print_commands(t_cmds *cmds)
     }
 }
 
-// void    for_each_command(t_cmds *cmds, char *args, t_vars *vars)
-// {
+void    for_each_command(t_cmds *cmds, char **args, t_vars *vars)
+{
+    int     fd[2];
 
-// }
+    if (pipe(fd) < 0)
+        return ;
+    if (isbuiltin(*args))
+        execute_builtin(args, vars);
+    else
+        execute_builtout(args, vars, fd);
+}
 
 void	execute_commands(t_tokens *tokens, t_vars *vars)
 {
-    int     io[2];
     t_cmds  *cmds;
-    char **args;
+    t_cmds  *temp;
+    char    **args;
 
     if (tokens == NULL || tokens->label == PIPE)
     {
@@ -100,12 +113,14 @@ void	execute_commands(t_tokens *tokens, t_vars *vars)
         return ;
     }
 	cmds = list_to_args(tokens);
-    args = cmds->args;
+    temp = cmds;
     // print_commands(cmds);
     delete_tokens(&tokens);
-    if (isbuiltin(*args))
-        execute_builtin(args, vars);
-    else
-        execute_builtout(args, vars, io);
+    while (temp != NULL)
+    {
+        args = temp->args;
+        for_each_command(cmds, args, vars);
+        temp = temp->next;
+    }
     delete_cmds(&cmds);
 }

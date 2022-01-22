@@ -21,7 +21,6 @@ char *get_full_prompt(t_environ *envs)
 	path_colored = ft_strjoin(IGREEN, path);
 	path_colored = ft_rejoin(path_colored, COLOR_OFF);
 	path_colored = ft_rejoin(path_colored, "$ ");
-    // free(path);
 	return (path_colored);
 }
 

@@ -46,9 +46,10 @@ t_cmds  *list_to_args(t_tokens *tokens)
         {
             args[i + 1] = NULL;
             push_cmd(&cmds, args);
-            if (tokens != NULL && tokens->next != NULL)
+            if (tokens != NULL)
             {
-                args = malloc(sizeof(char *) * (count(tokens->next) + 1));
+                if (tokens->next != NULL)
+                    args = malloc(sizeof(char *) * (count(tokens->next) + 1));
                 tokens = tokens->next;
             }
 	        i = 0;
