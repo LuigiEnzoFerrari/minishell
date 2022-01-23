@@ -27,7 +27,6 @@ typedef struct sigaction	t_sigaction;
 char	    *get_input(t_environ *envs);
 t_tokens	*lexical_analysis_and_parse(char *input, t_env_vars *vars);
 t_tokens	*tokenize(char *input);
-void		syntax(t_tokens *tokens);
 
 int			ft_isblank(int c);
 int			isseparator(int label);
