@@ -40,3 +40,24 @@ void    init_envs_b(t_environ **envs, t_tokens **tokens)
         temp = temp->next;
     }
 }
+
+t_environ	*get_envs_a(void)
+{
+	t_environ	*envs;
+	size_t		i;
+
+	envs = NULL;
+	i = 0;
+	while (__environ[i])
+		to_env_list(&envs, __environ[i++]);
+	return (envs);
+}
+
+t_env_vars	*get_environment_variables(void)
+{
+	t_env_vars	*vars;
+	vars = malloc(sizeof(t_env_vars));
+	vars->envs_a = get_envs_a();
+	vars->envs_b = NULL;
+	return vars;
+}

@@ -9,11 +9,11 @@ RL_FLAGS := -lreadline
 
 LINK_LIB := -L libft -lft
 
-READ_INPUT_FILES = get_input.c
+READ_INPUT_FILES = get_input.c get_envs.c
 PARSE_INPUT_FILES = tokenize.c lexical_analysis_and_parse.c expand_variables.c
 EXECUTE_PARSE_FILES = execute_commands.c
 
-UTILS_FILES = utils.c init_envs_b.c
+UTILS_FILES = utils.c 
 LISTS_TOKEN_FILES = linked_list_infos.c
 LISTS_CMD_FILES = cmd_lst_one.c cmd_lst_utils.c
 LISTS_ENV_FILES = env_lst_one.c env_lst_two.c env_lst_utils.c
