@@ -28,7 +28,7 @@ char	*get_input(t_environ *envs)
 	prompt = get_full_prompt(envs);
 	input = readline(prompt);
 	old_input_address = input;
-	input = ft_skip_chr(input, ft_isblank, 1);
+	input = ft_skip_c_type(input, ft_isblank, 1);
 	input = ft_strdup(input);
 	save_history(input);
 	free(old_input_address);

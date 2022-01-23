@@ -81,6 +81,6 @@ size_t	ft_strnlen(const char *str, size_t maxlen);
 size_t	ft_nchar(char *str, int c);
 size_t	ft_ndigit(char *str);
 
-char	*ft_skip_chr(char *str, int (f)(int), int a);
+char	*ft_skip_c_type(char *str, int (f)(int), int a);
 
 #endif

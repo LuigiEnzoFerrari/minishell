@@ -75,7 +75,7 @@ t_tokens	*tokenize(char *input)
 			add_quotes(&tokens, &input);
 		else
 			add_string(&tokens, &input);
-		input = ft_skip_chr(input, ft_isblank, 1);
+		input = ft_skip_c_type(input, ft_isblank, 1);
 	}
 	return (tokens);
 }
