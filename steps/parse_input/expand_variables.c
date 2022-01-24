@@ -87,7 +87,7 @@ void	expand_variables(t_tokens *tokens, t_environ *envs)
 	while (tokens != NULL)
 	{
 		if (tokens->label == STRING || tokens->label == DOUBLE_QUOTE)
-			 search_variables(tokens, tokens->token, envs);
+			search_variables(tokens, tokens->token, envs);
 		tokens = tokens->next;
 	}
 }

@@ -26,3 +26,5 @@ atribuitions that comes before the command shouldn't will be ignored, attribuiti
     export should be able to persist even in process child, but atribution without export not should env be in the env list
 
     export are organized by alphabetic ordem
+
+	you can export already settled variables, like zz=zz ; export zz
