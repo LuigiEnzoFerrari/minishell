@@ -14,24 +14,46 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#define IN 0
+#define OUT 1
+
+/*──────────────────────────────────────────────────────────────────────*/
+/*					 	Envs Database			 						*/
+
 struct s_env_variables
 {
-    t_environ   *envs_a;
-    t_environ   *envs_b;
+	t_environ   *envs_a;
+	t_environ   *envs_b;
 };
 
 typedef struct s_env_variables  t_env_vars;
 
-typedef struct sigaction	t_sigaction;
+/*──────────────────────────────────────────────────────────────────────*/
+/*					 	Read and Store Envs		 						*/
 
-char	    *get_input(t_environ *envs);
+t_environ	*get_envs_a(void);
+t_env_vars	*get_environment_variables(void);
+void		init_envs_b(t_environ **envs, t_tokens **tokens);
+
+/*──────────────────────────────────────────────────────────────────────*/
+/*					 	Read and Store Input	 						*/
+
+char		*get_input(t_environ *envs);
+
+/*──────────────────────────────────────────────────────────────────────*/
+/*					 	Parse and Store it in Tokens 					*/
+
 t_tokens	*lexical_analysis_and_parse(char *input, t_env_vars *vars);
 t_tokens	*tokenize(char *input);
+void		expand_variables(t_tokens *tokens, t_environ *envs);
 
-int			ft_isblank(int c);
-int			isseparator(int label);
+/*──────────────────────────────────────────────────────────────────────*/
+/*					 	Execute Commands 								*/
 
 void		execute_commands(t_tokens *tokens, t_env_vars *vars);
+
+/*──────────────────────────────────────────────────────────────────────*/
+/*					 	Minishell Builtin	 							*/
 
 void		builtin_echo(char **args);
 void		builtin_cd(char **args, t_environ *envs);
@@ -40,13 +62,12 @@ void		builtin_export(char **args, t_environ *envs);
 void		builtin_unset(char **args, t_env_vars *vars);
 void		builtin_env(char **args, t_environ *envs);
 void		builtin_exit(char **args, t_env_vars *vars);
-void        init_envs_b(t_environ **envs, t_tokens **tokens);
-void	    expand_variables(t_tokens *tokens, t_environ *envs);
-t_environ	*get_envs_a(void);
-t_env_vars	*get_environment_variables(void);
 
+/*──────────────────────────────────────────────────────────────────────*/
+/*					 	Utils				 							*/
 
-#define IN 0
-#define OUT 1
+int			ft_isblank(int c);
+int			isseparator(int label);
+typedef struct sigaction	t_sigaction;
 
 #endif
