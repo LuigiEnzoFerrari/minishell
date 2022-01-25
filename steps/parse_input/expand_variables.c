@@ -8,7 +8,7 @@ int token_ends(int c)
 	return (0);
 }
 
-char	*replace_variable(char *token, size_t i, t_environ *envs)
+char	*replace_variable(char *token, size_t i, t_env_vars *vars)
 {
 	char	*new_token;
 	char	*env;
@@ -20,7 +20,8 @@ char	*replace_variable(char *token, size_t i, t_environ *envs)
 		j++;
 	new_token = ft_strndup(token, i);
 	env = ft_strndup(&token[i + 1], j);
-	value = get_env_value(envs, env);
+	value = get_env_value(vars->envs_a, env);
+    value = get_env_value(vars->envs_b, env);
 	if (value != NULL)
         new_token = ft_rejoin(new_token, value);
 	new_token = ft_rejoin(new_token, &token[i + 1 + j]);
@@ -38,7 +39,7 @@ char	*make_new_token(char *tokens, char *trade, size_t i)
 	return (new_token);
 }
 
-char	*get_new_token(char *tokens, size_t i, t_environ *envs)
+char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
 {
 	char	*new_token;
 
@@ -56,11 +57,11 @@ char	*get_new_token(char *tokens, size_t i, t_environ *envs)
 		|| tokens[i + 1] == '%')
         new_token = ft_strdup(tokens);
 	else
-		new_token = replace_variable(tokens, i, envs);
+		new_token = replace_variable(tokens, i, vars);
 	return (new_token);
 }
 
-void	search_variables(t_tokens *tokens, char *token, t_environ *envs)
+void	search_variables(t_tokens *tokens, char *token, t_env_vars *vars)
 {
 	size_t	i;
 	char	*new_token;
@@ -71,7 +72,7 @@ void	search_variables(t_tokens *tokens, char *token, t_environ *envs)
 	{
 		if (new_token[i] == '$')
 		{
-			token = get_new_token(token, i, envs);
+			token = get_new_token(token, i, vars);
 			if (new_token[i + 1] == '$')
 				i++;
             free(new_token);
@@ -82,12 +83,12 @@ void	search_variables(t_tokens *tokens, char *token, t_environ *envs)
 	tokens->token = new_token;
 }
 
-void	expand_variables(t_tokens *tokens, t_environ *envs)
+void	expand_variables(t_tokens *tokens, t_env_vars *vars)
 {
 	while (tokens != NULL)
 	{
 		if (tokens->label == STRING || tokens->label == DOUBLE_QUOTE)
-			search_variables(tokens, tokens->token, envs);
+			search_variables(tokens, tokens->token, vars);
 		tokens = tokens->next;
 	}
 }

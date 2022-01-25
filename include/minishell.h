@@ -45,7 +45,7 @@ char		*get_input(t_environ *envs);
 
 t_tokens	*lexical_analysis_and_parse(char *input, t_env_vars *vars);
 t_tokens	*tokenize(char *input);
-void		expand_variables(t_tokens *tokens, t_environ *envs);
+void		expand_variables(t_tokens *tokens, t_env_vars *vars);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Execute Commands 								*/
