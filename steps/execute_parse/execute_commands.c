@@ -33,18 +33,7 @@ void    execute_builtin(char **args, t_env_vars *vars)
 		builtin_exit(args, vars);
 }
 
-char **fake(void)
-{
-    char **str;
-
-    str = malloc(sizeof(char *) * 3);
-    str[0] = ft_strdup("RAFA=bonitao");
-    str[1] = ft_strdup("LUIGI=aaa");
-    str[2] = NULL;
-    return (str);
-}
-
-void    execute_builtout(char **args, t_env_vars *vars, int *fd)
+void    execute_builtout(char **args, t_env_vars *vars)
 {
     __pid_t pid;
     int     status;
@@ -52,18 +41,13 @@ void    execute_builtout(char **args, t_env_vars *vars, int *fd)
     pid = fork();
     if (pid == 0)
     {
-        *args = ft_strjoin("/usr/bin/", *args);
+        *args = ft_joindel(ft_strdup("/usr/bin/"), *args);
         execve(*args, args, __environ);
         perror(strerror(errno));
+        exit(errno);
     }
 	waitpid(pid, &status, 0);
 	WEXITSTATUS(status);
-    // else
-    // {
-    //     *args = ft_strjoin("/usr/bin/", *args);
-    //     execve(*args, args, __environ);
-    // }
-
 }
 
 void    arrays_prints(char **args)
@@ -89,23 +73,35 @@ void    print_commands(t_cmds *cmds)
     }
 }
 
-void    for_each_command(t_cmds *cmds, char **args, t_env_vars *vars)
+void    execute_one(t_cmds *cmds, char **args, t_env_vars *vars)
 {
-    int     fd[2];
 
-    if (pipe(fd) < 0)
-        return ;
+
     if (isbuiltin(*args))
         execute_builtin(args, vars);
     else
-        execute_builtout(args, vars, fd);
+        execute_builtout(args, vars);
+}
+
+
+void    for_each_command(t_cmds *cmds, t_env_vars *vars)
+{
+    t_cmds  *temp;
+
+
+    temp = cmds;
+    while (temp != NULL)
+    {
+        execute_one(cmds, temp->args, vars);
+        temp = temp->next;
+    }
+    delete_cmds(&cmds);
+
 }
 
 void	execute_commands(t_tokens *tokens, t_env_vars *vars)
 {
     t_cmds  *cmds;
-    t_cmds  *temp;
-    char    **args;
 
     if (tokens == NULL || tokens->label == PIPE)
     {
@@ -113,14 +109,7 @@ void	execute_commands(t_tokens *tokens, t_env_vars *vars)
         return ;
     }
 	cmds = list_to_args(tokens);
-    temp = cmds;
     // print_commands(cmds);
+    for_each_command(cmds, vars);
     delete_tokens(&tokens);
-    while (temp != NULL)
-    {
-        args = temp->args;
-        for_each_command(cmds, args, vars);
-        temp = temp->next;
-    }
-    delete_cmds(&cmds);
 }
