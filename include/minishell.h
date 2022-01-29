@@ -33,7 +33,7 @@ typedef struct s_env_variables  t_env_vars;
 
 t_environ	*get_envs_a(void);
 t_env_vars	*get_environment_variables(void);
-void		init_envs_b(t_environ **envs, t_tokens **tokens);
+void		init_envs_b(t_env_vars *vars, t_tokens **tokens);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Read and Store Input	 						*/
@@ -58,7 +58,7 @@ void		execute_commands(t_tokens *tokens, t_env_vars *vars);
 void		builtin_echo(char **args);
 void		builtin_cd(char **args, t_environ *envs);
 void		builtin_pwd(char **args, t_environ *envs);
-void		builtin_export(char **args, t_environ *envs);
+void		builtin_export(char **args, t_env_vars *vars);
 void		builtin_unset(char **args, t_env_vars *vars);
 void		builtin_env(char **args, t_environ *envs);
 void		builtin_exit(char **args, t_env_vars *vars);

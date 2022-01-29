@@ -26,19 +26,24 @@ t_environ *get_envs_b(t_tokens **tokens)
     return (envs);
 }
 
-void    init_envs_b(t_environ **envs, t_tokens **tokens)
+void    init_envs_b(t_env_vars *vars, t_tokens **tokens)
 {
+    t_environ *envs_b;
     t_environ *temp;
 
-    temp = get_envs_b(tokens);
-    while (temp != NULL)
+    envs_b = get_envs_b(tokens);
+    temp = envs_b;
+    while (envs_b != NULL)
     {
-        if (has_key(*envs, temp->key))
-            update_env(*envs, temp->key, temp->value);
+        if (has_key(vars->envs_a, envs_b->key))
+            update_env(vars->envs_a, envs_b->key, envs_b->value);
+        if (has_key(vars->envs_b, envs_b->key))
+            update_env(vars->envs_b, envs_b->key, envs_b->value);
         else
-            push_env(envs, temp->key, temp->value);
-        temp = temp->next;
+            push_env(&vars->envs_b, envs_b->key, envs_b->value);
+        envs_b = envs_b->next;
     }
+    delete_envs(&temp);
 }
 
 t_environ	*get_envs_a(void)

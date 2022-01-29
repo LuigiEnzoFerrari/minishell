@@ -24,7 +24,7 @@ void    execute_builtin(char **args, t_env_vars *vars)
 	else if (ft_strcmp(*args, "pwd") == 0)
 		builtin_pwd(args + 1, vars->envs_a);
 	else if (ft_strcmp(*args, "export") == 0)
-		builtin_export(args + 1, vars->envs_a);
+		builtin_export(args + 1, vars);
 	else if (ft_strcmp(*args, "unset") == 0)
 		builtin_unset(args + 1, vars);
 	else if (ft_strcmp(*args, "env") == 0)

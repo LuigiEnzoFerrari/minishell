@@ -65,7 +65,7 @@ void    print_exports(t_environ *envs)
 	ft_arrayfree(keys);
 }
 
-void    add_exports(char **args, t_environ *envs)
+void    add_exports(char **args, t_env_vars *vars)
 {
 	size_t  i;
 
@@ -73,15 +73,18 @@ void    add_exports(char **args, t_environ *envs)
 	while (args[i] != NULL)
 	{
 		if (ft_strchr(args[i], '=') != NULL)
-			to_env_list(&envs, args[i]);
+        {
+			to_env_list(&vars->envs_a, args[i]);
+            to_env_list(&vars->envs_b, args[i]);
+        }
 		i++;
 	}
 }
 
-void	builtin_export(char **args, t_environ *envs)
+void	builtin_export(char **args, t_env_vars *vars)
 {
 	if (*args == NULL)
-		print_exports(envs);
+		print_exports(vars->envs_a);
 	else
-		add_exports(args, envs);
+		add_exports(args, vars);
 }
