@@ -1,7 +1,5 @@
 #include <minishell.h>
 
-
-
 int isbuiltin(char *cmd)
 {
     if (ft_strcmp(cmd, "echo") == 0 ||
@@ -50,39 +48,13 @@ void    execute_builtout(char **args, t_env_vars *vars)
 	WEXITSTATUS(status);
 }
 
-void    arrays_prints(char **args)
-{
-    size_t  i;
-
-    i = 0;
-    while (args[i])
-    {
-        ft_putstr(args[i]);
-        ft_putstr(" ");
-        i++;
-    }
-    ft_putstr("\n");
-}
-
-void    print_commands(t_cmds *cmds)
-{
-    while (cmds != NULL)
-    {
-        arrays_prints(cmds->args);
-        cmds = cmds->next;
-    }
-}
-
 void    execute_one(t_cmds *cmds, char **args, t_env_vars *vars)
 {
-
-
     if (isbuiltin(*args))
         execute_builtin(args, vars);
     else
         execute_builtout(args, vars);
 }
-
 
 void    for_each_command(t_cmds *cmds, t_env_vars *vars)
 {
@@ -109,7 +81,6 @@ void	execute_commands(t_tokens *tokens, t_env_vars *vars)
         return ;
     }
 	cmds = list_to_args(tokens);
-    // print_commands(cmds);
     for_each_command(cmds, vars);
     delete_tokens(&tokens);
 }

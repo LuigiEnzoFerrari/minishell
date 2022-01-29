@@ -72,7 +72,6 @@ t_environ *get_env(t_environ *envs, char *key)
     return (NULL);
 }
 
-
 void	update_env(t_environ *envs, char *key, char *value)
 {
 	while (envs != NULL)
