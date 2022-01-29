@@ -33,27 +33,27 @@ void    execute_builtin(char **args, t_env_vars *vars)
 
 void    execute_builtout(char **args, t_env_vars *vars)
 {
-    __pid_t pid;
+        *args = ft_joindel(ft_strdup("/usr/bin/"), *args);
+        execve(*args, args, __environ);
+        perror(strerror(errno));
+}
+
+void    execute_one(t_cmds *cmds, char **args, t_env_vars *vars)
+{
+    int     pid;
     int     status;
 
     pid = fork();
     if (pid == 0)
     {
-        *args = ft_joindel(ft_strdup("/usr/bin/"), *args);
-        execve(*args, args, __environ);
-        perror(strerror(errno));
+        if (isbuiltin(*args))
+            execute_builtin(args, vars);
+        else
+            execute_builtout(args, vars);
         exit(errno);
     }
 	waitpid(pid, &status, 0);
 	WEXITSTATUS(status);
-}
-
-void    execute_one(t_cmds *cmds, char **args, t_env_vars *vars)
-{
-    if (isbuiltin(*args))
-        execute_builtin(args, vars);
-    else
-        execute_builtout(args, vars);
 }
 
 void    for_each_command(t_cmds *cmds, t_env_vars *vars)
