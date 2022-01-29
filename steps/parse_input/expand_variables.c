@@ -20,9 +20,9 @@ char	*replace_variable(char *token, size_t i, t_env_vars *vars)
 		j++;
 	new_token = ft_strndup(token, i);
 	env = ft_strndup(&token[i + 1], j);
-	value = get_env_value(vars->envs_a, env);
+	value = get_env_value(vars->global_vars, env);
     if (value == NULL)
-        value = get_env_value(vars->envs_b, env);
+        value = get_env_value(vars->local_vars, env);
 	if (value != NULL)
         new_token = ft_rejoin(new_token, value);
 	new_token = ft_rejoin(new_token, &token[i + 1 + j]);

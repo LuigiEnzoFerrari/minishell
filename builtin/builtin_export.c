@@ -74,8 +74,8 @@ void    add_exports(char **args, t_env_vars *vars)
 	{
 		if (ft_strchr(args[i], '=') != NULL)
         {
-			to_env_list(&vars->envs_a, args[i]);
-            to_env_list(&vars->envs_b, args[i]);
+			to_env_list(&vars->global_vars, args[i]);
+            to_env_list(&vars->local_vars, args[i]);
         }
 		i++;
 	}
@@ -84,7 +84,7 @@ void    add_exports(char **args, t_env_vars *vars)
 void	builtin_export(char **args, t_env_vars *vars)
 {
 	if (*args == NULL)
-		print_exports(vars->envs_a);
+		print_exports(vars->global_vars);
 	else
 		add_exports(args, vars);
 }

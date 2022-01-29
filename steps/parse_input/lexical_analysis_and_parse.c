@@ -16,7 +16,7 @@ t_tokens	*lexical_analysis_and_parse(char *input, t_env_vars *vars)
 
 	tokens = tokenize(input);
 	expand_variables(tokens, vars);
-    init_envs_b(vars, &tokens);
+    init_local_vars(vars, &tokens);
     free(input);
     return (tokens);
 }

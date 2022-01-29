@@ -14,10 +14,10 @@ int is_a_number(char *arg)
 void    exit_minishell(char **args, t_env_vars *vars, int exit_value)
 {
     ft_arrayfree(args);
-    if (vars->envs_a != NULL)
-        delete_envs(&vars->envs_a);
-    if (vars->envs_b != NULL)
-        delete_envs(&vars->envs_b);
+    if (vars->global_vars != NULL)
+        delete_envs(&vars->global_vars);
+    if (vars->local_vars != NULL)
+        delete_envs(&vars->local_vars);
     free(vars);
     exit(exit_value);
 }

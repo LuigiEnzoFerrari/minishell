@@ -22,8 +22,8 @@
 
 struct s_env_variables
 {
-	t_environ   *envs_a;
-	t_environ   *envs_b;
+	t_environ   *global_vars;
+	t_environ   *local_vars;
 };
 
 typedef struct s_env_variables  t_env_vars;
@@ -31,9 +31,9 @@ typedef struct s_env_variables  t_env_vars;
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Read and Store Envs		 						*/
 
-t_environ	*get_envs_a(void);
+t_environ	*get_global_vars(void);
 t_env_vars	*get_environment_variables(void);
-void		init_envs_b(t_env_vars *vars, t_tokens **tokens);
+void		init_local_vars(t_env_vars *vars, t_tokens **tokens);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Read and Store Input	 						*/

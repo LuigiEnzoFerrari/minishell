@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-t_environ *get_envs_b(t_tokens **tokens)
+t_environ *get_local_vars(t_tokens **tokens)
 {
     t_environ   *envs;
     t_tokens    *temp;
@@ -26,27 +26,27 @@ t_environ *get_envs_b(t_tokens **tokens)
     return (envs);
 }
 
-void    init_envs_b(t_env_vars *vars, t_tokens **tokens)
+void    init_local_vars(t_env_vars *vars, t_tokens **tokens)
 {
-    t_environ *envs_b;
+    t_environ *local_vars;
     t_environ *temp;
 
-    envs_b = get_envs_b(tokens);
-    temp = envs_b;
-    while (envs_b != NULL)
+    local_vars = get_local_vars(tokens);
+    temp = local_vars;
+    while (local_vars != NULL)
     {
-        if (has_key(vars->envs_a, envs_b->key))
-            update_env(vars->envs_a, envs_b->key, envs_b->value);
-        if (has_key(vars->envs_b, envs_b->key))
-            update_env(vars->envs_b, envs_b->key, envs_b->value);
+        if (has_key(vars->global_vars, local_vars->key))
+            update_env(vars->global_vars, local_vars->key, local_vars->value);
+        if (has_key(vars->local_vars, local_vars->key))
+            update_env(vars->local_vars, local_vars->key, local_vars->value);
         else
-            push_env(&vars->envs_b, envs_b->key, envs_b->value);
-        envs_b = envs_b->next;
+            push_env(&vars->local_vars, local_vars->key, local_vars->value);
+        local_vars = local_vars->next;
     }
     delete_envs(&temp);
 }
 
-t_environ	*get_envs_a(void)
+t_environ	*get_global_vars(void)
 {
 	t_environ	*envs;
 	size_t		i;
@@ -62,7 +62,7 @@ t_env_vars	*get_environment_variables(void)
 {
 	t_env_vars	*vars;
 	vars = malloc(sizeof(t_env_vars));
-	vars->envs_a = get_envs_a();
-	vars->envs_b = NULL;
+	vars->global_vars = get_global_vars();
+	vars->local_vars = NULL;
 	return vars;
 }

@@ -20,15 +20,15 @@ void    execute_builtin(char **args, t_env_vars *vars)
     if (ft_strcmp(*args, "echo") == 0)
         builtin_echo(args + 1);
 	else if (ft_strcmp(*args, "cd") == 0)
-		builtin_cd(args + 1, vars->envs_a);
+		builtin_cd(args + 1, vars->global_vars);
 	else if (ft_strcmp(*args, "pwd") == 0)
-		builtin_pwd(args + 1, vars->envs_a);
+		builtin_pwd(args + 1, vars->global_vars);
 	else if (ft_strcmp(*args, "export") == 0)
 		builtin_export(args + 1, vars);
 	else if (ft_strcmp(*args, "unset") == 0)
 		builtin_unset(args + 1, vars);
 	else if (ft_strcmp(*args, "env") == 0)
-		builtin_env(args, vars->envs_a);
+		builtin_env(args, vars->global_vars);
 	else
 		builtin_exit(args, vars);
 }
