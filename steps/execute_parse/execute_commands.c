@@ -67,6 +67,8 @@ int		execute_one(t_cmds *cmds, t_cmds  *temp, t_env_vars *vars, int index, int *
         exit(errno);
     }
 	close(pidfd[OUT]);
+	if(index != 0)
+		close(storeIN);
 	waitpid(pid, &status, 0);
 	WEXITSTATUS(status);
 	return pidfd[0];
@@ -89,6 +91,7 @@ void    for_each_command(t_cmds *cmds, t_env_vars *vars)
         temp = temp->next;
 		index++;
     }
+	close(storeIN);
     delete_cmds(&cmds);
 
 }
