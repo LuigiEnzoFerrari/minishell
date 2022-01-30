@@ -38,34 +38,56 @@ void    execute_builtout(char **args, t_env_vars *vars)
         perror(strerror(errno));
 }
 
-void    execute_one(t_cmds *cmds, char **args, t_env_vars *vars)
+int		execute_one(t_cmds *cmds, t_cmds  *temp, t_env_vars *vars, int index, int *pidfd, int storeIN)
 {
     int     pid;
     int     status;
 
+	if(!ft_strcmp(*temp->args, "exit"))
+		builtin_exit(temp->args, vars);
     pid = fork();
     if (pid == 0)
     {
-        if (isbuiltin(*args))
-            execute_builtin(args, vars);
+		if(index == 0)
+		{
+			if(temp->next != NULL)
+				dup2(pidfd[OUT], OUT);
+		}
+		else if(temp->next == NULL)
+			dup2(storeIN, IN);
+		else 
+		{
+			dup2(pidfd[OUT], OUT);
+			dup2(storeIN, IN);
+		}
+        if (isbuiltin(*temp->args))
+            execute_builtin(temp->args, vars);
         else
-            execute_builtout(args, vars);
+            execute_builtout(temp->args, vars);
         exit(errno);
     }
+	close(pidfd[OUT]);
 	waitpid(pid, &status, 0);
 	WEXITSTATUS(status);
+	return pidfd[0];
 }
 
 void    for_each_command(t_cmds *cmds, t_env_vars *vars)
 {
     t_cmds  *temp;
+	int		index;
+	int		pidfd[2];
+	int		storeIN;
 
-
+	storeIN = 0;
+	index = 0;
     temp = cmds;
     while (temp != NULL)
     {
-        execute_one(cmds, temp->args, vars);
+		pipe(pidfd);
+        storeIN = execute_one(cmds, temp, vars, index, pidfd, storeIN);
         temp = temp->next;
+		index++;
     }
     delete_cmds(&cmds);
 
