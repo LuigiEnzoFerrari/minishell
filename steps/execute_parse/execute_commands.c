@@ -38,6 +38,27 @@ void    execute_builtout(char **args, t_env_vars *vars)
         perror(strerror(errno));
 }
 
+void	case_pipe(int index, int *pidfd, int storeIN, t_cmds  *temp)
+{
+	if(index == 0)
+	{
+		if(temp->next != NULL)
+			dup2(pidfd[OUT], OUT);
+	}
+	else if(temp->next == NULL)
+		dup2(storeIN, IN);
+	else 
+	{
+		dup2(pidfd[OUT], OUT);
+		dup2(storeIN, IN);
+	}
+}
+
+void	case_redirect(int index, int *pidfd, int storeIN, t_cmds  *temp, t_cmds *cmds)
+{
+	return ;
+}
+
 int		execute_one(t_cmds *cmds, t_cmds  *temp, t_env_vars *vars, int index, int *pidfd, int storeIN)
 {
     int     pid;
@@ -48,22 +69,13 @@ int		execute_one(t_cmds *cmds, t_cmds  *temp, t_env_vars *vars, int index, int *
     pid = fork();
     if (pid == 0)
     {
-		if(index == 0)
-		{
-			if(temp->next != NULL)
-				dup2(pidfd[OUT], OUT);
-		}
-		else if(temp->next == NULL)
-			dup2(storeIN, IN);
-		else 
-		{
-			dup2(pidfd[OUT], OUT);
-			dup2(storeIN, IN);
-		}
+		case_pipe(index, pidfd, storeIN, temp);
+		case_redirect(index, pidfd, storeIN, temp, cmds);
+		if(temp->args)
         if (isbuiltin(*temp->args))
-            execute_builtin(temp->args, vars);
+			execute_builtin(temp->args, vars);
         else
-            execute_builtout(temp->args, vars);
+			execute_builtout(temp->args, vars);
         exit(errno);
     }
 	close(pidfd[OUT]);
@@ -87,8 +99,8 @@ void    for_each_command(t_cmds *cmds, t_env_vars *vars)
     while (temp != NULL)
     {
 		pipe(pidfd);
-        storeIN = execute_one(cmds, temp, vars, index, pidfd, storeIN);
-        temp = temp->next;
+		storeIN = execute_one(cmds, temp, vars, index, pidfd, storeIN);
+		temp = temp->next;
 		index++;
     }
 	close(storeIN);
