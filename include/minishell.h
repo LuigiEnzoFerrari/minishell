@@ -13,6 +13,7 @@
 # include <errno.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <fcntl.h>
 
 #define IN 0
 #define OUT 1
