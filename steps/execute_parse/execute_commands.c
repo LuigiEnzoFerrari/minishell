@@ -33,9 +33,11 @@ void    execute_builtin(char **args, t_env_vars *vars)
 
 void    execute_builtout(char **args, t_env_vars *vars)
 {
-        *args = ft_joindel(ft_strdup("/usr/bin/"), *args);
-        execve(*args, args, __environ);
-        perror(strerror(errno));
+	if(!ft_strcmp(*args, ""))
+		return ;
+	*args = ft_joindel(ft_strdup("/usr/bin/"), *args);
+	execve(*args, args, __environ);
+	perror(strerror(errno));
 }
 
 void	case_pipe(int index, int *pidfd, int *store, t_cmds  *cmds)
