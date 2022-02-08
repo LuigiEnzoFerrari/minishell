@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-t_cmds	*init_cmd(char **args)
+t_cmds	*init_cmd(char **args, int *labels)
 {
 	t_cmds	*new;
 
@@ -8,6 +8,7 @@ t_cmds	*init_cmd(char **args)
 	if (new == NULL)
 		return (NULL);
 	new->args = args;
+	new->labels = labels;
 	new->next = NULL;
 	return (new);
 }
@@ -17,6 +18,7 @@ void	delete_cmd(t_cmds **cmd)
 	if (cmd == NULL || *cmd == NULL)
 		return ;
     ft_arrayfree((*cmd)->args);
+	free((*cmd)->labels);
     free(*cmd);
 	*cmd = NULL;
 }
@@ -29,20 +31,21 @@ t_cmds	*last_cmd(t_cmds *cmds)
 	return (cmds);
 }
 
-void	push_cmd(t_cmds **cmds, char **args)
+void	push_cmd(t_cmds **cmds, char **args, int *labels)
 {
 	t_cmds	*new;
 
-	new = init_cmd(args);
+	new = init_cmd(args, labels);
+
 	if (cmds != NULL && *cmds != NULL)
 		last_cmd(*cmds)->next = new;
 	else
 		*cmds = new;
 }
 
-void	delete_cmds(t_cmds **tokens)
+void	delete_cmds(t_cmds **cmds)
 {
-	if (tokens != NULL && *tokens !=  NULL)
-		delete_cmds(&(*tokens)->next);
-	delete_cmd(tokens);
+	if (cmds != NULL && *cmds !=  NULL)
+		delete_cmds(&(*cmds)->next);
+	delete_cmd(cmds);
 }

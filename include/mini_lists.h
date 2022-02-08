@@ -40,6 +40,7 @@ typedef struct s_tokens t_tokens;
 struct s_commands
 {
 	char				**args;
+	int					*labels;
 	struct s_commands	*next;
 };
 
@@ -75,12 +76,12 @@ void		delete_top_token(t_tokens **tokens);
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 Execute commands related 							*/
 
-t_cmds		*init_cmd(char **args);
+t_cmds		*init_cmd(char **args, int *labels);
 void		delete_cmd(t_cmds **cmd);
 t_cmds		*last_cmd(t_cmds *cmds);
-void		push_cmd(t_cmds **cmds, char **args);
+void		push_cmd(t_cmds **cmds, char **args, int *labels);
 void		delete_cmds(t_cmds **tokens);
-t_cmds		*list_to_args(t_tokens *tokens);
+t_cmds		*pipe_commands(t_tokens *tokens);
 /*──────────────────────────────────────────────────────────────────────*/
 
 #endif

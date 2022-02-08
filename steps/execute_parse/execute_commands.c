@@ -55,6 +55,7 @@ void	case_pipe(int index, int *pidfd, int *store, t_cmds  *cmds)
 		dup2(store[IN], IN);
 	}
 }
+
 char	**new_cmd_arg(char **args)
 {
 	char **new_args;
@@ -126,7 +127,7 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *pidfd, int *st
     store[IN] = pidfd[IN];
 }
 
-void    for_each_command(t_cmds *cmds, t_env_vars *vars)
+void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
 {
     t_cmds  *temp;
 	int		index;
@@ -144,10 +145,9 @@ void    for_each_command(t_cmds *cmds, t_env_vars *vars)
 		execute_one(cmds, vars, index, pidfd, store);
 		cmds = cmds->next;
 		index++;
-    }
+	}
 	close(store[IN]);
     delete_cmds(&temp);
-
 }
 
 void	execute_commands(t_tokens *tokens, t_env_vars *vars)
@@ -159,7 +159,8 @@ void	execute_commands(t_tokens *tokens, t_env_vars *vars)
         delete_tokens(&tokens);
         return ;
     }
-	cmds = list_to_args(tokens);
-    for_each_command(cmds, vars);
+	cmds = pipe_commands(tokens);
+	print_cmds(cmds);
+    for_each_pipe_command(cmds, vars);
     delete_tokens(&tokens);
 }

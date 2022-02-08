@@ -69,6 +69,8 @@ void		builtin_exit(char **args, t_env_vars *vars);
 
 int			ft_isblank(int c);
 int			isseparator(int label);
+void		print_tokens(t_tokens	*temp);
+void		print_cmds(t_cmds	*temp);
 typedef struct sigaction	t_sigaction;
 
 #endif
