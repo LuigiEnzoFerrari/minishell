@@ -34,7 +34,7 @@ void print_cmds(t_cmds	*temp)
 	{
 		while(temp->args[j])
 		{
-			printf("[%d][%d] token:%s  label:%d\n", i, j, temp->args[j], temp->labels[j]);
+			printf("[%d][%d] token:%s label:%d\n", i, j, temp->args[j], temp->labels[j]);
 			j++;
 		}
 		j = 0;

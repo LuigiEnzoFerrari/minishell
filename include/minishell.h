@@ -54,6 +54,15 @@ void		expand_variables(t_tokens *tokens, t_env_vars *vars);
 void		execute_commands(t_tokens *tokens, t_env_vars *vars);
 
 /*──────────────────────────────────────────────────────────────────────*/
+/*					 	Redirects				 							*/
+
+int     has_redirect(int *labels);
+void    redirect_output(char *args, int flag);
+char    **remove_redirects(char **args, int *labels);
+int     check_syntax(t_tokens *tokens);
+
+
+/*──────────────────────────────────────────────────────────────────────*/
 /*					 	Minishell Builtin	 							*/
 
 void		builtin_echo(char **args);
