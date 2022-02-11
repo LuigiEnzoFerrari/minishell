@@ -52,6 +52,7 @@ void		expand_variables(t_tokens *tokens, t_env_vars *vars);
 /*					 	Execute Commands 								*/
 
 void		execute_commands(t_tokens *tokens, t_env_vars *vars);
+void		case_redirect(int index, int *pidfd, int storeIN, t_cmds  *cmds);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Minishell Builtin	 							*/

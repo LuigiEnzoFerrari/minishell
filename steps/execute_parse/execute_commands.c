@@ -56,52 +56,6 @@ void	case_pipe(int index, int *pidfd, int *store, t_cmds  *cmds)
 	}
 }
 
-char	**new_cmd_arg(char **args)
-{
-	char **new_args;
-	int i = 0;
-	int j = -1;
-	//find redirect
-	if(!ft_strcmp(args[0],">") || !ft_strcmp(args[0],">>"))
-	{
-		new_args = (char **)malloc(sizeof(char *) * 2);
-		new_args[0] = ft_strdup("");
-		new_args[1] = NULL;
-		return new_args;
-	}
-	while((ft_strcmp(args[i],">") && ft_strcmp(args[i],">>")))
-		i++;
-	new_args = (char **)malloc(sizeof(char *) * (i + 1));
-	new_args[i] = NULL;
-	while(++j < i)
-		new_args[j] = ft_strdup(args[j]);
-	return new_args;
-}
-
-void	case_redirect(int index, int *pidfd, int storeIN, t_cmds  *temp)
-{
-	int  i = 0;
-	int fd;
-	while(temp->args[i])
-	{
-		if(!ft_strcmp(temp->args[i],">"))
-		{
-			fd = open(temp->args[i + 1], O_WRONLY | O_TRUNC | O_CREAT, 0664);
-			dup2(fd, OUT);
-			temp->args = new_cmd_arg(temp->args);
-			return ;
-		}
-		if(!ft_strcmp(temp->args[i],">>"))
-		{
-			fd = open(temp->args[i + 1], O_WRONLY | O_APPEND | O_CREAT, 0664);
-			dup2(fd, OUT);
-			temp->args = new_cmd_arg(temp->args);
-			return ;
-		}
-		i++;
-	}
-}
-
 void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *pidfd, int *store)
 {
     int     pid;
@@ -160,7 +114,6 @@ void	execute_commands(t_tokens *tokens, t_env_vars *vars)
         return ;
     }
 	cmds = pipe_commands(tokens);
-	print_cmds(cmds);
     for_each_pipe_command(cmds, vars);
     delete_tokens(&tokens);
 }
