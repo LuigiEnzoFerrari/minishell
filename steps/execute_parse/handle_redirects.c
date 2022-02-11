@@ -25,18 +25,6 @@ int first_redirect_position(char **args)
 	return (i);
 }
 
-int there_is_no_input(char **args, char **new_args)
-{
-	if(!ft_strcmp(args[0],">") || !ft_strcmp(args[0],">>"))
-	{
-		new_args = (char **)malloc(sizeof(char *) * 2);
-		new_args[0] = ft_strdup("");
-		new_args[1] = NULL;
-		return 1;
-	}
-	return 0;
-}
-
 char	**remove_redirect_and_file_name(char **args, int i)
 {
 	char **new_args = NULL;
@@ -55,7 +43,7 @@ char	**remove_redirect_and_file_name(char **args, int i)
 		j++;
 	}
 
-	new_args[args_len - 2] = NULL;
+	new_args[args_len - 2] = NULL; //maybe wrong?
 	return new_args;
 }
 
