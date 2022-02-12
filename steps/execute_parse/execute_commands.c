@@ -68,7 +68,7 @@ void	case_redirect(int saveIN, t_cmds  *cmds)
 			redirects(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_TRUNC, OUT);
 		else if (cmds->labels[i] == DOUBLE_REDIRECT)
 			redirects(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_APPEND, OUT);
-		else if (ft_strcmp(cmds->args[i], "<") == 0)
+		else if (cmds->labels[i] == SINGLE_REDIRECT_IN)
 			redirects(cmds->args[i + 1],  O_RDONLY | O_CREAT, IN);
 		i++;
 	}

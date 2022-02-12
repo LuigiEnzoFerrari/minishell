@@ -7,7 +7,8 @@ int has_redirect(int *labels)
     i = 0;
     while (labels[i] != 0)
     {
-        if (labels[i] == DOUBLE_REDIRECT || labels[i] == SINGLE_REDIRECT)
+        if (labels[i] == DOUBLE_REDIRECT || labels[i] == SINGLE_REDIRECT
+            || labels[i] == SINGLE_REDIRECT_IN)
             return (1);
         i++;
     }
@@ -32,7 +33,8 @@ static size_t  how_many_non_redirects(char **args, int *labels)
     n = 0;
 	while (args[i] != NULL)
 	{
-		if (labels[i] == DOUBLE_REDIRECT || labels[i] == SINGLE_REDIRECT)
+		if (labels[i] == DOUBLE_REDIRECT || labels[i] == SINGLE_REDIRECT
+        || labels[i] == SINGLE_REDIRECT_IN)
             i++;
         else
 			n++;
@@ -56,7 +58,8 @@ char    **remove_redirects(char **args, int *labels)
 	new_args = malloc(sizeof(char *) * (size + 1));
 	while (args[j] != NULL)
 	{
-		if (labels[j] == DOUBLE_REDIRECT || labels[j] == SINGLE_REDIRECT)
+		if (labels[j] == DOUBLE_REDIRECT || labels[j] == SINGLE_REDIRECT
+            || labels[j] == SINGLE_REDIRECT_IN)
         {
 			j += 2;
 			continue ;

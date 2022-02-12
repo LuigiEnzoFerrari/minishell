@@ -4,7 +4,8 @@ static int     check_redirects(t_tokens *tokens)
 {
 	while (tokens != NULL)
 	{
-		if (tokens->label == SINGLE_REDIRECT || tokens->label == DOUBLE_REDIRECT)
+		if (tokens->label == SINGLE_REDIRECT || tokens->label == DOUBLE_REDIRECT
+            ||  tokens->label == SINGLE_REDIRECT_IN)
 			if (tokens->next == NULL || tokens->next->label == PIPE)
 				return (1);
 		tokens = tokens->next;

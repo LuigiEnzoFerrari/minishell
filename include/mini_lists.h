@@ -12,6 +12,7 @@
 # define DOUBLE_REDIRECT 6
 # define STRING 7
 # define HEARDOC 8
+# define SINGLE_REDIRECT_IN 9
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 Declared Structs related	 						*/

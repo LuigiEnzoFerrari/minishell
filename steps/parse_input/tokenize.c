@@ -35,14 +35,28 @@ void	add_quotes(t_tokens **tokens, char **input)
 
 void	add_redirections(t_tokens **tokens, char **input)
 {
-	(*input)++;
 	if (**input == '>')
 	{
-		push_token(tokens, ">>", DOUBLE_REDIRECT);
-		(*input)++;
+	    (*input)++;
+	    if (**input == '>')
+	    {
+	    	push_token(tokens, ">>", DOUBLE_REDIRECT);
+	    	(*input)++;
+        }
+    	else
+    		push_token(tokens, ">", SINGLE_REDIRECT);
 	}
-	else
-		push_token(tokens, ">", SINGLE_REDIRECT);
+    else
+    {
+	    (*input)++;
+	    if (**input == '<')
+	    {
+	    	push_token(tokens, "<<", HEARDOC);
+	    	(*input)++;
+        }
+    	else
+    		push_token(tokens, "<", SINGLE_REDIRECT_IN);
+    }
 }
 
 void	add_string(t_tokens **tokens, char **input)
@@ -69,7 +83,7 @@ t_tokens	*tokenize(char *input)
 	{
 		if (*input == '|')
 			add_pipe(&tokens, &input);
-		else if (*input == '>')
+		else if (*input == '>' || * input == '<')
 			add_redirections(&tokens, &input);
 		else if (*input == '"' || *input == '\'')
 			add_quotes(&tokens, &input);
