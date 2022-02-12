@@ -14,12 +14,12 @@ int has_redirect(int *labels)
     return (0);
 }
 
-void redirect_output(char *args, int flag)
+void redirects(char *args, int flag, int std_fd)
 {
 	int fd;
 
 	fd = open(args, flag, 0664);
-	dup2(fd, OUT);
+	dup2(fd, std_fd);
     close(fd);
 }
 
@@ -29,9 +29,12 @@ static size_t  how_many_non_redirects(char **args, int *labels)
     size_t  n;
 
 	i = 0;
+    n = 0;
 	while (args[i] != NULL)
 	{
-		if (labels[i] != DOUBLE_QUOTE && labels[i] != SINGLE_REDIRECT)
+		if (labels[i] == DOUBLE_REDIRECT || labels[i] == SINGLE_REDIRECT)
+            i++;
+        else
 			n++;
         i++;
 	}
@@ -48,6 +51,8 @@ char    **remove_redirects(char **args, int *labels)
 	i = 0;
 	j = 0;
 	size = how_many_non_redirects(args, labels);
+    ft_putnbr_fd(size, 1);
+    ft_putstr("\n");
 	new_args = malloc(sizeof(char *) * (size + 1));
 	while (args[j] != NULL)
 	{

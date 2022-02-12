@@ -57,7 +57,7 @@ void		execute_commands(t_tokens *tokens, t_env_vars *vars);
 /*					 	Redirects				 							*/
 
 int     has_redirect(int *labels);
-void    redirect_output(char *args, int flag);
+void    redirects(char *args, int flag, int std_fd);
 char    **remove_redirects(char **args, int *labels);
 int     check_syntax(t_tokens *tokens);
 

@@ -15,7 +15,9 @@ int isbuiltin(char *cmd)
 
 void    execute_builtin(char **args, t_env_vars *vars)
 {
-	if (ft_strcmp(*args, "echo") == 0)
+    if (args == NULL)
+        return ;
+	else if (ft_strcmp(*args, "echo") == 0)
 		builtin_echo(args + 1);
 	else if (ft_strcmp(*args, "cd") == 0)
 		builtin_cd(args + 1, vars->global_vars);
@@ -33,45 +35,49 @@ void    execute_builtin(char **args, t_env_vars *vars)
 
 void    execute_builtout(char **args, t_env_vars *vars)
 {
-	if(!ft_strcmp(*args, ""))
+	if(args == NULL && !ft_strcmp(*args, ""))
 		return ;
 	*args = ft_joindel(ft_strdup("/usr/bin/"), *args);
 	execve(*args, args, __environ);
 	perror(strerror(errno));
 }
 
-void	case_pipe(int index, int *pidfd, int *store, t_cmds  *cmds)
+void	case_pipe(int index, int *save, t_cmds  *cmds)
 {
 	if(index == 0)
 	{
 		if(cmds->next != NULL)
-			dup2(pidfd[OUT], OUT);
+			dup2(cmds->pipe1[OUT], OUT);
 	}
 	else if(cmds->next == NULL)
-		dup2(store[IN], IN);
+		dup2(save[IN], IN);
 	else 
 	{
-		dup2(pidfd[OUT], OUT);
-		dup2(store[IN], IN);
+		dup2(cmds->pipe1[OUT], OUT);
+		dup2(save[IN], IN);
 	}
 }
 
-void	case_redirect(int *pidfd, int storeIN, t_cmds  *cmds)
+void	case_redirect(int saveIN, t_cmds  *cmds)
 {
 	int  i = 0;
 	int fd;
 	while(cmds->args[i] != NULL)
 	{
 		if (cmds->labels[i] == SINGLE_REDIRECT)
-			redirect_output(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_TRUNC);
+			redirects(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_TRUNC, OUT);
 		else if (cmds->labels[i] == DOUBLE_REDIRECT)
-			redirect_output(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_APPEND);
+			redirects(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_APPEND, OUT);
+		else if (ft_strcmp(cmds->args[i], "<") == 0)
+			redirects(cmds->args[i + 1],  O_RDONLY | O_CREAT, IN);
 		i++;
 	}
 	cmds->args = remove_redirects(cmds->args, cmds->labels);
+    if (cmds->args[0] == NULL)
+        exit(errno);
 }
 
-void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *pidfd, int *store)
+void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *save)
 {
 	int     pid;
 	int     status;
@@ -79,43 +85,42 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *pidfd, int *st
 	pid = fork();
 	if (pid == 0)
 	{
-		case_pipe(index, pidfd, store, cmds);
+		case_pipe(index, save, cmds);
 		if(has_redirect(cmds->labels))
-			case_redirect(pidfd, store[IN], cmds);
+			case_redirect(save[IN], cmds);
 		if (isbuiltin(*cmds->args))
 			execute_builtin(cmds->args, vars);
 		else
 			execute_builtout(cmds->args, vars);
 		exit(errno);
 	}
-	close(pidfd[OUT]);
+	close(cmds->pipe1[OUT]);
 	if(index != 0)
-		close(store[IN]);
+		close(save[IN]);
 	waitpid(pid, &status, 0);
 	WEXITSTATUS(status);
-	store[IN] = pidfd[IN];
+	save[IN] = cmds->pipe1[IN];
 }
 
 void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
 {
 	t_cmds  *temp;
 	int		index;
-	int		pidfd[2];
-	int		store[2];
+	int		save[2];
 
-	store[IN] = 0;
+	save[IN] = 0;
 	index = 0;
 	temp = cmds; 
 	if(!ft_strcmp(*cmds->args, "exit"))
 		builtin_exit(cmds->args, vars); 
 	while (cmds != NULL)
 	{
-		pipe(pidfd);
-		execute_one(cmds, vars, index, pidfd, store);
+		pipe(cmds->pipe1);
+		execute_one(cmds, vars, index, save);
 		cmds = cmds->next;
 		index++;
 	}
-	close(store[IN]);
+	close(save[IN]);
 	delete_cmds(&temp);
 }
     
@@ -129,6 +134,7 @@ void	execute_commands(t_tokens *tokens, t_env_vars *vars)
 		return ;
 	}
 	cmds = pipe_commands(tokens);
+    print_cmds(cmds);
 	for_each_pipe_command(cmds, vars);
 	delete_tokens(&tokens);
 }

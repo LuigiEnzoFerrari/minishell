@@ -41,6 +41,7 @@ struct s_commands
 {
 	char				**args;
 	int					*labels;
+    int                 pipe1[2];
 	struct s_commands	*next;
 };
 
