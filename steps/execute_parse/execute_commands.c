@@ -58,6 +58,7 @@ void	case_pipe(int index, int *save, t_cmds  *cmds)
 	}
 }
 
+
 void	case_redirect(int saveIN, t_cmds  *cmds)
 {
 	int  i = 0;
@@ -69,7 +70,9 @@ void	case_redirect(int saveIN, t_cmds  *cmds)
 		else if (cmds->labels[i] == DOUBLE_REDIRECT)
 			redirects(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_APPEND, OUT);
 		else if (cmds->labels[i] == SINGLE_REDIRECT_IN)
-			redirects(cmds->args[i + 1],  O_RDONLY | O_CREAT, IN);
+			redirects(cmds->args[i + 1],  O_RDONLY, IN);
+		else if (cmds->labels[i] == HEARDOC)
+			hear_document(cmds->args[i + 1], O_WRONLY | O_CREAT, IN);
 		i++;
 	}
 	cmds->args = remove_redirects(cmds->args, cmds->labels);
@@ -134,7 +137,6 @@ void	execute_commands(t_tokens *tokens, t_env_vars *vars)
 		return ;
 	}
 	cmds = pipe_commands(tokens);
-    print_cmds(cmds);
 	for_each_pipe_command(cmds, vars);
 	delete_tokens(&tokens);
 }

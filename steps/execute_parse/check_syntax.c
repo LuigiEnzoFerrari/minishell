@@ -1,12 +1,18 @@
 # include <minishell.h>
 
+int is_redirect(int c)
+{
+    return (c == SINGLE_REDIRECT || c == DOUBLE_REDIRECT
+            ||  c == SINGLE_REDIRECT_IN ||  c == HEARDOC);
+}
+
 static int     check_redirects(t_tokens *tokens)
 {
 	while (tokens != NULL)
 	{
-		if (tokens->label == SINGLE_REDIRECT || tokens->label == DOUBLE_REDIRECT
-            ||  tokens->label == SINGLE_REDIRECT_IN)
-			if (tokens->next == NULL || tokens->next->label == PIPE)
+		if (is_redirect(tokens->label))
+			if (tokens->next == NULL || tokens->next->label == PIPE
+                || is_redirect(tokens->next->label))
 				return (1);
 		tokens = tokens->next;
 	}
