@@ -19,7 +19,7 @@ char	*get_full_prompt(t_environ *envs)
 	return (path_colored);
 }
 
-char	*get_input(t_environ *envs)
+char	*get_input(t_environ *envs, t_env_vars *vars)
 {
 	char	*old_input_address;
 	char	*prompt;
@@ -27,6 +27,8 @@ char	*get_input(t_environ *envs)
 
 	prompt = get_full_prompt(envs);
 	input = readline(prompt);
+    if (input == NULL)
+        builtin_exit(NULL, vars);
 	old_input_address = input;
 	input = ft_skip_c_type(input, ft_isblank, 1);
 	input = ft_strdup(input);

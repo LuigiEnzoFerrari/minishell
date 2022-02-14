@@ -38,7 +38,9 @@ void    execute_builtout(char **args, t_env_vars *vars)
 	if(args == NULL && !ft_strcmp(*args, ""))
 		return ;
 	*args = ft_joindel(ft_strdup("/usr/bin/"), *args);
+    *last_status_number() = 66;
 	execve(*args, args, __environ);
+    // *last_status_number() = errno;
 	perror(strerror(errno));
 }
 
@@ -85,6 +87,7 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *save)
 	int     pid;
 	int     status;
 
+    status = 0;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -101,7 +104,7 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *save)
 	if(index != 0)
 		close(save[IN]);
 	waitpid(pid, &status, 0);
-	WEXITSTATUS(status);
+    *last_status_number() =	WEXITSTATUS(status);
 	save[IN] = cmds->pipe1[IN];
 }
 

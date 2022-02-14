@@ -13,7 +13,8 @@ int is_a_number(char *arg)
 
 void    exit_minishell(char **args, t_env_vars *vars, int exit_value)
 {
-    ft_arrayfree(args);
+    if (args != NULL)
+        ft_arrayfree(args);
     if (vars->global_vars != NULL)
         delete_envs(&vars->global_vars);
     if (vars->local_vars != NULL)
@@ -28,6 +29,8 @@ void	builtin_exit(char **args, t_env_vars *vars)
 
     exit_value = EXIT_SUCCESS;
     ft_putendl_fd("exit", STDOUT_FILENO);
+    if (args == NULL)
+        exit_minishell(args, vars, EXIT_SUCCESS);
     if (*(args + 1) != NULL)
     {
         if ((is_a_number(*args + 1) != 0))

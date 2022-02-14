@@ -18,6 +18,9 @@
 #define IN 0
 #define OUT 1
 
+int *last_status_number();
+
+
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Envs Database			 						*/
 
@@ -39,7 +42,7 @@ void		init_local_vars(t_env_vars *vars, t_tokens **tokens);
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Read and Store Input	 						*/
 
-char		*get_input(t_environ *envs);
+char		*get_input(t_environ *envs, t_env_vars *vars);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Parse and Store it in Tokens 					*/
