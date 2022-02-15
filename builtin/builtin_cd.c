@@ -24,7 +24,6 @@ void	builtin_cd(char **args, t_environ *envs)
 		new_path(args, envs, "OLDPWD");
 	else
 		new_path(args, NULL, *args);
-
     if (chdir(*args) != 0)
 		perror(strerror(errno));
 	else

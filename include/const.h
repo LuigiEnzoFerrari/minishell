@@ -2,76 +2,76 @@
 # define CONST_H
 
 // Reset
-#define COLOR_OFF "\033[0m"       // Text Reset
+#define COLOR_OFF "\001\033[0m\002"       // Text Reset
 
 // Regular Colors
-#define BLACK "\033[0;30m"        // Black
-#define RED "\033[0;31m"          // Red
-#define GREEN "\033[0;32m"        // Green
-#define YELLOW "\033[0;33m"       // Yellow
-#define BLUE "\033[0;34m"         // Blue
-#define PURPLE "\033[0;35m"       // Purple
-#define CYAN "\033[0;36m"         // Cyan
-#define WHITE "\033[0;37m"        // White
+#define BLACK "\001\003[0;30m\002"        // Black
+#define RED "\001\003[0;31m\002"          // Red
+#define GREEN "\001\033[1;32m\002"        // Green
+#define YELLOW "\001\033[0;33m\002"       // Yellow
+#define BLUE "\001\003[0;34m\002"         // Blue
+#define PURPLE "\001\003[0;35m\002"       // Purple
+#define CYAN "\001\003[0;36m\002"         // Cyan
+#define WHITE "\001\003[0;37m\002"        // White
 
 // Bold
-#define BBLACK "\033[1;30m"       // Black
-#define BRED "\033[1;31m"         // Red
-#define BGREEN "\033[1;32m"       // Green
-#define BYELLOW "\033[1;33m"      // Yellow
-#define BBLUE "\033[1;34m"        // Blue
-#define BPURPLE "\033[1;35m"      // Purple
-#define BCYAN "\033[1;36m"        // Cyan
-#define BWHITE "\033[1;37m"       // White
+#define BBLACK "\001\003[1;30m\002"       // Black
+#define BRED "\001\003[1;31m\002"         // Red
+#define BGREEN "\001\003[1;32m\002"       // Green
+#define BYELLOW "\001\003[1;33m\002"      // Yellow
+#define BBLUE "\001\003[1;34m\002"        // Blue
+#define BPURPLE "\001\003[1;35m\002"      // Purple
+#define BCYAN "\001\003[1;36m\002"        // Cyan
+#define BWHITE "\001\003[1;37m\002"       // White
 
 // Underline
-#define UBLACK "\033[4;30m"       // Black
-#define URED "\033[4;31m"         // Red
-#define UGREEN "\033[4;32m"       // Green
-#define UYELLOW "\033[4;33m"      // Yellow
-#define UBLUE "\033[4;34m"        // Blue
-#define UPURPLE "\033[4;35m"      // Purple
-#define UCYAN "\033[4;36m"        // Cyan
-#define UWHITE "\033[4;37m"       // White
+#define UBLACK "\001\003[4;30m\002"       // Black
+#define URED "\001\003[4;31m\002"         // Red
+#define UGREEN "\001\003[4;32m\002"       // Green
+#define UYELLOW "\001\003[4;33m\002"      // Yellow
+#define UBLUE "\001\003[4;34m\002"        // Blue
+#define UPURPLE "\001\003[4;35m\002"      // Purple
+#define UCYAN "\001\003[4;36m\002"        // Cyan
+#define UWHITE "\001\003[4;37m\002"       // White
 
 // Background
-#define ON_BLACK "\033[40m"       // Black
-#define ON_RED "\033[41m"         // Red
-#define ON_GREEN "\033[42m"       // Green
-#define ON_YELLOW "\033[43m"      // Yellow
-#define ON_BLUE "\033[44m"        // Blue
-#define ON_PURPLE "\033[45m"      // Purple
-#define ON_CYAN "\033[46m"        // Cyan
-#define ON_WHITE "\033[47m"       // White
+#define ON_BLACK "\001\003[40m\002"       // Black
+#define ON_RED "\001\003[41m\002"         // Red
+#define ON_GREEN "\001\003[42m\002"       // Green
+#define ON_YELLOW "\001\003[43m\002"      // Yellow
+#define ON_BLUE "\001\003[44m\002"        // Blue
+#define ON_PURPLE "\001\003[45m\002"      // Purple
+#define ON_CYAN "\001\003[46m\002"        // Cyan
+#define ON_WHITE "\001\003[47m\002"       // White
 
 // High Intensty
-#define IBLACK "\033[0;90m"       // Black
-#define IRED "\033[0;91m"         // Red
-#define IGREEN "\033[0;92m"       // Green
-#define IYELLOW "\033[0;93m"      // Yellow
-#define IBLUE "\033[0;94m"        // Blue
-#define IPURPLE "\033[0;95m"      // Purple
-#define ICYAN "\033[0;96m"        // Cyan
-#define IWHITE "\033[0;97m"       // White
+#define IBLACK "\001\003[0;90m\002"       // Black
+#define IRED "\001\003[0;91m\002"         // Red
+#define IGREEN "\001\033[0;92m\002"       // Green
+#define IYELLOW "\001\003[0;93m\002"      // Yellow
+#define IBLUE "\001\003[0;94m\002"        // Blue
+#define IPURPLE "\001\003[0;95m\002"      // Purple
+#define ICYAN "\001\003[0;96m\002"        // Cyan
+#define IWHITE "\001\003[0;97m\002"       // White
 
 // Bold High Intensty
-#define BIBLACK "\033[1;90m"      // Black
-#define BIRED "\033[1;91m"        // Red
-#define BIGREEN "\033[1;92m"      // Green
-#define BIYELLOW "\033[1;93m"     // Yellow
-#define BIBLUE "\033[1;94m"       // Blue
-#define BIPURPLE "\033[1;95m"     // Purple
-#define BICYAN "\033[1;96m"       // Cyan
-#define BIWHITE "\033[1;97m"      // White
+#define BIBLACK "\001\003[1;90m\002"      // Black
+#define BIRED "\001\003[1;91m\002"        // Red
+#define BIGREEN "\001\003[1;92m\002"      // Green
+#define BIYELLOW "\001\003[1;93m\002"     // Yellow
+#define BIBLUE "\001\003[1;94m\002"       // Blue
+#define BIPURPLE "\001\003[1;95m\002"     // Purple
+#define BICYAN "\001\003[1;96m\002"       // Cyan
+#define BIWHITE "\001\003[1;97m\002"      // White
 
 // High Intensty backgrounds
-#define On_IBlack "\033[0;100m"   // Black
-#define On_IRed "\033[0;101m"     // Red
-#define On_IGreen "\033[0;102m"   // Green
-#define On_IYellow "\033[0;103m"  // Yellow
-#define On_IBlue "\033[0;104m"    // Blue
-#define On_IPurple "\033[10;95m"  // Purple
-#define On_ICyan "\033[0;106m"    // Cyan
-#define On_IWhite "\033[0;107m"   // White
+#define On_IBlack "\001\003[0;100m\002"   // Black
+#define On_IRed "\001\003[0;101m\002"     // Red
+#define On_IGreen "\001\003[0;102m\002"   // Green
+#define On_IYellow "\001\003[0;103m\002"  // Yellow
+#define On_IBlue "\001\003[0;104m\002"    // Blue
+#define On_IPurple "\001\003[10;95m\002"  // Purple
+#define On_ICyan "\001\003[0;106m\002"    // Cyan
+#define On_IWhite "\001\003[0;107m\002"   // White
 
 #endif

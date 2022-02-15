@@ -81,13 +81,18 @@ void	case_redirect(int saveIN, t_cmds  *cmds)
     if (cmds->args[0] == NULL)
         exit(errno);
 }
-
+void tratar(int sig)
+{
+	if (sig == SIGINT)
+		write(1, "\n", 1);
+}
 void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *save)
 {
 	int     pid;
 	int     status;
 
     status = 0;
+	signal(SIGINT, tratar);
 	pid = fork();
 	if (pid == 0)
 	{
