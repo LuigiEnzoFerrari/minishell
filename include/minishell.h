@@ -2,18 +2,19 @@
 # define MINISHELL_H
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdio.h>
+# include <mini_lists.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
 # include <libft.h>
-# include <mini_lists.h>
+# include <stdio.h>
 # include <const.h>
 # include <errno.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <fcntl.h>
+# include <fcntl.h>
+
 
 #define IN 0
 #define OUT 1
@@ -31,6 +32,9 @@ struct s_env_variables
 };
 
 typedef struct s_env_variables  t_env_vars;
+
+
+typedef struct sigaction	t_sigaction;
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Read and Store Envs		 						*/
@@ -84,6 +88,5 @@ int			ft_isblank(int c);
 int			isseparator(int label);
 void		print_tokens(t_tokens	*temp);
 void		print_cmds(t_cmds	*temp);
-typedef struct sigaction	t_sigaction;
 
 #endif
