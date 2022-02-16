@@ -50,17 +50,16 @@ void tratar(int sig)
 	if (sig == SIGINT)
 		write(1, "\n", 1);
 }
-void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *save)
+void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save)
 {
 	int     pid;
 	int     status;
 
     status = 0;
-	signal(SIGINT, tratar);
 	pid = fork();
 	if (pid == 0)
 	{
-		case_pipe(index, save, cmds);
+        case_pipe(save, cmds);
 		if(has_redirect(cmds->labels))
 			case_redirect(save[IN], cmds);
 		if (isbuiltin(*cmds->args))
@@ -70,30 +69,32 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int index, int *save)
 		exit(errno);
 	}
 	close(cmds->pipe1[OUT]);
-	if(index != 0)
+	if(cmds->index != 0)
 		close(save[IN]);
 	waitpid(pid, &status, 0);
     *last_status_number() =	WEXITSTATUS(status);
 	save[IN] = cmds->pipe1[IN];
 }
 
+void    init_pipe(int *pipe1)
+{
+    pipe(pipe1);
+}
+
 void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
 {
 	t_cmds  *temp;
-	int		index;
 	int		save[2];
 
-	save[IN] = 0;
-	index = 0;
+	save[IN] = IN;
+	cmds->index = 0;
 	temp = cmds; 
-	if(!ft_strcmp(*cmds->args, "exit"))
-		builtin_exit(cmds->args, vars); 
 	while (cmds != NULL)
 	{
-		pipe(cmds->pipe1);
-		execute_one(cmds, vars, index, save);
+        init_pipe(cmds->pipe1);
+		execute_one(cmds, vars, save);
+		cmds->index++;
 		cmds = cmds->next;
-		index++;
 	}
 	close(save[IN]);
 	delete_cmds(&temp);

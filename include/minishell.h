@@ -62,7 +62,7 @@ void		execute_commands(t_tokens *tokens, t_env_vars *vars);
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Pipes  				 						*/
 
-void	case_pipe(int index, int *save, t_cmds  *cmds);
+void	case_pipe(int *save, t_cmds  *cmds);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Redirects			 						*/

@@ -112,7 +112,7 @@ void	case_redirect(int saveIN, t_cmds  *cmds)
 		else if (cmds->labels[i] == SINGLE_REDIRECT_IN)
 			redirects(cmds->args[i + 1],  O_RDONLY, IN);
 		else if (cmds->labels[i] == HEARDOC)
-			hear_document(cmds->args[i + 1], O_WRONLY | O_CREAT, IN);
+			hear_document(cmds->args[i + 1], O_WRONLY | O_CREAT, saveIN);
 		i++;
 	}
 	cmds->args = remove_redirects(cmds->args, cmds->labels);

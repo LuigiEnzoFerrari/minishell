@@ -1,8 +1,8 @@
 #include <minishell.h>
 
-void	case_pipe(int index, int *save, t_cmds  *cmds)
+void	case_pipe(int *save, t_cmds  *cmds)
 {
-	if(index == 0)
+	if(cmds->index == 0)
 	{
 		if(cmds->next != NULL)
 			dup2(cmds->pipe1[OUT], OUT);
