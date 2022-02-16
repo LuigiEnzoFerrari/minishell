@@ -1,6 +1,5 @@
 #include <minishell.h>
 
-
 void	case_pipe(int *save, t_cmds  *cmds, int *stdpipe)
 {
 	if(cmds->index == 0)
@@ -20,3 +19,22 @@ void	case_pipe(int *save, t_cmds  *cmds, int *stdpipe)
 	}
 }
 
+void    save_pipes(int *stdpipe)
+{
+    stdpipe[IN] = dup(IN);
+    stdpipe[OUT] = dup(OUT);
+}
+
+void    ajust_pipes(t_cmds *cmds, int *stdpipe, int *save)
+{
+    close(cmds->pipe1[OUT]);
+    if(cmds->index != 0)
+        close(save[IN]);
+    save[IN] = cmds->pipe1[IN];
+    if (cmds->next == NULL)
+    {
+        dup2(stdpipe[OUT], OUT);
+        dup2(stdpipe[IN], IN);
+        close(stdpipe[IN]);
+    }
+}

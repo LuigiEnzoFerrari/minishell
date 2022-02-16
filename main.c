@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	env_vars = get_environment_variables();
 	while (42)
 	{
-    mysignal(SIGINT, handle_signals);
+        mysignal(SIGINT, handle_signals);
 		input = get_input(env_vars->global_vars, env_vars);
 		tokens = lexical_analysis_and_parse(input, env_vars);
 		execute_commands(tokens, env_vars);

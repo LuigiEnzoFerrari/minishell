@@ -62,6 +62,7 @@ void tratar(int sig)
 
 void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
 {
+    mysignal(SIGINT, tratar);
     case_pipe(save, cmds, stdpipe);
     if(has_redirect(cmds->labels))
         case_redirect(save[IN], cmds);
@@ -69,22 +70,7 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
         execute_builtin(cmds->args, vars); 
     else
         execute_builtout(cmds->args, vars);
-    close(cmds->pipe1[OUT]);
-    if(cmds->index != 0)
-        close(save[IN]);
-    save[IN] = cmds->pipe1[IN];
-    if (cmds->next == NULL)
-    {
-        dup2(stdpipe[OUT], OUT);
-        dup2(stdpipe[IN], IN);
-        close(stdpipe[IN]);
-    }
-}
-
-void save_pipes(int *stdpipe)
-{
-    stdpipe[IN] = dup(IN);
-    stdpipe[OUT] = dup(OUT);
+    ajust_pipes(cmds, stdpipe, save);
 }
 
 void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)

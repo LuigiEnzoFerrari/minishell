@@ -36,6 +36,11 @@ typedef struct s_env_variables  t_env_vars;
 typedef struct sigaction	t_sigaction;
 
 /*──────────────────────────────────────────────────────────────────────*/
+/*					 	    Handle Signals		 						*/
+
+int mysignal(int sig, void (*handler)(int));
+
+/*──────────────────────────────────────────────────────────────────────*/
 /*					 	Read and Store Envs		 						*/
 
 t_environ	*get_global_vars(void);
@@ -63,6 +68,8 @@ void		execute_commands(t_tokens *tokens, t_env_vars *vars);
 /*					 	    Pipes  				 						*/
 
 void	case_pipe(int *save, t_cmds  *cmds, int *stdpipe);
+void    save_pipes(int *stdpipe);
+void    ajust_pipes(t_cmds *cmds, int *stdpipe, int *save);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Redirects			 						*/

@@ -28,3 +28,5 @@ atribuitions that comes before the command shouldn't will be ignored, attribuiti
     export are organized by alphabetic ordem
 
 	you can export already settled variables, like zz=zz ; export zz
+
+    input a redirect that doenst exist
