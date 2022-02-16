@@ -21,7 +21,6 @@
 
 int *last_status_number();
 
-
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Envs Database			 						*/
 
@@ -61,13 +60,20 @@ void		expand_variables(t_tokens *tokens, t_env_vars *vars);
 void		execute_commands(t_tokens *tokens, t_env_vars *vars);
 
 /*──────────────────────────────────────────────────────────────────────*/
-/*					 	Redirects				 							*/
+/*					 	    Pipes  				 						*/
+
+void	case_pipe(int index, int *save, t_cmds  *cmds);
+
+/*──────────────────────────────────────────────────────────────────────*/
+/*					 	    Redirects			 						*/
 
 int     has_redirect(int *labels);
 void    redirects(char *args, int flag, int std_fd);
 char    **remove_redirects(char **args, int *labels);
 int     check_syntax(t_tokens *tokens);
-void hear_document(char *args, int flag, int std_fd);
+void    hear_document(char *args, int flag, int std_fd);
+void	case_redirect(int saveIN, t_cmds  *cmds);
+
 
 
 /*──────────────────────────────────────────────────────────────────────*/

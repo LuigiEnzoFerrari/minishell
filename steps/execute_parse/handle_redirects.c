@@ -98,3 +98,24 @@ char    **remove_redirects(char **args, int *labels)
 	ft_arrayfree(args);
 	return (new_args);
 }
+
+void	case_redirect(int saveIN, t_cmds  *cmds)
+{
+	int  i = 0;
+	int fd;
+	while(cmds->args[i] != NULL)
+	{
+		if (cmds->labels[i] == SINGLE_REDIRECT)
+			redirects(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_TRUNC, OUT);
+		else if (cmds->labels[i] == DOUBLE_REDIRECT)
+			redirects(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_APPEND, OUT);
+		else if (cmds->labels[i] == SINGLE_REDIRECT_IN)
+			redirects(cmds->args[i + 1],  O_RDONLY, IN);
+		else if (cmds->labels[i] == HEARDOC)
+			hear_document(cmds->args[i + 1], O_WRONLY | O_CREAT, IN);
+		i++;
+	}
+	cmds->args = remove_redirects(cmds->args, cmds->labels);
+    if (cmds->args[0] == NULL)
+        exit(errno);
+}
