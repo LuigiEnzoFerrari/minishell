@@ -103,6 +103,7 @@ void	case_redirect(int saveIN, t_cmds  *cmds)
 {
 	int  i = 0;
 	int fd;
+
 	while(cmds->args[i] != NULL)
 	{
 		if (cmds->labels[i] == SINGLE_REDIRECT)

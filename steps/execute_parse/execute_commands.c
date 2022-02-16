@@ -44,59 +44,65 @@ void    execute_builtout(char **args, t_env_vars *vars)
 	perror(strerror(errno));
 }
 
-
 void tratar(int sig)
 {
 	if (sig == SIGINT)
 		write(1, "\n", 1);
 }
-void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save)
+void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
 {
 	int     pid;
 	int     status;
 
     status = 0;
-	pid = fork();
-	if (pid == 0)
-	{
-        case_pipe(save, cmds);
-		if(has_redirect(cmds->labels))
-			case_redirect(save[IN], cmds);
-		if (isbuiltin(*cmds->args))
-			execute_builtin(cmds->args, vars);
-		else
-			execute_builtout(cmds->args, vars);
-		exit(errno);
-	}
-	close(cmds->pipe1[OUT]);
-	if(cmds->index != 0)
-		close(save[IN]);
-	waitpid(pid, &status, 0);
-    *last_status_number() =	WEXITSTATUS(status);
-	save[IN] = cmds->pipe1[IN];
+    case_pipe(save, cmds, stdpipe);
+    // if(has_redirect(cmds->labels))
+    //     case_redirect(save[IN], cmds);
+    if (isbuiltin(*cmds->args))
+        execute_builtin(cmds->args, vars); 
+    else
+    {
+        pid = fork();
+        if (pid == 0)
+        {
+            execute_builtout(cmds->args, vars);
+            exit(errno);
+        }
+        close(cmds->pipe1[OUT]);
+        waitpid(pid, &status, 0);
+        *last_status_number() =	WEXITSTATUS(status);
+        if(cmds->index != 0)
+            close(save[IN]);
+        save[IN] = cmds->pipe1[IN];
+    }
+    if (cmds->next == NULL)
+        dup2(stdpipe[IN], IN);
 }
 
-void    init_pipe(int *pipe1)
+void save_pipes(int *stdpipe)
 {
-    pipe(pipe1);
+    stdpipe[IN] = dup(IN);
+    stdpipe[OUT] = dup(OUT);
 }
 
 void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
 {
 	t_cmds  *temp;
 	int		save[2];
+    int     stdpipe[2];
 
+	temp = cmds; 
 	save[IN] = IN;
 	cmds->index = 0;
-	temp = cmds; 
+    save_pipes(stdpipe);
 	while (cmds != NULL)
 	{
-        init_pipe(cmds->pipe1);
-		execute_one(cmds, vars, save);
+        pipe(cmds->pipe1);
+		execute_one(cmds, vars, save, stdpipe);
 		cmds->index++;
 		cmds = cmds->next;
 	}
-	close(save[IN]);
+	// close(save[IN]);
 	delete_cmds(&temp);
 }
     
