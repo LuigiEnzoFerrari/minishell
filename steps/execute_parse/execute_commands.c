@@ -56,8 +56,8 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
 
     status = 0;
     case_pipe(save, cmds, stdpipe);
-    // if(has_redirect(cmds->labels))
-    //     case_redirect(save[IN], cmds);
+    if(has_redirect(cmds->labels))
+        case_redirect(save[IN], cmds);
     if (isbuiltin(*cmds->args))
         execute_builtin(cmds->args, vars); 
     else
@@ -68,15 +68,19 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
             execute_builtout(cmds->args, vars);
             exit(errno);
         }
-        close(cmds->pipe1[OUT]);
-        waitpid(pid, &status, 0);
-        *last_status_number() =	WEXITSTATUS(status);
-        if(cmds->index != 0)
-            close(save[IN]);
-        save[IN] = cmds->pipe1[IN];
     }
+    waitpid(pid, &status, 0);
+    *last_status_number() =	WEXITSTATUS(status);
+    close(cmds->pipe1[OUT]);
+    if(cmds->index != 0)
+        close(save[IN]);
+    save[IN] = cmds->pipe1[IN];
     if (cmds->next == NULL)
+    {
+        dup2(stdpipe[OUT], OUT);
         dup2(stdpipe[IN], IN);
+        close(stdpipe[IN]);
+    }
 }
 
 void save_pipes(int *stdpipe)
@@ -90,19 +94,21 @@ void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
 	t_cmds  *temp;
 	int		save[2];
     int     stdpipe[2];
+    int     index;
 
 	temp = cmds; 
 	save[IN] = IN;
-	cmds->index = 0;
+	index = 0;
     save_pipes(stdpipe);
 	while (cmds != NULL)
 	{
+        cmds->index = index;
         pipe(cmds->pipe1);
 		execute_one(cmds, vars, save, stdpipe);
-		cmds->index++;
+		index++;
 		cmds = cmds->next;
 	}
-	// close(save[IN]);
+	close(save[IN]);
 	delete_cmds(&temp);
 }
     
