@@ -35,13 +35,23 @@ void    execute_builtin(char **args, t_env_vars *vars)
 
 void    execute_builtout(char **args, t_env_vars *vars)
 {
-	if(args == NULL && !ft_strcmp(*args, ""))
-		return ;
-	*args = ft_joindel(ft_strdup("/usr/bin/"), *args);
-    *last_status_number() = 66;
-	execve(*args, args, __environ);
-    // *last_status_number() = errno;
-	perror(strerror(errno));
+	int     pid;
+	int     status;
+
+    status = 0;
+    pid = fork();
+    if (pid == 0)
+    {
+
+        if(args == NULL && !ft_strcmp(*args, ""))
+            return ;
+        *args = ft_joindel(ft_strdup("/usr/bin/"), *args);
+        execve(*args, args, __environ);
+        perror(strerror(errno));
+        exit(errno);
+    }
+    waitpid(pid, &status, 0);
+    *last_status_number() =	WEXITSTATUS(status);
 }
 
 void tratar(int sig)
@@ -49,28 +59,16 @@ void tratar(int sig)
 	if (sig == SIGINT)
 		write(1, "\n", 1);
 }
+
 void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
 {
-	int     pid;
-	int     status;
-
-    status = 0;
     case_pipe(save, cmds, stdpipe);
     if(has_redirect(cmds->labels))
         case_redirect(save[IN], cmds);
     if (isbuiltin(*cmds->args))
         execute_builtin(cmds->args, vars); 
     else
-    {
-        pid = fork();
-        if (pid == 0)
-        {
-            execute_builtout(cmds->args, vars);
-            exit(errno);
-        }
-    }
-    waitpid(pid, &status, 0);
-    *last_status_number() =	WEXITSTATUS(status);
+        execute_builtout(cmds->args, vars);
     close(cmds->pipe1[OUT]);
     if(cmds->index != 0)
         close(save[IN]);
