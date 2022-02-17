@@ -22,6 +22,7 @@ void redirects(char *args, int flag, int std_fd)
 	fd = open(args, flag, 0664);
 	dup2(fd, std_fd);
     close(fd);
+
 }
 
 void hear_document(char *args, int flag, int std_fd)
@@ -103,7 +104,6 @@ void	case_redirect(int saveIN, t_cmds  *cmds)
 {
 	int  i = 0;
 	int fd;
-
 	while(cmds->args[i] != NULL)
 	{
 		if (cmds->labels[i] == SINGLE_REDIRECT)
@@ -115,8 +115,7 @@ void	case_redirect(int saveIN, t_cmds  *cmds)
 		else if (cmds->labels[i] == HEARDOC)
 			hear_document(cmds->args[i + 1], O_WRONLY | O_CREAT, saveIN);
 		i++;
+
 	}
 	cmds->args = remove_redirects(cmds->args, cmds->labels);
-    if (cmds->args[0] == NULL)
-        exit(errno);
 }
