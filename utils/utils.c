@@ -6,15 +6,6 @@ int	ft_isblank(int c)
 		c == '\n' || c == '\a' || c == ' ');
 }
 
-int isseparator(int label)
-{
-    if (label == PIPE ||
-        label == SINGLE_REDIRECT || label == DOUBLE_REDIRECT ||
-        label == HEARDOC)
-        return (1);
-    return (0);
-}
-
 void print_tokens(t_tokens	*temp)
 {
 	int i = 0;

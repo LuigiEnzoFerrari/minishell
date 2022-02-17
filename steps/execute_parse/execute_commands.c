@@ -30,10 +30,24 @@ void    execute_builtin(char **args, t_env_vars *vars)
 	else if (ft_strcmp(*args, "env") == 0)
 		builtin_env(args, vars->global_vars);
 	else
-		builtin_exit(args, vars);
+    	builtin_exit(args, vars);
+	*last_status_number() = errno;
 }
 
-void    execute_builtout(char **args, t_env_vars *vars)
+int    set_errno(int exit_status)
+{
+    if (exit_status == EXIT_SUCCESS)
+        return (EXIT_SUCCESS);
+    else if (exit_status != ENOEXEC)
+    {
+        if (exit_status == ENOENT)
+            return (EX_NOTFOUND);
+        return (EX_NOEXEC);
+    }
+    return (exit_status);
+}
+
+void    execute_builtout(char **args)
 {
 	int     pid;
 	int     status;
@@ -51,7 +65,7 @@ void    execute_builtout(char **args, t_env_vars *vars)
         exit(errno);
     }
     waitpid(pid, &status, 0);
-    *last_status_number() =	WEXITSTATUS(status);
+    *last_status_number() =	set_errno(WEXITSTATUS(status));
 }
 
 void tratar(int sig)
@@ -69,7 +83,7 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
     if (isbuiltin(*cmds->args))
         execute_builtin(cmds->args, vars); 
     else
-        execute_builtout(cmds->args, vars);
+        execute_builtout(cmds->args);
     ajust_pipes(cmds, stdpipe, save);
 }
 
@@ -91,6 +105,7 @@ void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
 		execute_one(cmds, vars, save, stdpipe);
 		index++;
 		cmds = cmds->next;
+        printf("%d: %d\n", *last_status_number(), errno);
 	}
 	close(save[IN]);
 	delete_cmds(&temp);
