@@ -1,0 +1,8 @@
+echo hey > file0
+echo hey > file1 > file2
+echo hey > file3 > file4 > file5
+echo hey >> file6
+echo hey >> file7 >> file8
+echo hey >> file9 >> file10 >> file11
+echo hey > file12 >> file13
+echo hey >> file14 > file15

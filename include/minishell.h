@@ -78,7 +78,7 @@ int     has_redirect(int *labels);
 void    redirects(char *args, int flag, int std_fd);
 char    **remove_redirects(char **args, int *labels);
 int     check_syntax(t_tokens *tokens);
-void    hear_document(char *args, int flag, int std_fd);
+void    here_document(char *args, int flag, int std_fd);
 void	case_redirect(int saveIN, t_cmds  *cmds);
 
 

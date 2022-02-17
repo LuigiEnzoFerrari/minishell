@@ -11,7 +11,7 @@
 # define SINGLE_REDIRECT 5
 # define DOUBLE_REDIRECT 6
 # define STRING 7
-# define HEARDOC 8
+# define hereDOC 8
 # define SINGLE_REDIRECT_IN 9
 
 /*──────────────────────────────────────────────────────────────────────*/

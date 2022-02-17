@@ -8,7 +8,7 @@ int has_redirect(int *labels)
     while (labels[i] != 0)
     {
         if (labels[i] == DOUBLE_REDIRECT || labels[i] == SINGLE_REDIRECT
-            || labels[i] == SINGLE_REDIRECT_IN || labels[i] == HEARDOC)
+            || labels[i] == SINGLE_REDIRECT_IN || labels[i] == hereDOC)
             return (1);
         i++;
     }
@@ -25,7 +25,7 @@ void redirects(char *args, int flag, int std_fd)
 
 }
 
-void hear_document(char *args, int flag, int std_fd)
+void here_document(char *args, int flag, int std_fd)
 {
 	int     write_fd;
     int     read_fd;
@@ -63,7 +63,7 @@ static size_t  how_many_non_redirects(char **args, int *labels)
 	while (args[i] != NULL)
 	{
 		if (labels[i] == DOUBLE_REDIRECT || labels[i] == SINGLE_REDIRECT
-        || labels[i] == SINGLE_REDIRECT_IN  || labels[i] == HEARDOC)
+        || labels[i] == SINGLE_REDIRECT_IN  || labels[i] == hereDOC)
             i++;
         else
 			n++;
@@ -86,7 +86,7 @@ char    **remove_redirects(char **args, int *labels)
 	while (args[j] != NULL)
 	{
 		if (labels[j] == DOUBLE_REDIRECT || labels[j] == SINGLE_REDIRECT
-            || labels[j] == SINGLE_REDIRECT_IN  || labels[i] == HEARDOC)
+            || labels[j] == SINGLE_REDIRECT_IN  || labels[i] == hereDOC)
         {
 			j += 2;
 			continue ;
@@ -112,8 +112,8 @@ void	case_redirect(int saveIN, t_cmds  *cmds)
 			redirects(cmds->args[i + 1],  O_WRONLY | O_CREAT | O_APPEND, OUT);
 		else if (cmds->labels[i] == SINGLE_REDIRECT_IN)
 			redirects(cmds->args[i + 1],  O_RDONLY, IN);
-		else if (cmds->labels[i] == HEARDOC)
-			hear_document(cmds->args[i + 1], O_WRONLY | O_CREAT, saveIN);
+		else if (cmds->labels[i] == hereDOC)
+			here_document(cmds->args[i + 1], O_WRONLY | O_CREAT, saveIN);
 		i++;
 
 	}

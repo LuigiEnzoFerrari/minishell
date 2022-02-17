@@ -3,7 +3,7 @@
 int is_redirect(int c)
 {
     return (c == SINGLE_REDIRECT || c == DOUBLE_REDIRECT
-            ||  c == SINGLE_REDIRECT_IN ||  c == HEARDOC);
+            ||  c == SINGLE_REDIRECT_IN ||  c == hereDOC);
 }
 
 static int     check_redirects(t_tokens *tokens)
