@@ -47,7 +47,7 @@ int    set_errno(int exit_status)
     return (exit_status);
 }
 
-void    execute_builtout(char **args)
+void    execute_builtout(char **args, char **envs)
 {
 	int     pid;
 	int     status;
@@ -60,7 +60,7 @@ void    execute_builtout(char **args)
         if(args == NULL && !ft_strcmp(*args, ""))
             return ;
         *args = ft_joindel(ft_strdup("/usr/bin/"), *args);
-        execve(*args, args, __environ);
+        execve(*args, args, envs);
         perror(strerror(errno));
         exit(errno);
     }
@@ -74,8 +74,37 @@ void tratar(int sig)
 		write(1, "\n", 1);
 }
 
+char *to_environ(char *key, char *value)
+{
+    char *environ;
+
+    environ = ft_strjoin(key, "=");
+    environ = ft_rejoin(environ, value);
+    return (environ);
+}
+
+char    **t_environ_to_environ(t_environ *global_vars)
+{
+    char    **envs;
+    size_t  size;
+
+    size = size_envs(global_vars);
+    envs = malloc(sizeof(char *) * (size + 1));
+    envs[size] = NULL;
+    while (global_vars != NULL)
+    {
+        size--;
+        envs[size] = to_environ(global_vars->key, global_vars->value);
+        global_vars = global_vars->next;
+    }
+    return (envs);
+}
+
 void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
 {
+    char    **envs;
+
+    envs = t_environ_to_environ(vars->global_vars);
     mysignal(SIGINT, tratar);
     case_pipe(save, cmds, stdpipe);
     if(has_redirect(cmds->labels))
@@ -83,8 +112,9 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
     if (isbuiltin(*cmds->args))
         execute_builtin(cmds->args, vars); 
     else
-        execute_builtout(cmds->args);
+        execute_builtout(cmds->args, envs);
     ajust_pipes(cmds, stdpipe, save);
+    ft_arrayfree(envs);
 }
 
 void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
@@ -105,7 +135,6 @@ void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
 		execute_one(cmds, vars, save, stdpipe);
 		index++;
 		cmds = cmds->next;
-        printf("%d: %d\n", *last_status_number(), errno);
 	}
 	close(save[IN]);
 	delete_cmds(&temp);
