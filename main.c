@@ -16,6 +16,7 @@ void	handle_signals(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		*last_status_number() = 130; 
 	}
 }
 
@@ -41,7 +42,8 @@ int	main(int argc, char **argv)
 	env_vars = get_environment_variables();
 	while (42)
 	{
-        mysignal(SIGINT, handle_signals);
+		mysignal(SIGINT, handle_signals);
+		mysignal(SIGQUIT, handle_signals);
 		input = get_input(env_vars->global_vars, env_vars);
 		tokens = lexical_analysis_and_parse(input, env_vars);
 		execute_commands(tokens, env_vars);

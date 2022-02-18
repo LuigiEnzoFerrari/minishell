@@ -43,9 +43,14 @@ char	*make_new_token(char *tokens, char *trade, size_t i)
 char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
 {
 	char	*new_token;
+	char	*exit_number;
 
+	exit_number = ft_itoa(*last_status_number());
 	if (tokens[i + 1] == '?')
-		new_token = make_new_token(tokens, "> ? <", i);
+	{
+		new_token = make_new_token(tokens, exit_number, i);
+		free(exit_number);
+	}
 	else if (tokens[i + 1] == '$')	
 		new_token = make_new_token(tokens, "> $ <", i);
 	else if (tokens[i + 1] == '\0')	
