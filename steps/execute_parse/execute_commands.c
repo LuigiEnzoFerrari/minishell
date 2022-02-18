@@ -165,6 +165,7 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
     if (cmds->args[0] == NULL)
     {
         ajust_pipes(cmds, stdpipe, save);
+		ft_arrayfree(bin_paths);
         ft_arrayfree(envs);
         return ;
     }
