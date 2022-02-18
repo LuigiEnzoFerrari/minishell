@@ -33,3 +33,9 @@ void print_cmds(t_cmds	*temp)
 		i++;
 	}
 }
+
+void	print_array(char **paths)
+{
+	while(*paths)
+		printf("[%s]\n", *paths++);
+}

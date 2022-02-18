@@ -47,19 +47,43 @@ int    set_errno(int exit_status)
     return (exit_status);
 }
 
-void    execute_builtout(char **args, char **envs)
+char	*find_path(char *arg, char **bin_paths)
+{
+	char *path;
+	char *slash;
+	struct stat stats;
+	while(*bin_paths)
+	{
+		slash = ft_strjoin(*bin_paths, "/");
+		path = ft_strjoin(slash, arg);
+		free(slash);
+		//printf("{%s}\n", path);
+		if (stat(path, &stats) == 0)
+		{
+			free(arg);
+			return (path);
+		}
+		free(path);
+		bin_paths++;
+	}
+	return arg;
+}
+
+void    execute_builtout(char **args, char **envs, char **bin_paths)
 {
 	int     pid;
 	int     status;
 
     status = 0;
+	if(args == NULL && !ft_strcmp(*args, ""))
+		return ;
+	if(*args && bin_paths)
+		*args = find_path(*args, bin_paths);
+	//printf("[%s]\n", *args);
     pid = fork();
     if (pid == 0)
     {
-
-        if(args == NULL && !ft_strcmp(*args, ""))
-            return ;
-        *args = ft_joindel(ft_strdup("/usr/bin/"), *args);
+        //*args = ft_joindel(ft_strdup("/usr/bin/"), *args);
         execve(*args, args, envs);
         perror(strerror(errno));
         exit(errno);
@@ -100,10 +124,38 @@ char    **t_environ_to_environ(t_environ *global_vars)
     return (envs);
 }
 
+int		count_bins(char *path)
+{
+	int i;
+	int counter;
+
+	if(path == NULL)
+		return 0;
+	counter = 0;
+	i = 0;
+	while(path[i])
+	{
+		if(path[i++] == ':')
+			counter++;
+	}
+	return counter + 1;
+}
+
+char	**parse_path(char *path)
+{
+	char	**bin_paths;
+
+	bin_paths = ft_split(path, ':');
+	return bin_paths;
+}
 void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
 {
     char    **envs;
-
+	char	**bin_paths;
+	char	*path;
+	
+	path = get_env_value(vars->global_vars, "PATH");
+	bin_paths = parse_path(path);
     envs = t_environ_to_environ(vars->global_vars);
     mysignal(SIGINT, tratar);
     case_pipe(save, cmds, stdpipe);
@@ -119,9 +171,12 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
     if (isbuiltin(*cmds->args))
         execute_builtin(cmds->args, vars); 
     else
-        execute_builtout(cmds->args, envs);
+        execute_builtout(cmds->args, envs, bin_paths);
     ajust_pipes(cmds, stdpipe, save);
-    ft_arrayfree(envs);
+	if(bin_paths != NULL)
+		ft_arrayfree(bin_paths);
+	if(envs != NULL)
+   		ft_arrayfree(envs);
 }
 
 void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)

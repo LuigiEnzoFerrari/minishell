@@ -14,6 +14,7 @@
 # include <const.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <sys/stat.h>
 
 
 #define IN 0
@@ -100,5 +101,6 @@ void		builtin_exit(char **args, t_env_vars *vars);
 int			ft_isblank(int c);
 void		print_tokens(t_tokens	*temp);
 void		print_cmds(t_cmds	*temp);
+void		print_array(char **paths);
 
 #endif
