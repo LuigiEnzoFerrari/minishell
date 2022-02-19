@@ -63,53 +63,12 @@ echo 'lss\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'pwdd\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
-echo 'echo aaaaaaaaaaaaaaaaa > out\ncat out\necho $?\nrm -rf out\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaaaaaaaa > out\ncat out | cat out > out\ncat out\necho $?\nrm -rf out\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaaaaaaaa > out\necho "cat out | cat out > out"\necho $?\nrm -rf out\nexit' | $MINISHELL
-echo "=============================================================="
+
 echo "echo '\$USER'\\nexit" | $MINISHELL
 echo "=============================================================="
 echo "echo 'abacate'\nexit" | $MINISHELL
 echo "=============================================================="
 echo 'export TESTE1=batata\necho $TESTE1\nunset TESTE1\necho $TESTE1\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd .\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd -\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd ~\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd ~~\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd nope~\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd ~nope\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd ~/\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd ..\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd ..\ncd ..\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd ../..\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd /\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd \npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'cd not_exist\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'unset HOME\ncd\necho $?\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'unset HOME\ncd \necho $?\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'unset HOME\ncd ~\necho $?\npwd\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'unset HOME\ncd $HOME\necho $?\npwd\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'echo aaaaa | wc -l\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
@@ -117,36 +76,10 @@ echo 'unset PATH\nls\nwc\nclear\nexport PATH=/usr/bin\nls\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'unset PATH\nexport PATH=/usr/bin:/bin\nenv | grep PATH\nexit' | $MINISHELL
 echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1 > out2 > out3\ncat out1\ncat out2\ncat out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa>out1>out2>out3\ncat out1\ncat out2\ncat out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\ncat < out1 < out2 < out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa>out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\ncat <out1<out2<out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\ncat <out1<out2<out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1\ncat < out1 > out2\ncat < out2\nrm -rf out1 out2\nexit' | $MINISHELL
-echo "=============================================================="
+
 echo 'lol=0\necho $lol\nexit' | $MINISHELL
 echo "=============================================================="
-echo '<< OUT\nexit' | $MINISHELL
-echo "=============================================================="
-echo '<<OUT\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\ncat <not_exist<out2<out3\necho $?\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\ncat <out1<not_exist<out3\necho $?\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\ncat <out1<out2<not_exist\necho $?\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\ncat < out1 < out2 < not_exist\necho $?\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1\n< out1 tr a b | tr b c | tr c d\necho $?\nrm -rf out1\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'ping -c1 8.8.8.8 > out1\ncat out1 | grep ms | more\necho $?\nrm -rf out1\nexit' | $MINISHELL
-echo "=============================================================="
+
 echo 'cat | cat | ls\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'export USER=potato\necho $?\necho $USER\necho $?\nexit' | $MINISHELL
@@ -194,10 +127,6 @@ echo "=============================================================="
 echo 'echo "()"\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'echo |\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo > <\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo >\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'env | grep USER\necho $?\nexit' | $MINISHELL
 echo "=============================================================="

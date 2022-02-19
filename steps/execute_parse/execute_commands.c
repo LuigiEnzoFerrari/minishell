@@ -181,7 +181,7 @@ void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
     int     stdpipe[2];
     int     index;
 
-	temp = cmds; 
+	temp = cmds;
 	save[IN] = IN;
 	index = 0;
     save_pipes(stdpipe);
@@ -194,7 +194,12 @@ void    for_each_pipe_command(t_cmds *cmds, t_env_vars *vars)
 		cmds = cmds->next;
 	}
 	close(save[IN]);
+	//BUG: CD: CASE NULL: DOES PRINT HERE
+	//print_cmds(temp);
+	//[0][0] token:cd label:7
+    //[0][1] token:/home/giyeo label:0
 	delete_cmds(&temp);
+	//BUG: CD: CASE NULL: NOT PRINT HERE
 }
     
 void	execute_commands(t_tokens *tokens, t_env_vars *vars)

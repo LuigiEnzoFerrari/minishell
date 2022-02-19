@@ -1,0 +1,3 @@
+BUG: CD: CASE NULL SEGFALT; -> "cd"
+LEAK ERROR: HEREDOC
+BUG: HEREDOC CTRL+C CTRL+D not working as intended
