@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC := clang
-SANIT := -g -fsanitize=address
+SANIT :=# -g -fsanitize=address
 CFLAGS := -Wall -Wextra -Werror
 
 #readline library flag
@@ -40,7 +40,7 @@ SRCS_LIBS = libft/libft.a
 all: $(NAME)
 
 $(NAME): $(PATHS) $(SRCS_LIBS)
-	$(CC) $(PATHS) $(SANIT) $(RL_FLAGS) $(LINK_LIB) -I $(INC)
+	$(CC) $(PATHS) $(SANIT) $(RL_FLAGS) $(LINK_LIB) -I $(INC) -o $(NAME)
 
 $(SRCS_LIBS):
 	make -C libft

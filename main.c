@@ -24,7 +24,6 @@ int  mysignal(int sig, void (*handler)(int))
 {
 	t_sigaction act;
 
-
 	act.sa_handler = handler;
 	act.sa_flags = 0;
 	if (sigemptyset(&act.sa_mask)

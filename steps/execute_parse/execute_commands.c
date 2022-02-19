@@ -159,17 +159,11 @@ void	execute_one(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
     envs = t_environ_to_environ(vars->global_vars);
     mysignal(SIGINT, tratar);
     case_pipe(save, cmds, stdpipe);
-
     if(has_redirect(cmds->labels))
         case_redirect(save[IN], cmds);
     if (cmds->args[0] == NULL)
-    {
-        ajust_pipes(cmds, stdpipe, save);
-		ft_arrayfree(bin_paths);
-        ft_arrayfree(envs);
-        return ;
-    }
-    if (isbuiltin(*cmds->args))
+        ;
+    else if (isbuiltin(*cmds->args))
         execute_builtin(cmds->args, vars); 
     else
         execute_builtout(cmds->args, envs, bin_paths);

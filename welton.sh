@@ -24,8 +24,6 @@ echo 'ls srrc\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
 echo '/bin/ls -la\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
-echo 'ls *\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
 echo 'echo Hello\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'echo -n Hello\necho $?\nexit' | $MINISHELL
@@ -123,14 +121,6 @@ echo 'echo aaaaaaaaaaa > out1 > out2 > out3\ncat out1\ncat out2\ncat out3\nrm -r
 echo "=============================================================="
 echo 'echo aaaaaaaaaaa>out1>out2>out3\ncat out1\ncat out2\ncat out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
 echo "=============================================================="
-echo 'echo bbbbbbbbbbb>out1>out2>out3\ncat out1 && cat out2 && cat out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo ccccccccccc>out1>out2>out3\necho ddddddddddd >> out3\ncat out1 && cat out2 && cat out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo ccccccccccc>out1>out2>out3\necho fffffffffff >> out4\ncat out1 && cat out2 && cat out3 && cat out4\nrm -rf out1 out2 out3 out4\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo aaaaaaaaaaa > out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\necho ddddddddddd > out4\necho fffffffffff >> out4\ncat out1 && cat out2 && cat out3 && cat out4\nrm -rf out1 out2 out3 out4\nexit' | $MINISHELL
-echo "=============================================================="
 echo 'echo aaaaaaaaaaa > out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\ncat < out1 < out2 < out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'echo aaaaaaaaaaa>out1\necho bbbbbbbbbbb > out2\necho ccccccccccc > out3\ncat <out1<out2<out3\nrm -rf out1 out2 out3\nexit' | $MINISHELL
@@ -195,76 +185,20 @@ echo "echo ~/\necho \$?\nexit" | $MINISHELL
 echo "=============================================================="
 echo "echo ~ ~nope ~ nope~ ~ ~nope~ ~ 'quote~' ~ \"dquote~\" ~/path '~/quote' \"~/dquote\"\necho \$?\nexit" | $MINISHELL
 echo "=============================================================="
-echo 'echo oi && echo io\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo oi || echo io\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'ech oi || echo io\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo oi || ech io\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo "oi" && echo "io"\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo "oi" || echo "io"\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'ech "oi" || "echo io"\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo "oi" || "ech io"\nexit' | $MINISHELL
-echo "=============================================================="
 echo 'echo "oi\nexit' | $MINISHELL
 echo "=============================================================="
 echo "echo 'oi\nexit" | $MINISHELL
-echo "=============================================================="
-echo 'echo 1 && ech2 2 || (ech3 3 || echo 4) && echo 5\necho 1 4 5\nexit' | $MINISHELL
-echo "=============================================================="
-echo '(echo 1 && echo 2)\necho 1 2\nexit' | $MINISHELL
-echo "=============================================================="
-echo '(echo 1 || echo 2)\necho 1\nexit' | $MINISHELL
-echo "=============================================================="
-echo '(echo oi && echo tchau) | wc -l\necho 2\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo oi && echo tchau | wc -l\necho 1\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'echo ()\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'echo "()"\nexit' | $MINISHELL
 echo "=============================================================="
-echo 'echo "||><|;()|"\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo ||><|;()|\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo ||><|;()|)\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo "||><|;()|)"\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo >||><|;()|<\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo <||><|;()|>\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo <||>>><<<|;()|>\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo "<||>>><<<|;()|>"\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo ||\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo | |\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
 echo 'echo |\necho $?\nexit' | $MINISHELL
-echo "=============================================================="
-echo 'echo ;;\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'echo > <\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'echo >\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
-echo '(ls | cat ) > outfile (ls -l)\nexit' | $MINISHELL
-echo "=============================================================="
-# echo '(echo oi | )\necho $?\nexit' | $MINISHELL
-# echo "=============================================================="
-# echo '(echo oi || )\necho $?\nexit' | $MINISHELL
-# echo "=============================================================="
-# echo '(echo oi && )\necho $?\nexit' | $MINISHELL
-# echo "=============================================================="
 echo 'env | grep USER\necho $?\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'env | grep PATH\necho $?\nexit' | $MINISHELL
