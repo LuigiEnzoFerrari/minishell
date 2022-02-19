@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 		mysignal(SIGQUIT, handle_signals);
 		input = get_input(env_vars->global_vars, env_vars);
 		tokens = lexical_analysis_and_parse(input, env_vars);
-		execute_commands(tokens, env_vars);
+		execute_cmds(tokens, env_vars);
 	}
 	return(0);
 }
