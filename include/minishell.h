@@ -95,6 +95,11 @@ void		builtin_env(char **args, t_environ *envs);
 void		builtin_exit(char **args, t_env_vars *vars);
 
 /*──────────────────────────────────────────────────────────────────────*/
+/*					 	Minishell Builtin	 							*/
+
+void        execute_builtout(char **args, t_env_vars *vars);
+
+/*──────────────────────────────────────────────────────────────────────*/
 /*					 	Utils				 							*/
 
 int			ft_isblank(int c);

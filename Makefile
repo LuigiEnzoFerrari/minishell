@@ -12,7 +12,7 @@ LINK_LIB := -L libft -lft
 READ_INPUT_FILES = get_input.c get_envs.c
 PARSE_INPUT_FILES = tokenize.c lexical_analysis_and_parse.c expand_variables.c
 EXECUTE_PARSE_FILES = execute_cmds.c handle_redirects.c check_syntax.c handle_pipes.c \
-	execute_builtins.c \
+	execute_builtins.c execute_builtouts.c \
 
 UTILS_FILES = utils.c 
 LISTS_TOKEN_FILES = linked_list_infos.c
