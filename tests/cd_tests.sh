@@ -1,7 +1,6 @@
 #!/bin/sh
 
 MINISHELL="valgrind -q --leak-check=full --track-fds=no ./minishell"
-BASH="bash"
 # MINISHELL="valgrind -q --leak-check=full --track-fds=yes ./minishell"
 # MINISHELL="./minishell"
 
