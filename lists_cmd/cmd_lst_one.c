@@ -17,7 +17,7 @@ void	delete_cmd(t_cmds **cmd)
 {
 	if (cmd == NULL || *cmd == NULL)
 		return ;
-    if ((*cmd)->args != NULL)
+    if (*(*cmd)->args != NULL && (*cmd)->args != NULL)
         ft_arrayfree((*cmd)->args);
 	free((*cmd)->labels);
     free(*cmd);

@@ -1,7 +1,5 @@
 #include <minishell.h>
 
-
-
 void tratar(int sig)
 {
     if (sig == SIGINT)
@@ -10,7 +8,6 @@ void tratar(int sig)
 
 void	each_cmd(t_cmds  *cmds, t_env_vars *vars, int *save, int *stdpipe)
 {
-
     mysignal(SIGINT, tratar);
     case_pipe(save, cmds, stdpipe);
     case_redirect(save[IN], cmds);

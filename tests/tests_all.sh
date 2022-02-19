@@ -1,12 +1,9 @@
 #!/bin/sh
-
 MINISHELL="valgrind -q --leak-check=full --track-fds=no ./minishell"
 # MINISHELL="valgrind -q --leak-check=full --track-fds=yes ./minishell"
 # MINISHELL="./minishell"
-
 make
 clear
-
 echo '  __  __ _____ _   _ _____  _____ _    _ ______ _      _
  |  \/  |_   _| \ | |_   _|/ ____| |  | |  ____| |    | |
  | \  / | | | |  \| | | | | (___ | |__| | |__  | |    | |
