@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC := clang
-SANIT :=# -g -fsanitize=address
+SANIT := -g -fsanitize=address
 CFLAGS := -Wall -Wextra -Werror
 
 #readline library flag
