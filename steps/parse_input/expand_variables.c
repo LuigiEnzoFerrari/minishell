@@ -47,10 +47,7 @@ char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
 
 	exit_number = ft_itoa(*last_status_number());
 	if (tokens[i + 1] == '?')
-	{
 		new_token = make_new_token(tokens, exit_number, i);
-		free(exit_number);
-	}
 	else if (tokens[i + 1] == '$')	
 		new_token = make_new_token(tokens, "> $ <", i);
 	else if (tokens[i + 1] == '\0')	
@@ -64,6 +61,7 @@ char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
         new_token = ft_strdup(tokens);
 	else
 		new_token = replace_variable(tokens, i, vars);
+    free(exit_number);
 	return (new_token);
 }
 

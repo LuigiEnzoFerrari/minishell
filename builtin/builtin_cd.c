@@ -5,13 +5,31 @@ static char	*new_path(t_environ *envs, char *path)
 	char	*new;
 
 	if (envs != NULL)
-		new = ft_strdup(get_env_value(envs, path));
+    {
+        new = get_env_value(envs, path);
+        if (new != NULL)
+            new = ft_strdup(get_env_value(envs, path));
+    }
 	else
 		new = ft_strdup(path);
     return (new);
 }
 
-// bash: cd: in: No such file or directory  
+char    *tilde_sub(char *arg, t_environ *envs)
+{
+    char    *home;
+    char    *new;
+
+    home = get_env_value(envs, "HOME");
+    if (home == NULL)
+        return (NULL);
+    new = malloc(sizeof(char) * (ft_strlen(home) + ft_strlen(arg)));
+    ft_strcpy(new, home);
+    ft_strcat(new, arg + 1);
+    return new;
+}
+
+
 void	builtin_cd(char **args, t_environ *envs)
 {
 	char	*path;
@@ -21,14 +39,19 @@ void	builtin_cd(char **args, t_environ *envs)
         ft_putendl_fd("bash: too many arguments", STDERR_FILENO);
         return ;
     }
-	else if (*args == NULL || ft_strcmp(*args, "~") == 0)
+	else if (*args == NULL)
 		path = new_path(envs, "HOME");
+    else if (**args == '~')
+        path = tilde_sub(*args, envs);
 	else if (ft_strcmp(*args, "-") == 0)
 		path = new_path(envs, "OLDPWD");
 	else
 		path = new_path(NULL, *args);
     if (chdir(path) != 0)
+    {
 		perror(strerror(errno));
+        printf("here: %d\n", errno);
+    }
 	else
     {
         free(path);
