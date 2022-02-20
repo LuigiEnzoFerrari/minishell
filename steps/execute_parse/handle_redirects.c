@@ -1,20 +1,5 @@
 #include <minishell.h>
 
-int has_redirect(int *labels)
-{
-    size_t  i;
-
-    i = 0;
-    while (labels[i] != 0)
-    {
-        if (labels[i] == DOUBLE_REDIRECT || labels[i] == SINGLE_REDIRECT
-            || labels[i] == SINGLE_REDIRECT_IN || labels[i] == hereDOC)
-            return (1);
-        i++;
-    }
-    return (0);
-}
-
 void redirects(char *args, int flag, int std_fd)
 {
 	int fd;
@@ -102,8 +87,9 @@ char    **remove_redirects(char **args, int *labels)
 
 void	case_redirect(int saveIN, t_cmds  *cmds)
 {
-	int  i = 0;
-	int fd;
+	size_t  i;
+
+    i = 0;
 	while(cmds->args[i] != NULL)
 	{
 		if (cmds->labels[i] == SINGLE_REDIRECT)
@@ -115,7 +101,10 @@ void	case_redirect(int saveIN, t_cmds  *cmds)
 		else if (cmds->labels[i] == hereDOC)
 			here_document(cmds->args[i + 1], O_WRONLY | O_CREAT, saveIN);
 		i++;
-
 	}
 	cmds->args = remove_redirects(cmds->args, cmds->labels);
+    if (cmds->args[0] != NULL)
+        return;
+    ft_arrayfree(cmds->args);
+    cmds->args = NULL;
 }

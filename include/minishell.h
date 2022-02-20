@@ -63,7 +63,7 @@ void		expand_variables(t_tokens *tokens, t_env_vars *vars);
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Execute Commands 								*/
 
-void		execute_commands(t_tokens *tokens, t_env_vars *vars);
+void		execute_cmds(t_tokens *tokens, t_env_vars *vars);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Pipes  				 						*/
@@ -75,18 +75,17 @@ void    ajust_pipes(t_cmds *cmds, int *stdpipe, int *save);
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Redirects			 						*/
 
-int     has_redirect(int *labels);
 void    redirects(char *args, int flag, int std_fd);
 char    **remove_redirects(char **args, int *labels);
 int     check_syntax(t_tokens *tokens);
 void    here_document(char *args, int flag, int std_fd);
 void	case_redirect(int saveIN, t_cmds  *cmds);
 
-
-
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Minishell Builtin	 							*/
 
+int         isbuiltin(char *cmd);
+void        execute_builtin(char **args, t_env_vars *vars);
 void		builtin_echo(char **args);
 void		builtin_cd(char **args, t_environ *envs);
 void		builtin_pwd(char **args, t_environ *envs);
@@ -96,11 +95,16 @@ void		builtin_env(char **args, t_environ *envs);
 void		builtin_exit(char **args, t_env_vars *vars);
 
 /*──────────────────────────────────────────────────────────────────────*/
+/*					 	Minishell Builtin	 							*/
+
+void        execute_builtout(char **args, t_env_vars *vars);
+
+/*──────────────────────────────────────────────────────────────────────*/
 /*					 	Utils				 							*/
 
 int			ft_isblank(int c);
-void		print_tokens(t_tokens	*temp);
-void		print_cmds(t_cmds	*temp);
+void		print_tokens(t_tokens *temp);
+void		print_cmds(t_cmds *temp);
 void		print_array(char **paths);
 
 #endif
