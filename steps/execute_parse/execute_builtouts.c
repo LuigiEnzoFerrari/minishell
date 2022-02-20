@@ -1,7 +1,5 @@
 #include <minishell.h>
 
-void    shell_execve(char *command, char **args, t_environ *envs);
-
 int    set_errno(int exit_status)
 {
     if (exit_status == EXIT_SUCCESS)
@@ -51,52 +49,62 @@ char	**parse_path(char *path)
 
 char	*find_path(char *arg, char **bin_paths)
 {
-    char *path;
-    char *slash;
+    char        *path;
     struct stat stats;
+
     while(*bin_paths)
     {
-        slash = ft_strjoin(*bin_paths, "/");
-        path = ft_strjoin(slash, arg);
-        free(slash);
+        path = ft_strjoin(*bin_paths, "/");
+        path = ft_rejoin(path, arg);
         if (stat(path, &stats) == 0)
-        {
-            free(arg);
             return (path);
-        }
         free(path);
         bin_paths++;
     }
-    return arg;
+    return ft_strdup(arg);
 }
 
-
-void    execute_builtout(char **args, t_env_vars *vars)
+char *get_bin_path(char *args, t_environ *envs)
 {
+    char	**paths;
+    char	*env_path;
+    char    *bin_path;
+    
+    env_path = get_env_value(envs, "PATH");
+    paths = parse_path(env_path);
+    if(paths != NULL)
+    {
+        bin_path = find_path(args, paths);
+        ft_arrayfree(paths);
+    }
+    return (bin_path);
+}
 
-    char    **envs;
-    char	**bin_paths;
-    char	*path;
+void    shell_execve(char *command, char **args, char **envs)
+{
     int     pid;
     int     status;
-    
-    path = get_env_value(vars->global_vars, "PATH");
-    bin_paths = parse_path(path);
-    envs = t_environ_to_environ(vars->global_vars);
 
-    status = 0;
-    if(bin_paths != NULL)
-        *args = find_path(*args, bin_paths);
     pid = fork();
     if (pid == 0)
     {
-        execve(*args, args, envs);
+        execve(command, args, envs);
         perror(strerror(errno));
         exit(errno);
     }
-    if(bin_paths != NULL)
-        ft_arrayfree(bin_paths);
-    ft_arrayfree(envs);
     waitpid(pid, &status, 0);
     *last_status_number() =	set_errno(WEXITSTATUS(status));
+
+}
+
+void    execute_builtout(char **args, t_env_vars *vars)
+{
+    char    **envs;
+    char    *command;
+
+    envs = t_environ_to_environ(vars->global_vars);
+    command = get_bin_path(*args, vars->global_vars);
+    shell_execve(command, args, envs);
+    free(command);
+    ft_arrayfree(envs);
 }
