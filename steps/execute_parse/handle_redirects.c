@@ -21,6 +21,8 @@ void here_document(char *args, int flag, int std_fd)
     while (42)
     {
         line = readline("> ");
+        if (line == NULL)
+            break ;
         if (ft_strcmp(line, args) == 0)
         {
             free(line);
