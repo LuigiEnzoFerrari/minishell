@@ -52,6 +52,8 @@ t_cmds	*pipe_commands(t_tokens *tokens)
 			push_cmd(&cmds, args, labels);
 			if (tokens != NULL)
 			{
+                while (tokens->next != NULL && tokens->next->label == PIPE)
+                    tokens = tokens->next;
 				if (tokens->next != NULL)
 				{
 					args = malloc(sizeof(char *) * (count(tokens->next) + 1));
