@@ -47,12 +47,12 @@ void	execute_cmds(t_tokens *tokens, t_env_vars *vars)
 {
 	t_cmds	*cmds;
 
+	*last_status_number() = 0;
 	if (check_syntax(tokens))
 	{
 		delete_tokens(&tokens);
 		return ;
 	}
-	*last_status_number() = 0;
 	cmds = pipe_commands(tokens);
 	for_each_cmd(cmds, vars);
 	delete_tokens(&tokens);

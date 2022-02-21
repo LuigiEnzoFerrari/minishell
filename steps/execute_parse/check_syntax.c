@@ -6,7 +6,7 @@ int	is_redirect(int c)
 		|| c == SINGLE_REDIRECT_IN || c == hereDOC);
 }
 
-static int	check_redirects(t_tokens *tokens)
+static int	is_invalid_redirect(t_tokens *tokens)
 {
 	while (tokens != NULL)
 	{
@@ -19,19 +19,47 @@ static int	check_redirects(t_tokens *tokens)
 	return (0);
 }
 
+int	open_to_see(char *args, int flag)
+{
+	int	fd;
+
+	fd = open(args, flag, 0664);
+	if (fd < 0)
+		return (1);
+	close(fd);
+	return (0);
+}
+
+int	is_invalid_redirect_input(t_tokens *tokens)
+{
+	int		stop;
+
+	stop = 0;
+	while (tokens != NULL)
+	{
+		if (stop)
+			return (1);
+		if (tokens->label == SINGLE_REDIRECT_IN)
+			stop = open_to_see(tokens->next->token, O_RDONLY);
+		tokens = tokens->next;
+	}
+	return (0);
+}
+
 int	check_syntax(t_tokens *tokens)
 {
 	if (tokens == NULL)
 		return (1);
-	else if (tokens->label == PIPE)
-	{
-		*last_status_number() = 2;
-		return (1);
-	}
-	else if (check_redirects(tokens))
+	else if (is_invalid_redirect(tokens) || tokens->label == PIPE)
 	{
 		ft_putendl_fd("syntax error near unexpected token `|'", 1);
 		*last_status_number() = 2;
+		return (1);
+	}
+	else if (is_invalid_redirect_input(tokens))
+	{
+		perror(strerror(errno));
+		*last_status_number() = 1;
 		return (1);
 	}
 	return (0);
