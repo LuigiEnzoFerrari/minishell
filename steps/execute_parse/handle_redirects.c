@@ -13,24 +13,15 @@ void here_call(int sig)
 {
     *last_status_number() = 130;
     write(1, "\n", 1);
+    exit(130);
 }
 
-void here_document(char *args, int flag, int std_fd)
+void while_here_document(char *args, char *line, int write_fd)
 {
-    int     write_fd;
-    int     read_fd;
-    char    *line;
-
-    line = NULL;
-    write_fd = open("/tmp/EasyAsHell.tmp", flag, 0664);
-    *last_status_number() == 0;
+    mysignal(SIGINT, here_call);
     while (42)
     {
-        ft_putstr("> ");
-        get_next_line(IN, &line);
-        mysignal(SIGINT, here_call);
-        if (*last_status_number() == 130)
-            line = NULL;
+        line = readline("> ");
         if (line == NULL)
             break;
         if (ft_strcmp(line, args) == 0)
@@ -41,6 +32,27 @@ void here_document(char *args, int flag, int std_fd)
         ft_putendl_fd(line, write_fd);
         free(line);
     }
+    exit(0);
+}
+
+void here_document(char *args, int flag, int std_fd)
+{
+    int     write_fd;
+    int     read_fd;
+    char    *line;
+
+    line = NULL;
+    write_fd = open("/tmp/EasyAsHell.tmp", flag, 0664);
+    *last_status_number() = 0;
+    int pid;
+    int status;
+	mysignal(SIGINT, SIG_IGN);
+	mysignal(SIGINT, SIG_IGN);
+    pid = fork();
+    if (pid == 0)
+        while_here_document(args, line, write_fd);
+    waitpid(pid, &status, 0);
+    *last_status_number() = WEXITSTATUS(status);
     read_fd = open(args, O_RDONLY);
     dup2(read_fd, std_fd);
     close(write_fd);
