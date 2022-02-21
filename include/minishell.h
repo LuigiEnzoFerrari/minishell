@@ -19,6 +19,8 @@
 
 #define IN 0
 #define OUT 1
+#define HEREDOC_SIGINT -4
+
 
 int *last_status_number();
 
@@ -39,7 +41,8 @@ typedef struct sigaction	t_sigaction;
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Handle Signals		 						*/
 
-int mysignal(int sig, void (*handler)(int));
+int     mysignal(int sig, void (*handler)(int));
+void	handle_signals(int sig);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Read and Store Envs		 						*/
