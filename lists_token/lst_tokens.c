@@ -30,17 +30,16 @@ t_tokens	*last_token(t_tokens *tokens)
 	return (tokens);
 }
 
-void    delete_top_token(t_tokens **tokens)
+void	delete_top_token(t_tokens **tokens)
 {
-    t_tokens *temp;
+	t_tokens	*temp;
 
-    if (tokens == NULL || *tokens == NULL)
-        return ;
-    temp = (*tokens);
-    (*tokens) = temp->next;
-    delete_token(&temp);   
+	if (tokens == NULL || *tokens == NULL)
+		return ;
+	temp = (*tokens);
+	(*tokens) = temp->next;
+	delete_token(&temp);
 }
-
 
 void	push_token(t_tokens **tokens, char *token, int label)
 {
@@ -55,7 +54,7 @@ void	push_token(t_tokens **tokens, char *token, int label)
 
 void	delete_tokens(t_tokens **tokens)
 {
-	if (tokens != NULL && *tokens !=  NULL)
+	if (tokens != NULL && *tokens != NULL)
 		delete_tokens(&(*tokens)->next);
 	delete_token(tokens);
 }

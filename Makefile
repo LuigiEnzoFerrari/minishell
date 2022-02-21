@@ -15,7 +15,7 @@ EXECUTE_PARSE_FILES = execute_cmds.c handle_redirects.c check_syntax.c handle_pi
 	execute_builtins.c execute_builtouts.c \
 
 UTILS_FILES = utils.c 
-LISTS_TOKEN_FILES = linked_list_infos.c
+LISTS_TOKEN_FILES = lst_tokens.c
 LISTS_CMD_FILES = cmd_lst_one.c cmd_lst_utils.c
 LISTS_ENV_FILES = env_lst_one.c env_lst_two.c env_lst_utils.c
 BUILTIN_FILES = builtin_exit.c builtin_cd.c builtin_env.c \
