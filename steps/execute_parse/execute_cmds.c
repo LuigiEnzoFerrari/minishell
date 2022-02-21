@@ -54,6 +54,7 @@ void	execute_cmds(t_tokens *tokens, t_env_vars *vars)
     }
     *last_status_number() = 0;
     cmds = pipe_commands(tokens);
+    // print_tokens(tokens);
     for_each_cmd(cmds, vars);
     delete_tokens(&tokens);
 }

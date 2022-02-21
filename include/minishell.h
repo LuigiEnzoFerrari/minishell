@@ -78,7 +78,7 @@ void    ajust_pipes(t_cmds *cmds, int *stdpipe, int *save);
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Redirects			 						*/
 
-void    redirects(char *args, int flag, int std_fd);
+int    redirects(char *args, int flag, int std_fd);
 char    **remove_redirects(char **args, int *labels);
 int     check_syntax(t_tokens *tokens);
 void    here_document(char *args, int flag, int std_fd);

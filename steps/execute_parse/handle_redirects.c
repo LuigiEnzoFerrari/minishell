@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void redirects(char *args, int flag, int std_fd)
+int redirects(char *args, int flag, int std_fd)
 {
     int fd;
 
@@ -8,10 +8,11 @@ void redirects(char *args, int flag, int std_fd)
     if (fd < 0)
     {
         perror(strerror(errno));
-        return ;
+        return (1);
     }
     dup2(fd, std_fd);
     close(fd);
+    return (0);
 }
 
 void here_call(int sig)
@@ -110,22 +111,59 @@ char **remove_redirects(char **args, int *labels)
     return (new_args);
 }
 
+int    open_to_see(char *args, int flag)
+{
+    int fd;
+
+    fd = open(args, flag, 0664);
+    if (fd < 0)
+    {
+        perror(strerror(errno));
+        return (1);
+    }
+    close(fd);
+    return (0);
+}
+
+int     if_valid(int saveIN, t_cmds *cmds)
+{
+    size_t  i;
+
+    i = 0;
+    int stop;
+    stop = 0;
+    while (cmds->args[i] != NULL)
+    {
+        if (stop)
+            return (0);
+        if (cmds->labels[i] == SINGLE_REDIRECT_IN)
+            stop = open_to_see(cmds->args[i + 1], O_RDONLY);
+        // else if (cmds->labels[i] == DOUBLE_REDIRECT)
+        //     stop = open_to_see(cmds->args[i + 1], O_RDONLY);
+        i++;
+    }
+    return (1);
+}
+
 void case_redirect(int saveIN, t_cmds *cmds)
 {
     size_t i;
 
     i = 0;
-    while (cmds->args[i] != NULL)
+    if (if_valid(saveIN, cmds))
     {
-        if (cmds->labels[i] == SINGLE_REDIRECT)
-            redirects(cmds->args[i + 1], O_WRONLY | O_CREAT | O_TRUNC, OUT);
-        else if (cmds->labels[i] == DOUBLE_REDIRECT)
-            redirects(cmds->args[i + 1], O_WRONLY | O_CREAT | O_APPEND, OUT);
-        else if (cmds->labels[i] == SINGLE_REDIRECT_IN)
-            redirects(cmds->args[i + 1], O_RDONLY, IN);
-        else if (cmds->labels[i] == hereDOC)
-            here_document(cmds->args[i + 1], O_WRONLY | O_CREAT, saveIN);
-        i++;
+        while (cmds->args[i] != NULL)
+        {
+            if (cmds->labels[i] == SINGLE_REDIRECT)
+                redirects(cmds->args[i + 1], O_WRONLY | O_CREAT | O_TRUNC, OUT);
+            else if (cmds->labels[i] == DOUBLE_REDIRECT)
+                redirects(cmds->args[i + 1], O_WRONLY | O_CREAT | O_APPEND, OUT);
+            else if (cmds->labels[i] == SINGLE_REDIRECT_IN)
+                redirects(cmds->args[i + 1], O_RDONLY, IN);
+            else if (cmds->labels[i] == hereDOC)
+                here_document(cmds->args[i + 1], O_WRONLY | O_CREAT, saveIN);
+            i++;
+        }
     }
     cmds->args = remove_redirects(cmds->args, cmds->labels);
     if (cmds->args[0] != NULL)

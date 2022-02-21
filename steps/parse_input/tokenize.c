@@ -59,16 +59,24 @@ void	add_redirections(t_tokens **tokens, char **input)
     }
 }
 
+int is_token(int c)
+{
+    if (c == '\''|| c == '"'|| c == '>'|| 
+        c == '<' || c == '|')
+        return (1);
+    return (0);
+}
+
 void	add_string(t_tokens **tokens, char **input)
 {
 	char	*str;
 	size_t	i;
 
 	i = 0;
-	while (!ft_isblank((*input)[i]) && ((*input)[i]) != '\0')
+	while (!ft_isblank((*input)[i]) && ((*input)[i]) != '\0' && !is_token((*input)[i]))
 		i++;
 	str = ft_strndup(*input, i);
-	while (!ft_isblank((**input)) && (**input) != '\0')
+	while (!ft_isblank((**input)) && (**input) != '\0' && !is_token((**input)))
 		(*input)++;
 	push_token(tokens, str, STRING);
 	free(str);
