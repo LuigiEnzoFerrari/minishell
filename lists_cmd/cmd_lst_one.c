@@ -17,10 +17,10 @@ void	delete_cmd(t_cmds **cmd)
 {
 	if (cmd == NULL || *cmd == NULL)
 		return ;
-    if ((*cmd)->args != NULL)
-        ft_arrayfree((*cmd)->args);
+	if ((*cmd)->args != NULL)
+		ft_arrayfree((*cmd)->args);
 	free((*cmd)->labels);
-    free(*cmd);
+	free(*cmd);
 	*cmd = NULL;
 }
 
@@ -37,7 +37,6 @@ void	push_cmd(t_cmds **cmds, char **args, int *labels)
 	t_cmds	*new;
 
 	new = init_cmd(args, labels);
-
 	if (cmds != NULL && *cmds != NULL)
 		last_cmd(*cmds)->next = new;
 	else
@@ -46,7 +45,7 @@ void	push_cmd(t_cmds **cmds, char **args, int *labels)
 
 void	delete_cmds(t_cmds **cmds)
 {
-	if (cmds != NULL && *cmds !=  NULL)
+	if (cmds != NULL && *cmds != NULL)
 		delete_cmds(&(*cmds)->next);
 	delete_cmd(cmds);
 }

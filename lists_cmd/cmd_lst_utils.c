@@ -1,6 +1,5 @@
 #include <minishell.h>
 
-
 size_t	count(t_tokens *tokens)
 {
 	size_t	i;
@@ -26,13 +25,13 @@ void	array_print(char **sla)
 	}
 }
 
-
 t_cmds	*pipe_commands(t_tokens *tokens)
 {
 	char	**args;
 	int		*labels;
 	t_cmds	*cmds;
-	size_t	i, size;
+	size_t	i;
+	size_t	size;
 
 	i = 0;
 	cmds = NULL;
@@ -52,8 +51,8 @@ t_cmds	*pipe_commands(t_tokens *tokens)
 			push_cmd(&cmds, args, labels);
 			if (tokens != NULL)
 			{
-                while (tokens->next != NULL && tokens->next->label == PIPE)
-                    tokens = tokens->next;
+				while (tokens->next != NULL && tokens->next->label == PIPE)
+					tokens = tokens->next;
 				if (tokens->next != NULL)
 				{
 					args = malloc(sizeof(char *) * (count(tokens->next) + 1));
@@ -68,5 +67,3 @@ t_cmds	*pipe_commands(t_tokens *tokens)
 	}
 	return (cmds);
 }
-
-
