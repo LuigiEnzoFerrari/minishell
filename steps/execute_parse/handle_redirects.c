@@ -5,6 +5,11 @@ void redirects(char *args, int flag, int std_fd)
     int fd;
 
     fd = open(args, flag, 0664);
+    if (fd < 0)
+    {
+        perror(strerror(errno));
+        return ;
+    }
     dup2(fd, std_fd);
     close(fd);
 }
