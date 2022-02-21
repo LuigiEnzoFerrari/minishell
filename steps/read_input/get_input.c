@@ -9,8 +9,8 @@ void	save_history(char *input)
 
 char	*get_full_prompt(t_environ *envs)
 {
-	char		*path_colored;
-	char		*path;
+	char	*path_colored;
+	char	*path;
 
 	path = get_env_value(envs, "PWD");
 	path_colored = ft_strjoin(IGREEN, path);
@@ -27,8 +27,8 @@ char	*get_input(t_environ *envs, t_env_vars *vars)
 
 	prompt = get_full_prompt(envs);
 	input = readline(prompt);
-    if (input == NULL)
-        builtin_exit(NULL, vars);
+	if (input == NULL)
+		builtin_exit(NULL, vars);
 	old_input_address = input;
 	input = ft_skip_c_type(input, ft_isblank, 1);
 	input = ft_strdup(input);
