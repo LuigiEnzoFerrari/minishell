@@ -37,34 +37,34 @@ void	add_redirections(t_tokens **tokens, char **input)
 {
 	if (**input == '>')
 	{
-	    (*input)++;
-	    if (**input == '>')
-	    {
-	    	push_token(tokens, ">>", DOUBLE_REDIRECT);
-	    	(*input)++;
-        }
-    	else
-    		push_token(tokens, ">", SINGLE_REDIRECT);
+		(*input)++;
+		if (**input == '>')
+		{
+			push_token(tokens, ">>", DOUBLE_REDIRECT);
+			(*input)++;
+		}
+		else
+			push_token(tokens, ">", SINGLE_REDIRECT);
 	}
-    else
-    {
-	    (*input)++;
-	    if (**input == '<')
-	    {
-	    	push_token(tokens, "<<", hereDOC);
-	    	(*input)++;
-        }
-    	else
-    		push_token(tokens, "<", SINGLE_REDIRECT_IN);
-    }
+	else
+	{
+		(*input)++;
+		if (**input == '<')
+		{
+			push_token(tokens, "<<", hereDOC);
+			(*input)++;
+		}
+		else
+			push_token(tokens, "<", SINGLE_REDIRECT_IN);
+	}
 }
 
-int is_token(int c)
+int	is_token(int c)
 {
-    if (c == '\''|| c == '"'|| c == '>'|| 
-        c == '<' || c == '|')
-        return (1);
-    return (0);
+	if (c == '\'' || c == '"' || c == '>'
+		|| c == '<' || c == '|')
+		return (1);
+	return (0);
 }
 
 void	add_string(t_tokens **tokens, char **input)
@@ -73,7 +73,9 @@ void	add_string(t_tokens **tokens, char **input)
 	size_t	i;
 
 	i = 0;
-	while (!ft_isblank((*input)[i]) && ((*input)[i]) != '\0' && !is_token((*input)[i]))
+	while (!ft_isblank((*input)[i])
+		&& ((*input)[i]) != '\0'
+		&& !is_token((*input)[i]))
 		i++;
 	str = ft_strndup(*input, i);
 	while (!ft_isblank((**input)) && (**input) != '\0' && !is_token((**input)))
@@ -91,7 +93,7 @@ t_tokens	*tokenize(char *input)
 	{
 		if (*input == '|')
 			add_pipe(&tokens, &input);
-		else if (*input == '>' || * input == '<')
+		else if (*input == '>' || *input == '<')
 			add_redirections(&tokens, &input);
 		else if (*input == '"' || *input == '\'')
 			add_quotes(&tokens, &input);

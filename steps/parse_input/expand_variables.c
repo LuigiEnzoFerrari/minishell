@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-int token_ends(int c)
+int	token_ends(int c)
 {
 	if (c == ' ' || c == '\0' || c == '\''
 		|| c == '\"' || c == '=' || c == '$')
@@ -21,12 +21,12 @@ char	*replace_variable(char *token, size_t i, t_env_vars *vars)
 	new_token = ft_strndup(token, i);
 	env = ft_strndup(&token[i + 1], j);
 	value = get_env_value(vars->global_vars, env);
-    if (value == NULL)
-        value = get_env_value(vars->local_vars, env);
+	if (value == NULL)
+		value = get_env_value(vars->local_vars, env);
 	if (value != NULL)
-        new_token = ft_rejoin(new_token, value);
+		new_token = ft_rejoin(new_token, value);
 	new_token = ft_rejoin(new_token, &token[i + 1 + j]);
-    free(env);
+	free(env);
 	return (new_token);
 }
 
@@ -48,9 +48,9 @@ char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
 	exit_number = ft_itoa(*last_status_number());
 	if (tokens[i + 1] == '?')
 		new_token = make_new_token(tokens, exit_number, i);
-	else if (tokens[i + 1] == '$')	
+	else if (tokens[i + 1] == '$')
 		new_token = make_new_token(tokens, "> $ <", i);
-	else if (tokens[i + 1] == '\0')	
+	else if (tokens[i + 1] == '\0')
 		new_token = make_new_token(tokens, "$", i);
 	else if (tokens[i + 1] == '-')
 		new_token = make_new_token(tokens, "himBHs", i);
@@ -58,10 +58,10 @@ char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
 		|| tokens[i + 1] == '=' || tokens[i + 1] == '#'
 		|| tokens[i + 1] == '&' || tokens[i + 1] == '^'
 		|| tokens[i + 1] == '%')
-        new_token = ft_strdup(tokens);
+		new_token = ft_strdup(tokens);
 	else
 		new_token = replace_variable(tokens, i, vars);
-    free(exit_number);
+	free(exit_number);
 	return (new_token);
 }
 
@@ -79,7 +79,7 @@ void	search_variables(t_tokens *tokens, char *token, t_env_vars *vars)
 			token = get_new_token(token, i, vars);
 			if (new_token[i + 1] == '$')
 				i++;
-            free(new_token);
+			free(new_token);
 			new_token = token;
 		}
 		i++;
