@@ -32,7 +32,7 @@ void while_here_document(char *args, char *line, int write_fd)
         if (ft_strcmp(line, args) == 0)
         {
             free(line);
-            break;
+            exit(0);
         }
         ft_putendl_fd(line, write_fd);
         free(line);
@@ -58,7 +58,7 @@ void here_document(char *args, int flag, int std_fd)
         while_here_document(args, line, write_fd);
     waitpid(pid, &status, 0);
     *last_status_number() = WEXITSTATUS(status);
-    read_fd = open(args, O_RDONLY);
+    read_fd = open("/tmp/EasyAsHell.tmp", O_RDONLY);
     dup2(read_fd, std_fd);
     close(write_fd);
     close(read_fd);
