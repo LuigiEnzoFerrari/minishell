@@ -52,7 +52,7 @@ int	check_syntax(t_tokens *tokens)
 		return (1);
 	else if (is_invalid_redirect(tokens) || tokens->label == PIPE)
 	{
-		ft_putendl_fd("syntax error near unexpected token `|'", 1);
+		ft_putendl_fd("syntax error near unexpected token", STDERR_FILENO);
 		*last_status_number() = 2;
 		return (1);
 	}
