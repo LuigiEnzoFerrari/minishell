@@ -61,7 +61,9 @@ void	execute_builtout(char **args, t_env_vars *vars)
 	char	**envs;
 	char	*command;
 
-	envs = t_environ_to_environ(vars->global_vars);
+    if (get_env_value(vars->global_vars, "PATH") == NULL)
+        return ;
+    envs = t_environ_to_environ(vars->global_vars);
 	command = get_bin_path(*args, vars->global_vars);
 	shell_execve(command, args, envs);
 	free(command);
