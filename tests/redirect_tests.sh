@@ -5,9 +5,6 @@
 # MINISHELL="valgrind -q --leak-check=full --track-fds=yes ./minishell"
 MINISHELL="./minishell"
 
-make
-clear
-
 echo 'echo aaaaaaaaaaaaaaaaa > out\ncat out\necho $?\nrm -rf out\nexit' | $MINISHELL
 echo "=============================================================="
 echo 'echo aaaaaaaaaaaaaaaaa > out\ncat out | cat out > out\ncat out\necho $?\nrm -rf out\nexit' | $MINISHELL

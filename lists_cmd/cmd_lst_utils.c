@@ -13,16 +13,10 @@ size_t	count(t_tokens *tokens)
 	return (i);
 }
 
-void	array_print(char **sla)
+void    alloc_args_labels(t_tokens *tokens, char ***args, int **labels, size_t n)
 {
-	size_t	i;
-
-	i = 0;
-	while (sla[i] != NULL)
-	{
-		ft_putendl_fd(sla[i], 1);
-		i++;
-	}
+	*args = malloc(sizeof(char *) * n);
+	*labels = malloc(sizeof(int) * n);
 }
 
 t_cmds	*pipe_commands(t_tokens *tokens)
@@ -31,14 +25,12 @@ t_cmds	*pipe_commands(t_tokens *tokens)
 	int		*labels;
 	t_cmds	*cmds;
 	size_t	i;
-	size_t	size;
 
 	i = 0;
 	cmds = NULL;
-	args = NULL;
-	size = (count(tokens) + 1);
-	args = malloc(sizeof(char *) * (size + 1));
-	labels = malloc(sizeof(int) * (size + 1));
+	args = malloc(sizeof(char *) * ((count(tokens) + 1) + 1));
+	labels = malloc(sizeof(int) * ((count(tokens) + 1) + 1));
+    // alloc_args_labels(tokens, &args, &labels, ((count(tokens) + 1) + 1));
 	while (tokens != NULL)
 	{
 		args[i] = ft_strdup(tokens->token);

@@ -52,7 +52,6 @@ $(NAME): $(PATHS) $(SRCS_LIBS)
 $(SRCS_LIBS):
 	make -C libft
 
-
 clean:
 	make clean -C libft
 

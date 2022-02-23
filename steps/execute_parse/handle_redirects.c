@@ -29,7 +29,12 @@ void	while_here_document(char *args, char *line, int write_fd)
 	{
 		line = readline("> ");
 		if (line == NULL)
+        {
+            ft_putendl_fd(
+                "bash: warning: here-document at line 1 delimited by end-of-file",
+                STDIN_FILENO);
 			break ;
+        }
 		if (ft_strcmp(line, args) == 0)
 		{
 			free(line);
@@ -63,7 +68,7 @@ void	here_document(char *args, int flag, int std_fd)
 	dup2(read_fd, std_fd);
 	close(write_fd);
 	close(read_fd);
-	unlink(args);
+	unlink("/tmp/EasyAsHell.tmp");
 }
 
 static size_t	how_many_non_redirects(char **args, int *labels)
