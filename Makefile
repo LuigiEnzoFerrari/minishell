@@ -12,8 +12,8 @@ LINK_LIB := -L libft -lft
 # Core files of minishell
 READ_INPUT_FILES = get_input.c get_envs.c
 PARSE_INPUT_FILES = tokenize.c lexical_analysis_and_parse.c expand_variables.c
-EXECUTE_PARSE_FILES = execute_cmds.c create_cmds.c handle_redirects.c check_syntax.c handle_pipes.c \
-	execute_builtins.c execute_builtouts.c find_cmd_path.c\
+EXECUTE_PARSE_FILES = execute_cmds.c create_cmds.c handle_redirects.c here_document.c check_syntax.c handle_pipes.c \
+	execute_builtins.c execute_builtouts.c find_cmd_path.c \
 
 # PATHS to the Core files
 READ_INPUT_PATH = $(addprefix steps/read_input/, $(READ_INPUT_FILES))

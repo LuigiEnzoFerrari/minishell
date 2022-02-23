@@ -86,6 +86,8 @@ char    **remove_redirects(char **args, int *labels);
 int     check_syntax(t_tokens *tokens);
 void    here_document(char *args, int flag, int std_fd);
 void	case_redirect(int saveIN, t_cmds  *cmds);
+void	here_document(char *args, int flag, int std_fd);
+
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Minishell Builtin	 							*/
