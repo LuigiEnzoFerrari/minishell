@@ -49,17 +49,6 @@ void	delete_envs(t_environ **tokens)
 	delete_env(tokens);
 }
 
-int	has_key(t_environ *envs, char *key)
-{
-	while (envs != NULL)
-	{
-		if (ft_strcmp(key, envs->key) == 0)
-			return (1);
-		envs = envs->next;
-	}
-	return (0);
-}
-
 t_environ	*get_env(t_environ *envs, char *key)
 {
 	while (envs != NULL)

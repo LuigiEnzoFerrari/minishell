@@ -22,7 +22,7 @@ EXECUTE_PARSE_PATH = $(addprefix steps/execute_parse/, $(EXECUTE_PARSE_FILES))
 
 # Auxiliar files of minishell
 UTILS_FILES = utils.c 
-LISTS_TOKEN_FILES = lst_tokens.c
+LISTS_TOKEN_FILES = tokens_lst.c
 LISTS_CMD_FILES = cmd_lst.c
 LISTS_ENV_FILES = env_lst_one.c env_lst_two.c env_lst_utils.c
 BUILTIN_FILES = builtin_exit.c builtin_cd.c builtin_env.c \

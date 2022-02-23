@@ -6,36 +6,26 @@ int	ft_isblank(int c)
 		c == '\n' || c == '\a' || c == ' ');
 }
 
-void print_tokens(t_tokens	*temp)
+int	has_key(t_environ *envs, char *key)
 {
-	int i = 0;
-	while(temp)
+	while (envs != NULL)
 	{
-		printf("[%d] token:%s  label:%d\n", i, temp->token, temp->label);
-		temp = temp->next;
-		i++;
+		if (ft_strcmp(key, envs->key) == 0)
+			return (1);
+		envs = envs->next;
 	}
+	return (0);
 }
 
-void print_cmds(t_cmds	*temp)
+size_t	size_envs(t_environ *envs)
 {
-	int i = 0;
-	int j = 0;
-	while(temp)
+	size_t	i;
+
+	i = 0;
+	while (envs != NULL)
 	{
-		while(temp->args[j])
-		{
-			printf("[%d][%d] token:%s label:%d\n", i, j, temp->args[j], temp->labels[j]);
-			j++;
-		}
-		j = 0;
-		temp = temp->next;
+		envs = envs->next;
 		i++;
 	}
-}
-
-void	print_array(char **paths)
-{
-	while(*paths)
-		printf("[%s]\n", *paths++);
+	return (i);
 }

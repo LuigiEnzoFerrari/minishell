@@ -1,16 +1,17 @@
 #include <minishell.h>
 
-size_t	size_envs(t_environ *envs)
+static int	if_is_the_first_delelete(t_environ **envs, char *key)
 {
-	size_t	i;
+	t_environ	*temp;
 
-	i = 0;
-	while (envs != NULL)
+	temp = (*envs);
+	if (ft_strcmp(temp->key, key) == 0)
 	{
-		envs = envs->next;
-		i++;
+		(*envs) = (*envs)->next;
+		delete_env(&temp);
+		return (1);
 	}
-	return (i);
+	return (0);
 }
 
 void	delete_env_by_key(t_environ **envs, char *key)
@@ -21,12 +22,8 @@ void	delete_env_by_key(t_environ **envs, char *key)
 	if (envs == NULL || *envs == NULL)
 		return ;
 	temp = (*envs);
-	if (ft_strcmp(temp->key, key) == 0)
-	{
-		(*envs) = (*envs)->next;
-		delete_env(&temp);
+	if (if_is_the_first_delelete(envs, key))
 		return ;
-	}
 	while (42)
 	{
 		prev = temp;
