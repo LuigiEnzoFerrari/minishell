@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-size_t	count(t_tokens *tokens)
+size_t	number_of_tokens_on_command(t_tokens *tokens)
 {
 	size_t	i;
 
@@ -40,7 +40,7 @@ void	create_cmd(t_tokens **tokens, char **args, int *labels)
 	(*tokens) = holder;
 }
 
-t_cmds	*pipe_commands(t_tokens *tokens)
+t_cmds	*create_cmds(t_tokens *tokens)
 {
 	char	**args;
 	int		*labels;
@@ -51,7 +51,7 @@ t_cmds	*pipe_commands(t_tokens *tokens)
 	cmds = NULL;
 	while (tokens != NULL)
 	{
-		alloc_args_labels(tokens, &args, &labels, ((count(tokens) + 1) + 1));
+		alloc_args_labels(tokens, &args, &labels, ((number_of_tokens_on_command(tokens) + 1) + 1));
 		create_cmd(&tokens, args, labels);
 		push_cmd(&cmds, args, labels);
 	}

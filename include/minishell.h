@@ -66,7 +66,10 @@ void		expand_variables(t_tokens *tokens, t_env_vars *vars);
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Execute Commands 								*/
 
-void		execute_cmds(t_tokens *tokens, t_env_vars *vars);
+void    execute_cmds(t_tokens *tokens, t_env_vars *vars);
+t_cmds	*create_cmds(t_tokens *tokens);
+
+
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Pipes  				 						*/
@@ -78,7 +81,7 @@ void    ajust_pipes(t_cmds *cmds, int *stdpipe, int *save);
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Redirects			 						*/
 
-int    redirects(char *args, int flag, int std_fd);
+int     redirects(char *args, int flag, int std_fd);
 char    **remove_redirects(char **args, int *labels);
 int     check_syntax(t_tokens *tokens);
 void    here_document(char *args, int flag, int std_fd);

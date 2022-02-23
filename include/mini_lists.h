@@ -84,7 +84,6 @@ void		delete_cmd(t_cmds **cmd);
 t_cmds		*last_cmd(t_cmds *cmds);
 void		push_cmd(t_cmds **cmds, char **args, int *labels);
 void		delete_cmds(t_cmds **tokens);
-t_cmds		*pipe_commands(t_tokens *tokens);
 /*──────────────────────────────────────────────────────────────────────*/
 
 #endif
