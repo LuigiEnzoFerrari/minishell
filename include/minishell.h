@@ -68,7 +68,7 @@ void		expand_variables(t_tokens *tokens, t_env_vars *vars);
 
 void    execute_cmds(t_tokens *tokens, t_env_vars *vars);
 t_cmds	*create_cmds(t_tokens *tokens);
-
+char	*get_bin_path(char *args, t_environ *envs);
 
 
 /*──────────────────────────────────────────────────────────────────────*/
