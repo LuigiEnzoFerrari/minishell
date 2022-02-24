@@ -1,9 +1,10 @@
 #include <minishell.h>
 
-int *last_status_number()
+int	*last_status_number(void)
 {
-    static	int lsn;
-    return (&lsn);
+	static int	lsn;
+
+	return (&lsn);
 }
 
 void	handle_signals(int sig)
@@ -16,20 +17,20 @@ void	handle_signals(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		*last_status_number() = 130; 
+		*last_status_number() = 130;
 	}
 }
 
-int  mysignal(int sig, void (*handler)(int))
+int	mysignal(int sig, void (*handler)(int))
 {
-	t_sigaction act;
+	t_sigaction	act;
 
 	act.sa_handler = handler;
 	act.sa_flags = 0;
 	if (sigemptyset(&act.sa_mask)
 		|| sigaction(sig, &act, NULL))
 		return (1);
-  return (0);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -47,5 +48,5 @@ int	main(int argc, char **argv)
 		tokens = lexical_analysis_and_parse(input, env_vars);
 		execute_cmds(tokens, env_vars);
 	}
-	return(0);
+	return (0);
 }

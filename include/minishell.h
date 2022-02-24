@@ -22,7 +22,7 @@
 #define HEREDOC_SIGINT -4
 
 
-int *last_status_number();
+int *last_status_number(void);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Envs Database			 						*/
@@ -111,8 +111,10 @@ void        execute_builtout(char **args, t_env_vars *vars);
 /*					 	Utils				 							*/
 
 int			ft_isblank(int c);
+int			is_token(int c);
 void		print_tokens(t_tokens *temp);
 void		print_cmds(t_cmds *temp);
 void		print_array(char **paths);
+size_t		number_of_labels(t_tokens *tokens, int label);
 
 #endif

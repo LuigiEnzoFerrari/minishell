@@ -1,40 +1,39 @@
 #include <minishell.h>
 
-static int	if_is_the_first_delelete(t_environ **envs, char *key)
+t_environ	*get_env(t_environ *envs, char *key)
 {
-	t_environ	*temp;
-
-	temp = (*envs);
-	if (ft_strcmp(temp->key, key) == 0)
+	while (envs != NULL)
 	{
-		(*envs) = (*envs)->next;
-		delete_env(&temp);
-		return (1);
+		if (ft_strcmp(key, envs->key) == 0)
+			return (envs);
+		envs = envs->next;
 	}
-	return (0);
+	return (NULL);
 }
 
-void	delete_env_by_key(t_environ **envs, char *key)
+void	update_env(t_environ *envs, char *key, char *value)
 {
-	t_environ	*temp;
-	t_environ	*prev;
-
-	if (envs == NULL || *envs == NULL)
-		return ;
-	temp = (*envs);
-	if (if_is_the_first_delelete(envs, key))
-		return ;
-	while (42)
+	while (envs != NULL)
 	{
-		prev = temp;
-		temp = temp->next;
-		if (ft_strcmp(temp->key, key) == 0)
+		if (ft_strcmp(envs->key, key) == 0)
 		{
-			prev->next = temp->next;
-			delete_env(&temp);
+			free(envs->value);
+			envs->value = ft_strdup(value);
 			return ;
 		}
-		if (temp->next == NULL)
-			break ;
+		envs = envs->next;
 	}
+}
+
+char	*get_env_value(t_environ *envs, char *key)
+{
+	while (envs != NULL)
+	{
+		if (ft_strcmp(envs->key, key) == 0)
+			break ;
+		envs = envs->next;
+	}
+	if (envs == NULL)
+		return (NULL);
+	return (envs->value);
 }

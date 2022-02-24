@@ -2,8 +2,8 @@
 
 # MINISHELL="valgrind -q --leak-check=full --track-fds=no ./minishell"
 # BASH="bash"
-MINISHELL="valgrind -q --leak-check=full --track-fds=yes ./minishell"
-# MINISHELL="./minishell"
+# MINISHELL="valgrind -q --leak-check=full --track-fds=yes ./minishell"
+MINISHELL="./minishell"
 
 echo 'echo aaaaaaaaaaaaaaaaa > out\ncat out\necho $?\nrm -rf out\nexit' | $MINISHELL
 echo "=============================================================="

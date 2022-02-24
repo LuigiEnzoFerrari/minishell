@@ -59,14 +59,6 @@ void	add_redirections(t_tokens **tokens, char **input)
 	}
 }
 
-int	is_token(int c)
-{
-	if (c == '\'' || c == '"' || c == '>'
-		|| c == '<' || c == '|')
-		return (1);
-	return (0);
-}
-
 void	add_string(t_tokens **tokens, char **input)
 {
 	char	*str;

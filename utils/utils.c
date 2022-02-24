@@ -1,5 +1,13 @@
 #include <minishell.h>
 
+int	is_token(int c)
+{
+	if (c == '\'' || c == '"' || c == '>'
+		|| c == '<' || c == '|')
+		return (1);
+	return (0);
+}
+
 int	ft_isblank(int c)
 {
 	return (c == '\t' || c == '\r' ||
@@ -28,4 +36,18 @@ size_t	size_envs(t_environ *envs)
 		i++;
 	}
 	return (i);
+}
+
+size_t	number_of_labels(t_tokens *tokens, int label)
+{
+	size_t	n;
+
+	n = 0;
+	while (tokens != NULL)
+	{
+		if (tokens->label == label)
+			n++;
+		tokens = tokens->next;
+	}
+	return (n);
 }
