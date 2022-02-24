@@ -74,7 +74,7 @@ void	search_variables(t_tokens *tokens, char *token, t_env_vars *vars)
 	new_token = token;
 	while (new_token[0] != '\0' && new_token[i] != '\0')
 	{
-		if (new_token[i] == '$')
+		if (new_token[i] == '$' && new_token[i + 1] != '\0')
 		{
 			token = get_new_token(token, i, vars);
 			if (new_token[i + 1] == '$')
