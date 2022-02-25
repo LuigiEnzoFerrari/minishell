@@ -22,32 +22,36 @@ char	*tilde_sub(char *arg, t_environ *envs)
 
 	home = get_env_value(envs, "HOME");
 	if (home == NULL)
-        return(ft_strdup("/"));
+		return (ft_strdup("/"));
 	new = malloc(sizeof(char) * (ft_strlen(home) + ft_strlen(arg)));
 	ft_strcpy(new, home);
 	ft_strcat(new, arg + 1);
 	return (new);
 }
 
+int	cd_error_cases(char **args, t_environ *envs)
+{
+	if (*args != NULL && *(args + 1) != NULL)
+	{
+		ft_putendl_fd("bash: too many arguments", STDERR_FILENO);
+		return (1);
+	}
+	else if (*args == NULL && get_env_value(envs, "HOME") == NULL)
+	{
+		ft_putendl_fd("HOME not set", STDERR_FILENO);
+		return (1);
+	}
+	return (0);
+}
+
 void	builtin_cd(char **args, t_environ *envs)
 {
 	char	*path;
 
-	if (*args != NULL && *(args + 1) != NULL)
-	{
-		ft_putendl_fd("bash: too many arguments", STDERR_FILENO);
+	if (cd_error_cases(args, envs))
 		return ;
-	}
 	else if (*args == NULL)
-    {
-        if (get_env_value(envs, "HOME") != NULL)
-            path = new_path(envs, "HOME");
-        else
-        {
-            ft_putendl_fd("HOME not set", STDERR_FILENO);
-            return ;
-        }
-    }
+		path = new_path(envs, "HOME");
 	else if (**args == '~')
 		path = tilde_sub(*args, envs);
 	else if (ft_strcmp(*args, "-") == 0)
