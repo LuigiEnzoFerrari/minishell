@@ -22,10 +22,7 @@ char	*tilde_sub(char *arg, t_environ *envs)
 
 	home = get_env_value(envs, "HOME");
 	if (home == NULL)
-	{
-		ft_putendl_fd("HOME not set", STDERR_FILENO);
-		return (NULL);
-	}
+        return(ft_strdup("/"));
 	new = malloc(sizeof(char) * (ft_strlen(home) + ft_strlen(arg)));
 	ft_strcpy(new, home);
 	ft_strcat(new, arg + 1);
@@ -42,7 +39,15 @@ void	builtin_cd(char **args, t_environ *envs)
 		return ;
 	}
 	else if (*args == NULL)
-		path = new_path(envs, "HOME");
+    {
+        if (get_env_value(envs, "HOME") != NULL)
+            path = new_path(envs, "HOME");
+        else
+        {
+            ft_putendl_fd("HOME not set", STDERR_FILENO);
+            return ;
+        }
+    }
 	else if (**args == '~')
 		path = tilde_sub(*args, envs);
 	else if (ft_strcmp(*args, "-") == 0)
@@ -50,10 +55,7 @@ void	builtin_cd(char **args, t_environ *envs)
 	else
 		path = new_path(NULL, *args);
 	if (chdir(path) != 0)
-	{
 		perror(strerror(errno));
-		printf("here: %d\n", errno);
-	}
 	else
 	{
 		free(path);
