@@ -29,5 +29,4 @@ void	execute_builtin(char **args, t_env_vars *vars)
 		builtin_env(args, vars->global_vars);
 	else
 		builtin_exit(args, vars);
-	*last_status_number() = errno;
 }
