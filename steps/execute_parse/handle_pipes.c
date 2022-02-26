@@ -35,6 +35,7 @@ void	ajust_pipes(t_cmds *cmds, int *stdpipe, int *save)
 	{
 		dup2(stdpipe[OUT], OUT);
 		dup2(stdpipe[IN], IN);
+		close(stdpipe[OUT]); //fizemos isso, tire se dar merda com pipes
 		close(stdpipe[IN]);
 	}
 }

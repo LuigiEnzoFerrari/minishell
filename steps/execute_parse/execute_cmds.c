@@ -40,6 +40,11 @@ void	for_each_cmd(t_cmds *cmds, t_env_vars *vars)
 		cmds = cmds->next;
 	}
 	close(save[IN]);
+	// close(19);
+	// close(3);
+	// close(4);
+	// close(5);
+	// close(6);
 	delete_cmds(&temp);
 }
 
