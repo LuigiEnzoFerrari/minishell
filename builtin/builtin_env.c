@@ -2,11 +2,9 @@
 
 void	builtin_env(char **args, t_environ *envs)
 {
-	while (envs != NULL)
+	while (envs != NULL )
 	{
-		ft_putstr_fd(envs->key, 1);
-		ft_putstr_fd("=", 1);
-		ft_putendl_fd(envs->value, 1);
+		printf("%s=%s\n", envs->key, envs->value);
 		envs = envs->next;
 	}
 }

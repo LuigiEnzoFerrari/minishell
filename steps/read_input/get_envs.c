@@ -54,7 +54,11 @@ t_environ	*get_global_vars(void)
 	envs = NULL;
 	i = 0;
 	while (__environ[i])
-		to_env_list(&envs, __environ[i++]);
+	{
+		if(ft_strnstr(__environ[i], "_WORKSPACE_", ft_strlen(__environ[i])) == NULL)
+			to_env_list(&envs, __environ[i]);
+		i++;
+	}
 	return (envs);
 }
 
