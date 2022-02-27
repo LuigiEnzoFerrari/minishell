@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:57 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:39:58 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 20:13:37 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
 	if (tokens[i + 1] == '?')
 		new_token = make_new_token(tokens, exit_number, i);
 	else if (tokens[i + 1] == '$')
-		new_token = make_new_token(tokens, "> $ <", i);
+		new_token = make_new_token(tokens, "42", i);
 	else if (tokens[i + 1] == '\0')
 		new_token = make_new_token(tokens, "$", i);
 	else if (tokens[i + 1] == '-')
