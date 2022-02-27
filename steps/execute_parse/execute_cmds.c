@@ -14,7 +14,7 @@ void	each_cmd(t_cmds *cmds, int fds[2][2], t_env_vars *vars)
 	if (cmds->args == NULL)
 		;
 	else if (isbuiltin(*cmds->args))
-		execute_builtin(cmds->args, vars);
+		execute_builtin(cmds->args, fds, vars);
 	else
 		execute_builtout(cmds->args, vars);
 	ajust_pipes(cmds, fds);

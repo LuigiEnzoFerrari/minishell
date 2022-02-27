@@ -91,14 +91,14 @@ void	here_document(char *args, int flag, int std_fd);
 /*					 	Minishell Builtin	 							*/
 
 int         isbuiltin(char *cmd);
-void        execute_builtin(char **args, t_env_vars *vars);
+void        execute_builtin(char **args, int fds[3][2], t_env_vars *vars);
 void		builtin_echo(char **args);
 void		builtin_cd(char **args, t_environ *envs);
 void		builtin_pwd(char **args, t_environ *envs);
 void		builtin_export(char **args, t_env_vars *vars);
 void		builtin_unset(char **args, t_env_vars *vars);
 void		builtin_env(char **args, t_environ *envs);
-void		builtin_exit(char **args, t_env_vars *vars);
+void		builtin_exit(char **args, int fds[3][2], t_env_vars *vars);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Minishell Builtin	 							*/

@@ -13,7 +13,7 @@ int	isbuiltin(char *cmd)
 	return (0);
 }
 
-void	execute_builtin(char **args, t_env_vars *vars)
+void	execute_builtin(char **args, int fds[3][2], t_env_vars *vars)
 {
 	if (ft_strcmp(*args, "echo") == 0)
 		builtin_echo(args + 1);
@@ -28,5 +28,5 @@ void	execute_builtin(char **args, t_env_vars *vars)
 	else if (ft_strcmp(*args, "env") == 0)
 		builtin_env(args, vars->global_vars);
 	else
-		builtin_exit(args, vars);
+		builtin_exit(args, fds, vars);
 }
