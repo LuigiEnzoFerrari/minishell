@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:26 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:39:27 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 20:02:47 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	execute_builtin(char **args, int fds[3][2], t_env_vars *vars)
 	else if (ft_strcmp(*args, "cd") == 0)
 		builtin_cd(args + 1, vars->global_vars);
 	else if (ft_strcmp(*args, "pwd") == 0)
-		builtin_pwd(args + 1, vars->global_vars);
+		builtin_pwd(vars->global_vars);
 	else if (ft_strcmp(*args, "export") == 0)
 		builtin_export(args + 1, vars);
 	else if (ft_strcmp(*args, "unset") == 0)
 		builtin_unset(args + 1, vars);
 	else if (ft_strcmp(*args, "env") == 0)
-		builtin_env(args, vars->global_vars);
+		builtin_env(vars->global_vars);
 	else
 		builtin_exit(args, fds, vars);
 }

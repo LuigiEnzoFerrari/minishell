@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:21 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:39:22 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 20:03:14 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ size_t	number_of_tokens_on_command(t_tokens *tokens)
 }
 
 void	alloc_args_labels(
-	t_tokens *tokens,
 	char ***args,
 	int **labels,
 	size_t n)
@@ -67,7 +66,7 @@ t_cmds	*create_cmds(t_tokens *tokens)
 	cmds = NULL;
 	while (tokens != NULL)
 	{
-		alloc_args_labels(tokens, &args, &labels,
+		alloc_args_labels(&args, &labels,
 			((number_of_tokens_on_command(tokens) + 1) + 1));
 		create_cmd(&tokens, args, labels);
 		push_cmd(&cmds, args, labels);

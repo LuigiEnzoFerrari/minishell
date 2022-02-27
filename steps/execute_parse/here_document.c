@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:49 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:39:51 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 20:07:17 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	here_ctrl_c(int sig)
 {
-	*last_status_number() = 130;
-	write(1, "\n", 1);
-	exit(130);
+	if (sig == SIGINT)
+	{
+		*last_status_number() = 130;
+		write(1, "\n", 1);
+		exit(130);
+	}
 }
 
 void	while_here_document(char *args, char *line, int write_fd)

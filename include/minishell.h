@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:41:36 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:41:37 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 20:02:26 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ int			isbuiltin(char *cmd);
 void		execute_builtin(char **args, int fds[3][2], t_env_vars *vars);
 void		builtin_echo(char **args);
 void		builtin_cd(char **args, t_environ *envs);
-void		builtin_pwd(char **args, t_environ *envs);
+void		builtin_pwd(t_environ *envs);
 void		builtin_export(char **args, t_env_vars *vars);
 void		builtin_unset(char **args, t_env_vars *vars);
-void		builtin_env(char **args, t_environ *envs);
+void		builtin_env(t_environ *envs);
 void		builtin_exit(char **args, int fds[3][2], t_env_vars *vars);
 
 /*──────────────────────────────────────────────────────────────────────*/

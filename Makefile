@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC := clang
-SANIT :=# -g -fsanitize=address
+SANIT := -g -fsanitize=address
 CFLAGS := -Wall -Wextra -Werror
 
 #readline library flag
@@ -21,7 +21,7 @@ PARSE_INPUT_PATH = $(addprefix steps/parse_input/, $(PARSE_INPUT_FILES))
 EXECUTE_PARSE_PATH = $(addprefix steps/execute_parse/, $(EXECUTE_PARSE_FILES))
 
 # Auxiliar files of minishell
-UTILS_FILES = utils.c
+UTILS_FILES = utils_one.c utils_two.c
 LISTS_TOKEN_FILES = tokens_lst_one.c tokens_lst_two.c
 LISTS_CMD_FILES = cmd_lst.c
 LISTS_ENV_FILES = env_lst_one.c env_lst_two.c  env_lst_three.c env_lst_utils.c
@@ -47,7 +47,7 @@ SRCS_LIBS = libft/libft.a
 all: $(NAME)
 
 $(NAME): $(PATHS) $(SRCS_LIBS)
-	$(CC) $(PATHS) $(SANIT) $(RL_FLAGS) $(LINK_LIB) $(PATHS_INC) -o $(NAME)
+	$(CC) $(CFLAGS) $(PATHS) $(SANIT) $(RL_FLAGS) $(LINK_LIB) $(PATHS_INC) -o $(NAME)
 
 $(SRCS_LIBS):
 	make -C libft

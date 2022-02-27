@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:41:51 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:41:52 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 19:59:39 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	builtin_env(char **args, t_environ *envs)
+void	builtin_env(t_environ *envs)
 {
 	while (envs != NULL )
 	{

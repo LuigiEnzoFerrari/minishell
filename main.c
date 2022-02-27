@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:40:41 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:40:42 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 19:59:22 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	mysignal(int sig, void (*handler)(int))
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_env_vars	*env_vars;
 	t_tokens	*tokens;

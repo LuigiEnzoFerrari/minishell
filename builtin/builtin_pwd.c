@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:42:02 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:42:03 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 20:00:23 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	builtin_pwd(char **args, t_environ *envs)
+void	builtin_pwd(t_environ *envs)
 {
 	char	*path;
 
