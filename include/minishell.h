@@ -16,7 +16,6 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 
-
 # define HERE_D "bash: warning: here-document at line1 delimited by end-of-file"
 
 # define STD 0
