@@ -11,7 +11,11 @@ int	is_a_number(char *arg)
 	return (1);
 }
 
-void	exit_minishell(char **args, int fds[3][2], t_env_vars *vars, int exit_value)
+void	exit_minishell(
+	char **args,
+	int fds[3][2],
+	t_env_vars *vars,
+	int exit_value)
 {
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (args != NULL)
@@ -21,14 +25,14 @@ void	exit_minishell(char **args, int fds[3][2], t_env_vars *vars, int exit_value
 	if (vars->local_vars != NULL)
 		delete_envs(&vars->local_vars);
 	free(vars);
-    if (fds != NULL)
-    {
-        close(fds[STD][IN]);
-        close(fds[STD][OUT]);
-        close(fds[PIP][IN]);
-        close(fds[PIP][OUT]);
-    }
-    *last_status_number() = exit_value;
+	if (fds != NULL)
+	{
+		close(fds[STD][IN]);
+		close(fds[STD][OUT]);
+		close(fds[PIP][IN]);
+		close(fds[PIP][OUT]);
+	}
+	*last_status_number() = exit_value;
 	exit(exit_value);
 }
 
@@ -47,10 +51,10 @@ void	builtin_exit(char **args, int fds[3][2], t_env_vars *vars)
 			exit_minishell(args, fds, vars, 2);
 		}
 		else if (*(args + 2) != NULL)
-        {
+		{
 			ft_putendl_fd("too many arguments", STDERR_FILENO);
-            *last_status_number() = 1;
-        }
+			*last_status_number() = 1;
+		}
 		else
 		{
 			exit_value = ft_atoi(*(args + 1));

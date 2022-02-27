@@ -11,7 +11,7 @@
 # define SINGLE_REDIRECT 5
 # define DOUBLE_REDIRECT 6
 # define STRING 7
-# define hereDOC 8
+# define HEREDOC 8
 # define SINGLE_REDIRECT_IN 9
 
 /*──────────────────────────────────────────────────────────────────────*/
@@ -25,7 +25,7 @@ struct s_environ
 	struct s_environ	*next;
 };
 
-typedef struct s_environ t_environ;
+typedef struct s_environ	t_environ;
 
 /*  Keywords separated per node Struct	*/
 struct s_tokens
@@ -35,18 +35,18 @@ struct s_tokens
 	struct s_tokens	*next;
 };
 
-typedef struct s_tokens t_tokens;
+typedef struct s_tokens		t_tokens;
 
 /*  Commands to execute Struct	*/
 struct s_commands
 {
 	char				**args;
 	int					*labels;
-    int                 index;
+	int					index;
 	struct s_commands	*next;
 };
 
-typedef		struct	s_commands t_cmds;
+typedef struct s_commands	t_cmds;
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 Environment variables related 						*/

@@ -34,13 +34,13 @@ int	cd_error_cases(char **args, t_environ *envs)
 	if (*args != NULL && *(args + 1) != NULL)
 	{
 		ft_putendl_fd("bash: too many arguments", STDERR_FILENO);
-        *last_status_number() = 1;
+		*last_status_number() = 1;
 		return (1);
 	}
 	else if (*args == NULL && get_env_value(envs, "HOME") == NULL)
 	{
 		ft_putendl_fd("HOME not set", STDERR_FILENO);
-        *last_status_number() = 1;
+		*last_status_number() = 1;
 		return (1);
 	}
 	return (0);
@@ -61,10 +61,10 @@ void	builtin_cd(char **args, t_environ *envs)
 	else
 		path = new_path(NULL, *args);
 	if (chdir(path) != 0)
-    {
+	{
 		perror(strerror(errno));
-        *last_status_number() = 1;
-    }
+		*last_status_number() = 1;
+	}
 	else
 	{
 		free(path);

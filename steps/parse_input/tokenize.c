@@ -51,7 +51,7 @@ void	add_redirections(t_tokens **tokens, char **input)
 		(*input)++;
 		if (**input == '<')
 		{
-			push_token(tokens, "<<", hereDOC);
+			push_token(tokens, "<<", HEREDOC);
 			(*input)++;
 		}
 		else

@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void	here_call(int sig)
+void	here_ctrl_c(int sig)
 {
 	*last_status_number() = 130;
 	write(1, "\n", 1);
@@ -9,17 +9,17 @@ void	here_call(int sig)
 
 void	while_here_document(char *args, char *line, int write_fd)
 {
-	mysignal(SIGINT, here_call);
+	mysignal(SIGINT, here_ctrl_c);
 	while (42)
 	{
 		line = readline("> ");
 		if (line == NULL)
-        {
-            ft_putendl_fd(
-                "bash: warning: here-document at line 1 delimited by end-of-file",
-                STDIN_FILENO);
+		{
+			ft_putendl_fd(
+				HERE_D,
+				STDIN_FILENO);
 			break ;
-        }
+		}
 		if (ft_strcmp(line, args) == 0)
 		{
 			free(line);
@@ -31,10 +31,20 @@ void	while_here_document(char *args, char *line, int write_fd)
 	exit(0);
 }
 
+void	finish_here_doc(int write_fd, int std_fd)
+{
+	int	read_fd;
+
+	read_fd = open("/tmp/EasyAsHell.tmp", O_RDONLY);
+	dup2(read_fd, std_fd);
+	close(write_fd);
+	close(read_fd);
+	unlink("/tmp/EasyAsHell.tmp");
+}
+
 void	here_document(char *args, int flag, int std_fd)
 {
 	int		write_fd;
-	int		read_fd;
 	char	*line;
 	int		pid;
 	int		status;
@@ -49,9 +59,5 @@ void	here_document(char *args, int flag, int std_fd)
 		while_here_document(args, line, write_fd);
 	waitpid(pid, &status, 0);
 	*last_status_number() = WEXITSTATUS(status);
-	read_fd = open("/tmp/EasyAsHell.tmp", O_RDONLY);
-	dup2(read_fd, std_fd);
-	close(write_fd);
-	close(read_fd);
-	unlink("/tmp/EasyAsHell.tmp");
+	finish_here_doc(write_fd, std_fd);
 }

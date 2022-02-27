@@ -35,7 +35,7 @@ void	ajust_pipes(t_cmds *cmds, int fds[3][2])
 	{
 		dup2(fds[STD][OUT], OUT);
 		dup2(fds[STD][IN], IN);
-        close(fds[LAST][IN]);
+		close(fds[LAST][IN]);
 		close(fds[STD][OUT]);
 		close(fds[STD][IN]);
 	}

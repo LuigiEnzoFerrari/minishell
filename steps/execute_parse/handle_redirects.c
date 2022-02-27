@@ -15,7 +15,6 @@ int	redirects(char *args, int flag, int std_fd)
 	return (0);
 }
 
-
 static size_t	how_many_non_redirects(char **args, int *labels)
 {
 	size_t	i;
@@ -28,7 +27,7 @@ static size_t	how_many_non_redirects(char **args, int *labels)
 		if (labels[i] == DOUBLE_REDIRECT
 			|| labels[i] == SINGLE_REDIRECT
 			|| labels[i] == SINGLE_REDIRECT_IN
-			|| labels[i] == hereDOC)
+			|| labels[i] == HEREDOC)
 			i++;
 		else
 			n++;
@@ -51,7 +50,7 @@ char	**remove_redirects(char **args, int *labels)
 	while (args[j] != NULL)
 	{
 		if (labels[j] == DOUBLE_REDIRECT || labels[j] == SINGLE_REDIRECT
-			|| labels[j] == SINGLE_REDIRECT_IN || labels[i] == hereDOC)
+			|| labels[j] == SINGLE_REDIRECT_IN || labels[i] == HEREDOC)
 		{
 			j += 2;
 			continue ;
@@ -79,7 +78,7 @@ void	case_redirect(t_cmds *cmds)
 				| O_CREAT | O_APPEND, OUT);
 		else if (cmds->labels[i] == SINGLE_REDIRECT_IN)
 			redirects(cmds->args[i + 1], O_RDONLY, IN);
-		else if (cmds->labels[i] == hereDOC)
+		else if (cmds->labels[i] == HEREDOC)
 			here_document(cmds->args[i + 1], O_WRONLY | O_CREAT, IN);
 		i++;
 	}

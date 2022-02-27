@@ -13,7 +13,11 @@ size_t	number_of_tokens_on_command(t_tokens *tokens)
 	return (i);
 }
 
-void	alloc_args_labels(t_tokens *tokens, char ***args, int **labels, size_t n)
+void	alloc_args_labels(
+	t_tokens *tokens,
+	char ***args,
+	int **labels,
+	size_t n)
 {
 	*args = malloc(sizeof(char *) * n);
 	*labels = malloc(sizeof(int) * n);
@@ -21,8 +25,8 @@ void	alloc_args_labels(t_tokens *tokens, char ***args, int **labels, size_t n)
 
 void	create_cmd(t_tokens **tokens, char **args, int *labels)
 {
-	t_tokens *holder;
-	size_t	i;
+	t_tokens	*holder;
+	size_t		i;
 
 	i = 0;
 	holder = (*tokens);
@@ -51,7 +55,8 @@ t_cmds	*create_cmds(t_tokens *tokens)
 	cmds = NULL;
 	while (tokens != NULL)
 	{
-		alloc_args_labels(tokens, &args, &labels, ((number_of_tokens_on_command(tokens) + 1) + 1));
+		alloc_args_labels(tokens, &args, &labels,
+			((number_of_tokens_on_command(tokens) + 1) + 1));
 		create_cmd(&tokens, args, labels);
 		push_cmd(&cmds, args, labels);
 	}

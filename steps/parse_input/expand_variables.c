@@ -1,13 +1,5 @@
 #include <minishell.h>
 
-int	token_ends(int c)
-{
-	if (c == ' ' || c == '\0' || c == '\''
-		|| c == '\"' || c == '=' || c == '$')
-		return (1);
-	return (0);
-}
-
 char	*replace_variable(char *token, size_t i, t_env_vars *vars)
 {
 	char	*new_token;

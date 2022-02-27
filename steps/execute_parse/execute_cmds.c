@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void	tratar(int sig)
+void	ctrl_c(int sig)
 {
 	if (sig == SIGINT)
 		write(1, "\n", 1);
@@ -8,7 +8,7 @@ void	tratar(int sig)
 
 void	each_cmd(t_cmds *cmds, int fds[2][2], t_env_vars *vars)
 {
-	mysignal(SIGINT, tratar);
+	mysignal(SIGINT, ctrl_c);
 	case_pipe(fds, cmds);
 	case_redirect(cmds);
 	if (cmds->args == NULL)
