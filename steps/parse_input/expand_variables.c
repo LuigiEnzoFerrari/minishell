@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:57 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 23:45:37 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	expand_variables(t_tokens *tokens, t_env_vars *vars)
 {
 	while (tokens != NULL)
 	{
+		if (tokens->label == STRING && ft_strcmp(tokens->token, "~") == 0)
+			expand_tilde(tokens, vars);
 		if (tokens->label == STRING || tokens->label == DOUBLE_QUOTE)
 			search_variables(tokens, tokens->token, vars);
 		tokens = tokens->next;

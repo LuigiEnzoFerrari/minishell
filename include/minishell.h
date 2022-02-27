@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:41:36 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 20:02:26 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 23:44:50 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,6 @@ int			ft_isblank(int c);
 int			is_token(int c);
 int			token_ends(int c);
 size_t		number_of_labels(t_tokens *tokens, int label);
+void		expand_tilde(t_tokens *tokens, t_env_vars *vars);
 
 #endif

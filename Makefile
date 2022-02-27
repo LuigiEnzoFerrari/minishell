@@ -59,6 +59,7 @@ $(SRCS_LIBS):
 
 clean:
 	make clean -C libft
+	@$(RM) $(OBJS)
 
 fclean: clean
 	make fclean -C libft
