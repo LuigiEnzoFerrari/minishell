@@ -1,41 +1,42 @@
 #include <minishell.h>
 
-void	case_pipe(int *save, t_cmds *cmds, int *stdpipe)
+void	case_pipe(int fds[3][2], t_cmds *cmds)
 {
 	if (cmds->index == 0)
 	{
 		if (cmds->next != NULL)
-			dup2(cmds->pipe1[OUT], OUT);
+			dup2(fds[PIP][OUT], OUT);
 	}
 	else if (cmds->next == NULL)
 	{
-		dup2(save[IN], IN);
-		dup2(stdpipe[OUT], OUT);
+		dup2(fds[LAST][IN], IN);
+		dup2(fds[STD][OUT], OUT);
 	}
 	else
 	{
-		dup2(cmds->pipe1[OUT], OUT);
-		dup2(save[IN], IN);
+		dup2(fds[PIP][OUT], OUT);
+		dup2(fds[LAST][IN], IN);
 	}
 }
 
-void	save_pipes(int *stdpipe)
+void	save_pipes(int *fds_std)
 {
-	stdpipe[IN] = dup(IN);
-	stdpipe[OUT] = dup(OUT);
+	fds_std[IN] = dup(IN);
+	fds_std[OUT] = dup(OUT);
 }
 
-void	ajust_pipes(t_cmds *cmds, int *stdpipe, int *save)
+void	ajust_pipes(t_cmds *cmds, int fds[3][2])
 {
-	close(cmds->pipe1[OUT]);
+	close(fds[PIP][OUT]);
 	if (cmds->index != 0)
-		close(save[IN]);
-	save[IN] = cmds->pipe1[IN];
+		close(fds[LAST][IN]);
+	fds[LAST][IN] = fds[PIP][IN];
 	if (cmds->next == NULL)
 	{
-		dup2(stdpipe[OUT], OUT);
-		dup2(stdpipe[IN], IN);
-		close(stdpipe[OUT]); //fizemos isso, tire se dar merda com pipes
-		close(stdpipe[IN]);
+		dup2(fds[STD][OUT], OUT);
+		dup2(fds[STD][IN], IN);
+        close(fds[LAST][IN]);
+		close(fds[STD][OUT]);
+		close(fds[STD][IN]);
 	}
 }

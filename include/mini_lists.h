@@ -42,7 +42,6 @@ struct s_commands
 {
 	char				**args;
 	int					*labels;
-    int                 pipe1[2];
     int                 index;
 	struct s_commands	*next;
 };

@@ -65,7 +65,7 @@ char	**remove_redirects(char **args, int *labels)
 	return (new_args);
 }
 
-void	case_redirect(int saveIN, t_cmds *cmds)
+void	case_redirect(t_cmds *cmds)
 {
 	size_t	i;
 
@@ -80,7 +80,7 @@ void	case_redirect(int saveIN, t_cmds *cmds)
 		else if (cmds->labels[i] == SINGLE_REDIRECT_IN)
 			redirects(cmds->args[i + 1], O_RDONLY, IN);
 		else if (cmds->labels[i] == hereDOC)
-			here_document(cmds->args[i + 1], O_WRONLY | O_CREAT, saveIN);
+			here_document(cmds->args[i + 1], O_WRONLY | O_CREAT, IN);
 		i++;
 	}
 	cmds->args = remove_redirects(cmds->args, cmds->labels);

@@ -16,27 +16,25 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 
-
+#define STD 0
+#define LAST 1
+#define PIP 2
 #define IN 0
 #define OUT 1
-#define HEREDOC_SIGINT -4
-
 
 int *last_status_number(void);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	Envs Database			 						*/
 
-struct s_env_variables
+struct	s_env_variables
 {
 	t_environ   *global_vars;
 	t_environ   *local_vars;
 };
-
 typedef struct s_env_variables  t_env_vars;
 
-
-typedef struct sigaction	t_sigaction;
+typedef struct sigaction t_sigaction;
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Handle Signals		 						*/
@@ -74,9 +72,9 @@ char	*get_bin_path(char *args, t_environ *envs);
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Pipes  				 						*/
 
-void	case_pipe(int *save, t_cmds  *cmds, int *stdpipe);
-void    save_pipes(int *stdpipe);
-void    ajust_pipes(t_cmds *cmds, int *stdpipe, int *save);
+void	case_pipe(int fds[3][2], t_cmds  *cmds);
+void    save_pipes(int *fds_std);
+void    ajust_pipes(t_cmds *cmds, int fds[3][2]);
 
 /*──────────────────────────────────────────────────────────────────────*/
 /*					 	    Redirects			 						*/
@@ -85,7 +83,7 @@ int     redirects(char *args, int flag, int std_fd);
 char    **remove_redirects(char **args, int *labels);
 int     check_syntax(t_tokens *tokens);
 void    here_document(char *args, int flag, int std_fd);
-void	case_redirect(int saveIN, t_cmds  *cmds);
+void	case_redirect(t_cmds  *cmds);
 void	here_document(char *args, int flag, int std_fd);
 
 

@@ -21,10 +21,6 @@ void	exit_minishell(char **args, t_env_vars *vars, int exit_value)
 	if (vars->local_vars != NULL)
 		delete_envs(&vars->local_vars);
 	free(vars);
-	close(3);
-	close(4);
-	close(5);
-	close(6);
     *last_status_number() = exit_value;
 	exit(exit_value);
 }

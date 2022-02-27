@@ -6,45 +6,38 @@ void	tratar(int sig)
 		write(1, "\n", 1);
 }
 
-void	each_cmd(t_cmds *cmds, t_env_vars *vars, int *save, int *stdpipe)
+void	each_cmd(t_cmds *cmds, int fds[2][2], t_env_vars *vars)
 {
 	mysignal(SIGINT, tratar);
-	case_pipe(save, cmds, stdpipe);
-	case_redirect(save[IN], cmds);
+	case_pipe(fds, cmds);
+	case_redirect(cmds);
 	if (cmds->args == NULL)
 		;
 	else if (isbuiltin(*cmds->args))
 		execute_builtin(cmds->args, vars);
 	else
 		execute_builtout(cmds->args, vars);
-	ajust_pipes(cmds, stdpipe, save);
+	ajust_pipes(cmds, fds);
 }
 
 void	for_each_cmd(t_cmds *cmds, t_env_vars *vars)
 {
 	t_cmds	*temp;
-	int		save[2];
-	int		stdpipe[2];
+	int		fds[3][2];
 	int		index;
 
 	temp = cmds;
-	save[IN] = IN;
 	index = 0;
-	save_pipes(stdpipe);
+	fds[LAST][IN] = IN;
+	save_pipes(fds[STD]);
 	while (cmds != NULL)
 	{
 		cmds->index = index;
-		pipe(cmds->pipe1);
-		each_cmd(cmds, vars, save, stdpipe);
+		pipe(fds[PIP]);
+		each_cmd(cmds, fds, vars);
 		index++;
 		cmds = cmds->next;
 	}
-	close(save[IN]);
-	// close(19);
-	// close(3);
-	// close(4);
-	// close(5);
-	// close(6);
 	delete_cmds(&temp);
 }
 
