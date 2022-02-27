@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:31 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 23:22:33 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ void	execute_builtout(char **args, t_env_vars *vars)
 	char	*command;
 
 	if (get_env_value(vars->global_vars, "PATH") == NULL)
-		return ;
+		command = ft_strdup(*args);
+	else
+		command = get_bin_path(*args, vars->global_vars);
 	envs = t_environ_to_environ(vars->global_vars);
-	command = get_bin_path(*args, vars->global_vars);
 	shell_execve(command, args, envs);
 	free(command);
 	ft_arrayfree(envs);
