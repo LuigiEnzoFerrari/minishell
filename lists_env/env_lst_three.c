@@ -6,11 +6,11 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:38:43 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:38:44 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 static int	if_is_the_first_delelete(t_environ **envs, char *key)
 {

@@ -6,11 +6,11 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:46 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:39:47 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 int	redirects(char *args, int flag, int std_fd)
 {

@@ -6,11 +6,11 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:40:06 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:40:07 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 t_tokens	*lexical_analysis_and_parse(char *input, t_env_vars *vars)
 {

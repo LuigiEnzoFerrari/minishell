@@ -6,11 +6,11 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:40:17 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 19:40:18 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 t_environ	*get_local_vars(t_tokens **tokens)
 {

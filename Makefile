@@ -44,13 +44,18 @@ PATHS_INC = $(addprefix -I, $(INC))
 
 SRCS_LIBS = libft/libft.a 
 
+OBJS := $(PATHS:.c=.o)
+
 all: $(NAME)
 
-$(NAME): $(PATHS) $(SRCS_LIBS)
-	$(CC) $(CFLAGS) $(PATHS) $(SANIT) $(RL_FLAGS) $(LINK_LIB) $(PATHS_INC) -o $(NAME)
+$(NAME): $(SRCS_LIBS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(SANIT) $(RL_FLAGS) $(LINK_LIB) $(PATHS_INC) -o $(NAME)
 
 $(SRCS_LIBS):
 	make -C libft
+
+%.o: %.c
+	clang $(CFLAG) -c $< $(PATHS_INC) -o $@
 
 clean:
 	make clean -C libft
