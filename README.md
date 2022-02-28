@@ -1,3 +1,1 @@
-BUG: CD: CASE NULL SEGFALT; -> "cd"
-LEAK ERROR: HEREDOC
-BUG: HEREDOC CTRL+C CTRL+D not working as intended
+![example workflow](https://github.com/github/docs/actions/workflows/linter.yml/badge.svg)
