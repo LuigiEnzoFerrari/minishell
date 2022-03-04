@@ -1,6 +1,7 @@
 name: norminette
 
 on: push
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,7 +12,7 @@ jobs:
       with:
         python-version: '3.9'
     - name: install python dependencies
-    - run: |
+      run: |
         python -m pip install --upgrade pip setuptools
         python -m pip install norminette
     - name: linter
