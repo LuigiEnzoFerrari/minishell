@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:49 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/03 09:39:59 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	here_ctrl_c(int sig)
+static void	here_ctrl_c(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -22,7 +22,7 @@ void	here_ctrl_c(int sig)
 	}
 }
 
-void	while_here_document(char *args, char *line, int write_fd)
+static void	while_here_document(char *args, char *line, int write_fd)
 {
 	mysignal(SIGINT, here_ctrl_c);
 	while (42)
@@ -46,7 +46,7 @@ void	while_here_document(char *args, char *line, int write_fd)
 	exit(0);
 }
 
-void	finish_here_doc(int write_fd, int std_fd)
+static void	finish_here_doc(int write_fd, int std_fd)
 {
 	int	read_fd;
 
@@ -68,7 +68,7 @@ void	here_document(char *args, int flag, int std_fd)
 	write_fd = open("/tmp/EasyAsHell.tmp", flag, 0664);
 	*last_status_number() = 0;
 	mysignal(SIGINT, SIG_IGN);
-	mysignal(SIGINT, SIG_IGN);
+	mysignal(SIGQUIT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 		while_here_document(args, line, write_fd);

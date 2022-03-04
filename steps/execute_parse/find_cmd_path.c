@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:39 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:29:15 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**parse_path(char *path)
+static char	**parse_path(char *path)
 {
 	char	**bin_paths;
 
@@ -20,7 +20,7 @@ char	**parse_path(char *path)
 	return (bin_paths);
 }
 
-char	*find_path(char *arg, char **bin_paths)
+static char	*find_path(char *arg, char **bin_paths)
 {
 	char		*path;
 	struct stat	stats;

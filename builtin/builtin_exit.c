@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:41:56 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:17:31 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_a_number(char *arg)
+static int	is_a_number(char *arg)
 {
 	while (arg != NULL)
 	{
@@ -23,7 +23,7 @@ int	is_a_number(char *arg)
 	return (1);
 }
 
-void	exit_minishell(
+static void	exit_minishell(
 	char **args,
 	int fds[3][2],
 	t_env_vars *vars,

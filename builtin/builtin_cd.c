@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:41:45 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:15:34 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*new_path(t_environ *envs, char *path)
 	return (new);
 }
 
-char	*tilde_sub(char *arg, t_environ *envs)
+static char	*tilde_sub(char *arg, t_environ *envs)
 {
 	char	*home;
 	char	*new;
@@ -41,7 +41,7 @@ char	*tilde_sub(char *arg, t_environ *envs)
 	return (new);
 }
 
-int	cd_error_cases(char **args, t_environ *envs)
+static int	cd_error_cases(char **args, t_environ *envs)
 {
 	if (*args != NULL && *(args + 1) != NULL)
 	{

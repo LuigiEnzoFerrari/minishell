@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:40:41 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/02 22:22:32 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	*last_status_number(void)
 
 void	handle_signals(int sig)
 {
-	if (sig == SIGQUIT)
-		return ;
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -39,9 +37,8 @@ int	mysignal(int sig, void (*handler)(int))
 
 	act.sa_handler = handler;
 	act.sa_flags = 0;
-	if (sigemptyset(&act.sa_mask)
-		|| sigaction(sig, &act, NULL))
-		return (1);
+	sigemptyset(&act.sa_mask);
+	sigaction(sig, &act, NULL);
 	return (0);
 }
 
@@ -55,7 +52,7 @@ int	main(void)
 	while (42)
 	{
 		mysignal(SIGINT, handle_signals);
-		mysignal(SIGQUIT, handle_signals);
+		mysignal(SIGQUIT, SIG_IGN);
 		input = get_input(env_vars->global_vars, env_vars);
 		tokens = lexical_analysis_and_parse(input, env_vars);
 		execute_cmds(tokens, env_vars);

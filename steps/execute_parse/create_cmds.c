@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:21 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:27:16 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	number_of_tokens_on_command(t_tokens *tokens)
+static size_t	number_of_tokens_on_command(t_tokens *tokens)
 {
 	size_t	i;
 
@@ -25,7 +25,7 @@ size_t	number_of_tokens_on_command(t_tokens *tokens)
 	return (i);
 }
 
-void	alloc_args_labels(
+static void	alloc_args_labels(
 	char ***args,
 	int **labels,
 	size_t n)
@@ -34,7 +34,7 @@ void	alloc_args_labels(
 	*labels = malloc(sizeof(int) * n);
 }
 
-void	create_cmd(t_tokens **tokens, char **args, int *labels)
+static void	create_cmd(t_tokens **tokens, char **args, int *labels)
 {
 	t_tokens	*holder;
 	size_t		i;

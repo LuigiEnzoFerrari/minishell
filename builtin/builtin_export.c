@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:41:59 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:18:21 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**get_keys(t_environ *envs)
+static char	**get_keys(t_environ *envs)
 {
 	char	**keys;
 	size_t	size;
@@ -31,7 +31,7 @@ char	**get_keys(t_environ *envs)
 	return (keys);
 }
 
-char	**get_ordered_keys(t_environ *envs)
+static char	**get_ordered_keys(t_environ *envs)
 {
 	char	**keys;
 	char	*tmp;
@@ -58,7 +58,7 @@ char	**get_ordered_keys(t_environ *envs)
 	return (keys);
 }
 
-void	print_exports(t_environ *envs)
+static void	print_exports(t_environ *envs)
 {
 	char	**keys;
 	size_t	i;
@@ -76,7 +76,7 @@ void	print_exports(t_environ *envs)
 	ft_arrayfree(keys);
 }
 
-void	add_exports(char **args, t_env_vars *vars)
+static void	add_exports(char **args, t_env_vars *vars)
 {
 	size_t	i;
 

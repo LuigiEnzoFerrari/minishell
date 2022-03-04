@@ -6,20 +6,20 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:40:21 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:24:07 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	save_history(char *input)
+static void	save_history(char *input)
 {
 	if (input == NULL || *input == '\0')
 		return ;
 	add_history(input);
 }
 
-char	*get_full_prompt(t_environ *envs)
+static char	*get_full_prompt(t_environ *envs)
 {
 	char	*path_colored;
 	char	*path;

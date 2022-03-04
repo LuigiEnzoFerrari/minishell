@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:31 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 23:22:33 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:28:12 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_errno(int exit_status)
+static int	set_errno(int exit_status)
 {
 	if (exit_status == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
@@ -26,7 +26,7 @@ int	set_errno(int exit_status)
 	return (exit_status);
 }
 
-char	*to_environ(char *key, char *value)
+static char	*to_environ(char *key, char *value)
 {
 	char	*environ;
 
@@ -35,7 +35,7 @@ char	*to_environ(char *key, char *value)
 	return (environ);
 }
 
-char	**t_environ_to_environ(t_environ *global_vars)
+static char	**t_environ_to_environ(t_environ *global_vars)
 {
 	char	**envs;
 	size_t	size;
@@ -52,7 +52,7 @@ char	**t_environ_to_environ(t_environ *global_vars)
 	return (envs);
 }
 
-void	shell_execve(char *command, char **args, char **envs)
+static void	shell_execve(char *command, char **args, char **envs)
 {
 	int	pid;
 	int	status;

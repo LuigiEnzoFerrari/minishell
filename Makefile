@@ -52,17 +52,18 @@ $(NAME): $(SRCS_LIBS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(SANIT) $(RL_FLAGS) $(LINK_LIB) $(PATHS_INC) -o $(NAME)
 
 $(SRCS_LIBS):
+	git submodule update --init
 	make -C libft
 
 %.o: %.c
 	clang $(CFLAG) -c $< $(PATHS_INC) -o $@
 
 clean:
-	make clean -C libft
+	@make clean -C libft
 	@$(RM) $(OBJS)
 
 fclean: clean
-	make fclean -C libft
+	@make fclean -C libft
 	@$(RM) $(NAME)
 
 re: fclean all

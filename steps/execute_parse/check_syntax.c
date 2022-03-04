@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:16 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:26:40 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_redirect(int c)
+static int	is_redirect(int c)
 {
 	return (c == SINGLE_REDIRECT || c == DOUBLE_REDIRECT
 		|| c == SINGLE_REDIRECT_IN || c == HEREDOC);
@@ -31,7 +31,7 @@ static int	is_invalid_redirect(t_tokens *tokens)
 	return (0);
 }
 
-int	open_to_see(char *args, int flag)
+static int	open_to_see(char *args, int flag)
 {
 	int	fd;
 
@@ -42,7 +42,7 @@ int	open_to_see(char *args, int flag)
 	return (0);
 }
 
-int	is_invalid_redirect_input(t_tokens *tokens)
+static int	is_invalid_redirect_input(t_tokens *tokens)
 {
 	int		stop;
 

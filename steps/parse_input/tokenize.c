@@ -6,19 +6,19 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:40:10 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:25:55 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_pipe(t_tokens **tokens, char **input)
+static void	add_pipe(t_tokens **tokens, char **input)
 {
 	push_token(tokens, "|", PIPE);
 	(*input)++;
 }
 
-void	add_quotes(t_tokens **tokens, char **input)
+static void	add_quotes(t_tokens **tokens, char **input)
 {
 	char	*token;
 	int		quote;
@@ -45,7 +45,7 @@ void	add_quotes(t_tokens **tokens, char **input)
 	free(token);
 }
 
-void	add_redirections(t_tokens **tokens, char **input)
+static void	add_redirections(t_tokens **tokens, char **input)
 {
 	if (**input == '>')
 	{
@@ -71,7 +71,7 @@ void	add_redirections(t_tokens **tokens, char **input)
 	}
 }
 
-void	add_string(t_tokens **tokens, char **input)
+static void	add_string(t_tokens **tokens, char **input)
 {
 	char	*str;
 	size_t	i;

@@ -6,13 +6,13 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:39:57 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 23:45:37 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:24:48 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*replace_variable(char *token, size_t i, t_env_vars *vars)
+static char	*replace_variable(char *token, size_t i, t_env_vars *vars)
 {
 	char	*new_token;
 	char	*env;
@@ -34,7 +34,7 @@ char	*replace_variable(char *token, size_t i, t_env_vars *vars)
 	return (new_token);
 }
 
-char	*make_new_token(char *tokens, char *trade, size_t i)
+static char	*make_new_token(char *tokens, char *trade, size_t i)
 {
 	char	*new_token;
 
@@ -44,7 +44,7 @@ char	*make_new_token(char *tokens, char *trade, size_t i)
 	return (new_token);
 }
 
-char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
+static char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
 {
 	char	*new_token;
 	char	*exit_number;
@@ -69,7 +69,7 @@ char	*get_new_token(char *tokens, size_t i, t_env_vars *vars)
 	return (new_token);
 }
 
-void	search_variables(t_tokens *tokens, char *token, t_env_vars *vars)
+static void	search_variables(t_tokens *tokens, char *token, t_env_vars *vars)
 {
 	size_t	i;
 	char	*new_token;
