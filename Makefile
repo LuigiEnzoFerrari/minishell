@@ -56,7 +56,7 @@ $(SRCS_LIBS):
 	make -C libft
 
 %.o: %.c
-	clang $(CFLAG) -c $< $(PATHS_INC) -o $@
+	clang $(CFLAG) $(SANIT) -c $< $(PATHS_INC) -o $@
 
 clean:
 	@make clean -C libft

@@ -6,7 +6,7 @@
 /*   By: lenzo-pe <lenzo-pe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 19:38:43 by lenzo-pe          #+#    #+#             */
-/*   Updated: 2022/02/27 22:54:02 by lenzo-pe         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:27:36 by lenzo-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	delete_env_by_key(t_environ **envs, char *key)
 	if (envs == NULL || *envs == NULL)
 		return ;
 	temp = (*envs);
-	if (if_is_the_first_delelete(envs, key))
+	if (if_is_the_first_delelete(envs, key) || (*envs)->next == NULL)
 		return ;
 	while (42)
 	{
